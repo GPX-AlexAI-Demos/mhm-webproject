@@ -19,6 +19,29 @@
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
 
     <style>
+        /* Mobile-first base styles for Hogar Finder & Details Panel */
+        .healthExperience {
+            overflow-x: hidden;
+        }
+
+        .healthFinder .finderFields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .finder-tile {
+            height: auto;
+            min-height: 76px;
+        }
+
+        /* Ensure 16px+ on all form controls to prevent iOS Safari auto-zoom */
+        .finder-input,
+        .finder-select,
+        #hogarOccupancy {
+            font-size: 16px !important;
+        }
+
         /* Property type selection buttons */
         .property-type-pill-group {
             display: flex;
@@ -27,13 +50,14 @@
         }
         .prop-type-btn {
             flex: 1;
+            min-height: 46px;
             padding: 10px 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 2px solid #CBD5E1;
+            border: 1.5px solid #CBD5E1;
             background: #FFFFFF;
             color: #475569;
             display: inline-flex;
@@ -51,38 +75,64 @@
             color: #796BFC !important;
         }
 
-        /* Hogar Finder 5-col grid */
-        @media (min-width: 992px) {
-            .healthFinder .finderFields {
-                display: grid !important;
-                grid-template-columns: 1.1fr 1.6fr 1.1fr 1.3fr 1.2fr !important;
-                gap: 14px !important;
-                align-items: stretch !important;
-            }
-            .healthFinder .finderFields .submit-col {
-                grid-column: auto !important;
-            }
+        /* Select wrapper inside modal panel */
+        .modal-select-wrap {
+            position: relative;
+            margin-top: 6px;
         }
-        @media (max-width: 991px) and (min-width: 601px) {
-            .healthFinder .finderFields {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr !important;
-                gap: 14px !important;
-            }
-            .healthFinder .finderFields .submit-col {
-                grid-column: 1 / -1 !important;
-            }
+        .modal-select-wrap .finder-select {
+            width: 100%;
+            min-height: 46px;
+            padding: 10px 38px 10px 12px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 12px;
+            background: #FFFFFF;
+            font-weight: 600;
         }
-        @media (max-width: 600px) {
-            .healthFinder .finderFields {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 12px !important;
-            }
+        .modal-select-wrap .select-arrow {
+            right: 14px;
         }
 
-        /* Mobile Bottom Sheet / Modal for Assured Panel */
-        @media (max-width: 768px) {
+        /* Touch-friendly security check cards */
+        .security-check-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .security-check-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 44px;
+            padding: 10px 12px;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 12px;
+            background: #F8FAFC;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .security-check-item:has(input:checked) {
+            border-color: rgba(121, 107, 252, 0.45);
+            background: rgba(121, 107, 252, 0.05);
+        }
+        .security-check-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #796BFC;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .btn-assured-done {
+            min-height: 48px;
+        }
+
+        /* Mobile Bottom Sheet for Assured Panel (< 768px) */
+        @media (max-width: 767px) {
             .assuredPanel {
                 position: fixed !important;
                 top: auto !important;
@@ -90,15 +140,26 @@
                 left: 0 !important;
                 right: 0 !important;
                 width: 100% !important;
-                max-height: 85vh !important;
+                max-height: 88vh !important;
                 overflow-y: auto !important;
+                overscroll-behavior: contain;
                 border-radius: 24px 24px 0 0 !important;
                 margin: 0 !important;
-                padding: 24px 20px 32px !important;
+                padding: 14px 20px calc(24px + env(safe-area-inset-bottom, 0px)) !important;
                 z-index: 2000000 !important;
                 box-shadow: 0 -15px 40px rgba(15, 23, 42, 0.3) !important;
                 border: 1px solid rgba(226, 232, 240, 0.9) !important;
                 animation: slideUpSheet 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            }
+            .assuredPanel::before {
+                content: "";
+                display: block;
+                width: 40px;
+                height: 4px;
+                border-radius: 999px;
+                background: #CBD5E1;
+                margin: 0 auto 8px;
+                flex-shrink: 0;
             }
             .assured-backdrop {
                 display: block;
@@ -113,6 +174,51 @@
                 from { transform: translateY(100%); }
                 to { transform: translateY(0); }
             }
+            .resultProfile {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .resultProfile-actions {
+                width: 100%;
+                margin-left: 0 !important;
+                justify-content: flex-start;
+            }
+        }
+
+        /* Tablet (min-width: 768px) */
+        @media (min-width: 768px) {
+            .healthFinder .finderFields {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 14px !important;
+            }
+            .healthFinder .finderFields .submit-col {
+                grid-column: 1 / -1 !important;
+            }
+            .security-check-group {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .security-check-item {
+                flex: 1 1 calc(50% - 4px);
+            }
+        }
+
+        /* Desktop (min-width: 1024px) */
+        @media (min-width: 1024px) {
+            .healthExperience {
+                overflow-x: visible;
+            }
+            .healthFinder .finderFields {
+                display: grid !important;
+                grid-template-columns: 1.05fr 1.6fr 1.1fr 1.35fr 1.2fr !important;
+                gap: 14px !important;
+                align-items: stretch !important;
+            }
+            .healthFinder .finderFields .submit-col {
+                grid-column: auto !important;
+            }
         }
 
         .btnResetQuote {
@@ -120,7 +226,8 @@
             border: 1.5px solid #E2E8F0;
             color: #64748B;
             border-radius: 100px;
-            padding: 7px 14px;
+            padding: 8px 14px;
+            min-height: 40px;
             font-size: 12.5px;
             font-weight: 700;
             cursor: pointer;
@@ -325,7 +432,7 @@
                             <label class="finder-label" for="hogarAddress">
                                 <i class="fa-solid fa-location-dot"></i> DIRECCIÓN Y N°
                             </label>
-                            <input type="text" id="hogarAddress" class="finder-input" placeholder="Ej: Av. Providencia 1234, Dpto 402" oninput="updateHogarProfile()" onchange="updateHogarProfile()" />
+                            <input type="text" id="hogarAddress" class="finder-input" autocomplete="street-address" placeholder="Ej: Av. Providencia 1234, Dpto 402" oninput="updateHogarProfile()" onchange="updateHogarProfile()" />
                         </div>
                     </div>
 
@@ -367,7 +474,7 @@
                                     <strong class="assured-value" id="assuredSummary">Uso Habitacional</strong>
                                 </div>
                                 <span class="assured-badge-icon" id="assuredToggle">
-                                    <i class="fa-solid fa-house"></i>
+                                    <i class="fa-solid fa-chevron-down"></i>
                                 </span>
                             </button>
 
@@ -392,21 +499,26 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">Calidad de Ocupación</label>
-                                        <select id="hogarOccupancy" class="finder-select" style="width: 100%; margin-top: 6px; padding: 8px 12px; border: 1.5px solid #CBD5E1; border-radius: 10px; background: #FFFFFF; font-size: 13.5px;" onchange="updateHogarProfile()">
-                                            <option value="Propietario Habitante" selected>Propietario Habitante</option>
-                                            <option value="Arrendatario">Arrendatario</option>
-                                            <option value="Propietario que Arrienda">Propietario que Arrienda a Terceros</option>
-                                        </select>
+                                        <label for="hogarOccupancy" style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">Calidad de Ocupación</label>
+                                        <div class="modal-select-wrap">
+                                            <select id="hogarOccupancy" class="finder-select" onchange="updateHogarProfile()">
+                                                <option value="Propietario Habitante" selected>Propietario Habitante</option>
+                                                <option value="Arrendatario">Arrendatario</option>
+                                                <option value="Propietario que Arrienda">Propietario que Arrienda a Terceros</option>
+                                            </select>
+                                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                                        </div>
                                     </div>
                                     <div>
                                         <label style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">¿Cuenta con medidas de seguridad?</label>
-                                        <div style="display: flex; gap: 12px; margin-top: 6px; font-size: 13px; color: #334155;">
-                                            <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-                                                <input type="checkbox" id="secConserje" checked onchange="updateHogarProfile()"> Conserjería / Alarma
+                                        <div class="security-check-group">
+                                            <label class="security-check-item">
+                                                <input type="checkbox" id="secConserje" checked onchange="updateHogarProfile()">
+                                                <span>Conserjería / Alarma</span>
                                             </label>
-                                            <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-                                                <input type="checkbox" id="secPorton" checked onchange="updateHogarProfile()"> Portón cerrado
+                                            <label class="security-check-item">
+                                                <input type="checkbox" id="secPorton" checked onchange="updateHogarProfile()">
+                                                <span>Portón cerrado</span>
                                             </label>
                                         </div>
                                     </div>
@@ -458,7 +570,7 @@
                         <b id="resultTitle">Planes de Hogar para tu Inmueble</b>
                         <small id="resultSubtitle">Casa · Providencia · Uso Habitacional</small>
                     </div>
-                    <div style="display: flex; gap: 8px; align-items: center; margin-left: auto; flex-wrap: wrap;">
+                    <div class="resultProfile-actions" style="display: flex; gap: 8px; align-items: center; margin-left: auto; flex-wrap: wrap;">
                         <button type="button" id="btnResetQuote" class="btnResetQuote" onclick="resetQuoteClean(true)" title="Limpiar y comenzar nueva cotización">
                             <i class="fa-solid fa-rotate-left"></i> <span>Nueva cotización</span>
                         </button>
@@ -823,23 +935,51 @@
 
         function getHogarPlans() {
             const isDepto = hogarProfile.propertyType === 'Departamento';
+            const occ = hogarProfile.occupancy || 'Propietario Habitante';
+            const isTenant = occ === 'Arrendatario';
+            const isLandlord = occ === 'Propietario que Arrienda';
+            const secCount = (hogarProfile.securityConserje ? 1 : 0) + (hogarProfile.securityPorton ? 1 : 0);
+
+            const basicMatch = Math.min(99, (isDepto ? 92 : 88) + secCount);
+            const proMatch = Math.min(99, (isTenant ? 95 : 97) + (secCount > 0 ? 1 : 0));
+
+            const basicSubtitle = isTenant
+                ? 'Protección de Contenidos, Resp. Civil y Asistencia 24/7'
+                : 'Protección Esencial para Inmueble y Asistencia 24/7';
+
+            const basicLead = isTenant
+                ? 'Pensado para arrendatarios: protege tus bienes, daños por agua, responsabilidad civil ante el propietario y asistencias 24/7.'
+                : (isLandlord
+                    ? 'Resguarda la estructura de tu propiedad arrendada frente a incendio, daños por agua y emergencias 24/7.'
+                    : 'Protección esencial contra incendio, explosión, daños por agua y red de asistencias domiciliarias 24/7.');
+
+            const proSubtitle = isTenant
+                ? 'Contenidos, Robo, Sismo y Asistencias Ilimitadas 24/7'
+                : 'Cobertura Integral con Sismo, Robo y Asistencias Ilimitadas';
+
+            const proLead = isTenant
+                ? 'Máxima protección para tu arriendo: cubre tus pertenencias ante robo/hurto, sismo, daños por agua y asistencias ilimitadas.'
+                : (isLandlord
+                    ? 'Protección total para propietarios que arriendan: estructura al 100% ante sismo e incendio, más asistencias ilimitadas.'
+                    : 'Protección integral completa que incluye terremoto 100%, robo y hurto valorizado y asistencias de emergencia ilimitadas.');
+
             return [
                 {
                     id: 'hogar-basico',
                     planType: 'basico',
                     tier: 'PLAN HOGAR ESTÁNDAR',
-                    badgeSub: isDepto ? 'Ideal Departamentos' : 'Protección Esencial',
+                    badgeSub: isDepto ? (isLandlord ? 'Ideal Dpto en Arriendo' : 'Ideal Departamentos') : (isTenant ? 'Para Arrendatarios' : 'Protección Esencial'),
                     bandTheme: 'band-individual',
                     capitalUF: 'UF 2.000',
-                    capitalLabel: 'Incendio y Estructura',
+                    capitalLabel: isTenant ? 'Contenido y Resp. Civil' : 'Incendio y Estructura',
                     capitalValue: 2000,
                     insurer: 'MHM · SEGURO DE HOGAR',
                     title: 'Seguro de Hogar',
-                    subtitle: 'Protección Esencial para Inmueble y Asistencia 24/7',
-                    match: isDepto ? 92 : 88,
+                    subtitle: basicSubtitle,
+                    match: basicMatch,
                     bestMatchBadge: isDepto ? 'MUY BUENA OPCIÓN' : null,
                     isRecommended: false,
-                    lead: 'Protección esencial contra incendio, explosión, daños por agua y red de asistencias domiciliarias 24/7.',
+                    lead: basicLead,
                     priceMonth: '$7.990/mes',
                     priceYear: '$95.880 anual',
                     rawPrice: 7990,
@@ -873,18 +1013,18 @@
                     id: 'hogar-pro',
                     planType: 'pro',
                     tier: 'PLAN RECOMENDADO MHM',
-                    badgeSub: 'Máxima Protección + Sismo + Robo',
+                    badgeSub: secCount === 2 ? 'Máxima Protección · Seguridad Verificada' : 'Máxima Protección + Sismo + Robo',
                     bandTheme: 'band-familiar',
                     capitalUF: 'UF 3.500',
-                    capitalLabel: 'Respaldo Integral Total',
+                    capitalLabel: isTenant ? 'Contenido + Robo + Sismo' : 'Respaldo Integral Total',
                     capitalValue: 3500,
                     insurer: 'MHM · SEGURO DE HOGAR PRO',
                     title: 'Seguro de Hogar Pro',
-                    subtitle: 'Cobertura Integral con Sismo, Robo y Asistencias Ilimitadas',
-                    match: 98,
+                    subtitle: proSubtitle,
+                    match: proMatch,
                     bestMatchBadge: 'MEJOR COINCIDENCIA TOTAL',
                     isRecommended: true,
-                    lead: 'Protección integral completa que incluye terremoto 100%, robo y hurto valorizado y asistencias de emergencia ilimitadas.',
+                    lead: proLead,
                     priceMonth: '$9.490/mes',
                     priceYear: '$113.880 anual',
                     rawPrice: 9490,
@@ -892,7 +1032,7 @@
                         'Todo lo de Seguro Hogar +',
                         'Sismo y Terremoto Completa (100%)',
                         'Robo y Hurto con contenido (hasta UF 500)',
-                        'Asistencias de Emergencia Ilimitadas 24/7'
+                        secCount > 0 ? 'Asistencias 24/7 + Bonus Seguridad Activa' : 'Asistencias de Emergencia Ilimitadas 24/7'
                     ],
                     coberturas: [
                         'Incendio y explosión edificio y/o contenido: UF 3.500',
@@ -964,6 +1104,7 @@
         });
 
         document.addEventListener('click', (e) => {
+            if (btnAssuredOpen.getAttribute('aria-expanded') !== 'true') return;
             const path = e.composedPath();
             if (!path.includes(btnAssuredOpen) && !path.includes(assuredPanel)) {
                 closePanel();
@@ -1002,20 +1143,51 @@
             });
 
             // Summary text in button
+            const occLabelMap = {
+                'Propietario Habitante': 'Prop. Habitante',
+                'Arrendatario': 'Arrendatario',
+                'Propietario que Arrienda': 'Prop. Inversionista'
+            };
             const sumEl = document.getElementById('assuredSummary');
             if (sumEl) {
-                sumEl.innerText = hogarProfile.propertyType + ' · ' + hogarProfile.occupancy.split(' ')[0];
+                const propLabel = hogarProfile.propertyType === 'Departamento' ? 'Depto' : 'Casa';
+                const occLabel = occLabelMap[hogarProfile.occupancy] || hogarProfile.occupancy;
+                sumEl.innerText = propLabel + ' · ' + occLabel;
             }
 
             validateForm();
+
+            // Live-update results header & cards if results are already visible
+            const resSection = document.getElementById('resultados');
+            if (resSection && resSection.classList.contains('visible')) {
+                updateResultHeader();
+                renderPlans();
+            }
 
             // Sincronizar en sessionStorage
             sessionStorage.setItem('mhm_hogar_data', JSON.stringify({
                 propertyType: hogarProfile.propertyType,
                 address: hogarProfile.address,
                 comuna: hogarProfile.comuna,
-                occupancy: hogarProfile.occupancy
+                occupancy: hogarProfile.occupancy,
+                securityConserje: hogarProfile.securityConserje,
+                securityPorton: hogarProfile.securityPorton
             }));
+        }
+
+        function updateResultHeader() {
+            const secTags = [];
+            if (hogarProfile.securityConserje) secTags.push('Conserjería/Alarma');
+            if (hogarProfile.securityPorton) secTags.push('Portón');
+            const secText = secTags.length > 0 ? ' · Seg: ' + secTags.join(' + ') : '';
+            const titleEl = document.getElementById('resultTitle');
+            const subEl = document.getElementById('resultSubtitle');
+            if (titleEl) titleEl.innerText = 'Planes para tu ' + hogarProfile.propertyType;
+            if (subEl) {
+                subEl.innerText = (hogarProfile.address || 'Tu dirección') +
+                    (hogarProfile.comuna ? ', ' + hogarProfile.comuna : '') +
+                    ' · ' + hogarProfile.occupancy + secText;
+            }
         }
 
         function validateForm() {
@@ -1044,8 +1216,7 @@
             }
 
             // Update user profile banner
-            document.getElementById('resultTitle').innerText = 'Planes para tu ' + hogarProfile.propertyType;
-            document.getElementById('resultSubtitle').innerText = (hogarProfile.address || 'Tu dirección') + ', ' + hogarProfile.comuna + ' · ' + hogarProfile.occupancy;
+            updateResultHeader();
 
             renderPlans();
 
@@ -1411,6 +1582,8 @@
                 address: hogarProfile.address || 'Av. Vitacura 2900, Depto 402',
                 comuna: hogarProfile.comuna || 'Vitacura',
                 occupancy: hogarProfile.occupancy,
+                securityConserje: hogarProfile.securityConserje,
+                securityPorton: hogarProfile.securityPorton,
                 plan: planId,
                 planName: planDef.title,
                 price: '$' + priceMonthNum.toLocaleString('es-CL'),
@@ -1470,8 +1643,9 @@
                 try {
                     const parsed = JSON.parse(saved);
                     if (parsed.propertyType) {
-                        hogarProfile.propertyType = parsed.propertyType;
-                        document.getElementById('hogarPropertyType').value = parsed.propertyType;
+                        const normalizedType = parsed.propertyType.toLowerCase() === 'departamento' ? 'Departamento' : 'Casa';
+                        hogarProfile.propertyType = normalizedType;
+                        document.getElementById('hogarPropertyType').value = normalizedType;
                     }
                     if (parsed.address) {
                         hogarProfile.address = parsed.address;
@@ -1486,7 +1660,34 @@
                         const occ = document.getElementById('hogarOccupancy');
                         if (occ) occ.value = parsed.occupancy;
                     }
+                    if (typeof parsed.securityConserje === 'boolean') {
+                        hogarProfile.securityConserje = parsed.securityConserje;
+                        const cbConserje = document.getElementById('secConserje');
+                        if (cbConserje) cbConserje.checked = parsed.securityConserje;
+                    }
+                    if (typeof parsed.securityPorton === 'boolean') {
+                        hogarProfile.securityPorton = parsed.securityPorton;
+                        const cbPorton = document.getElementById('secPorton');
+                        if (cbPorton) cbPorton.checked = parsed.securityPorton;
+                    }
                 } catch(e){}
+            }
+
+            // Enter key UX on address input
+            const addrEl = document.getElementById('hogarAddress');
+            if (addrEl) {
+                addrEl.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const comunaEl = document.getElementById('hogarComuna');
+                        const btnRec = document.getElementById('btnRecommend');
+                        if (comunaEl && !comunaEl.value) {
+                            comunaEl.focus();
+                        } else if (btnRec && !btnRec.disabled) {
+                            btnRec.click();
+                        }
+                    }
+                });
             }
 
             // FAQ Accordion
