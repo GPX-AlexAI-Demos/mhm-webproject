@@ -901,6 +901,72 @@
             place-items: center;
             color: #64748B;
         }
+        /* Salud-aligned visual upgrades for Hogar Resumen */
+        .revisionKickerPill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(121, 107, 252, 0.25);
+            background: rgba(121, 107, 252, 0.06);
+            padding: 7px 14px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #796BFC;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 14px;
+        }
+        .legalConditionsToggleBtn {
+            background: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            border-radius: 999px !important;
+            min-height: 44px;
+            padding: 10px 20px !important;
+            font-weight: 700 !important;
+            box-shadow: 0 8px 20px rgba(46, 217, 195, 0.28) !important;
+        }
+        .legalConditionsToggleBtn:hover {
+            background: #22C4AF !important;
+        }
+        .legalConditionsToggleBtn i {
+            color: #FFFFFF !important;
+        }
+        .btnJumpTerms,
+        .btnCallAdvisor,
+        .btnProceedContract {
+            background: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            box-shadow: 0 8px 20px rgba(46, 217, 195, 0.25) !important;
+        }
+        .btnJumpTerms:hover,
+        .btnCallAdvisor:hover,
+        .btnProceedContract.enabled:hover {
+            background: #22C4AF !important;
+        }
+        .btnProceedContract.is-disabled {
+            opacity: 0.6 !important;
+            cursor: not-allowed !important;
+        }
+        .checkoutPriceSubUF {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #CBD5E1;
+            margin-top: 2px;
+        }
+        .checkoutUfToday {
+            display: block;
+            font-size: 11.5px;
+            color: #94A3B8;
+            text-align: right;
+            margin-top: 4px;
+        }
+        .crossSellBottom {
+            justify-content: flex-end !important;
+        }
     </style>
 </head>
 <body class="summaryCheckoutPage">
@@ -1051,8 +1117,8 @@
     <div class="summarySubBar">
         <div class="summarySubBarInner">
             <a href="cotizacion-asistencia-hogar-1.html" class="summarySubBack">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Volver a Selección de Hogar</span>
+                <i class="fa-solid fa-chevron-left"></i>
+                <span>Volver al Catálogo de Hogar</span>
             </a>
 
             <div class="summaryWizardInner">
@@ -1089,14 +1155,14 @@
                 
                 <!-- HEADER SECTION -->
                 <div style="margin-bottom: 24px;">
-                    <span style="font-size: 0.8rem; font-weight: 800; color: #796BFC; text-transform: uppercase; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px;">
-                        <i class="fa-solid fa-shield-halved"></i> PASO 2 DE 4 · REVISIÓN DE PÓLIZA
+                    <span class="revisionKickerPill">
+                        <i class="fa-solid fa-shield-halved"></i> REVISIÓN DE SOLICITUD · BCI HOGAR CONTENIDO
                     </span>
-                    <h1 style="font-size: clamp(24px, 3.2vw, 34px); font-weight: 900; color: #0F172A; letter-spacing: -0.03em; margin: 4px 0 8px;">
+                    <h1 style="font-size: clamp(26px, 3.2vw, 34px); font-weight: 900; color: #0F172A; letter-spacing: -0.03em; margin: 4px 0 8px;">
                         Revisa tu póliza antes de continuar.
                     </h1>
                     <p style="font-size: 14.5px; color: #475569; margin: 0;">
-                        Verifica las especificaciones del inmueble asegurado y confirma las coberturas para la emisión oficial de tu seguro.
+                        Verifica las especificaciones de tu seguro y confirma las condiciones contractuales para la emisión de tu póliza.
                     </p>
                 </div>
 
@@ -1105,7 +1171,7 @@
                     <div class="summaryCardHead">
                         <div class="summaryCardKicker">
                             <i class="fa-solid fa-house-chimney"></i>
-                            <span>Inmueble Asegurado y Plan</span>
+                            <span>Inmueble Asegurado</span>
                         </div>
                         <a href="cotizacion-asistencia-hogar-1.html" class="btnModifyQuote">
                             <i class="fa-solid fa-pen-to-square"></i>
@@ -1133,7 +1199,7 @@
                         </div>
 
                         <!-- Dirección -->
-                        <div class="profileTile" style="grid-column: 1 / -1;">
+                        <div class="profileTile">
                             <div class="profileTileIcon"><i class="fa-solid fa-location-dot"></i></div>
                             <div class="profileTileText">
                                 <small>Dirección Asegurada</small>
@@ -1141,17 +1207,17 @@
                             </div>
                         </div>
 
-                        <!-- Plan Seleccionado -->
-                        <div class="profileTile" style="grid-column: 1 / -1;">
-                            <div class="profileTileIcon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <!-- Ocupación -->
+                        <div class="profileTile">
+                            <div class="profileTileIcon"><i class="fa-solid fa-user-shield"></i></div>
                             <div class="profileTileText">
-                                <small>Plan de Protección</small>
-                                <strong id="resumenPlanName">Seguro de Hogar Pro</strong>
+                                <small>Calidad de Ocupación</small>
+                                <strong id="resumenPropOccupancy">Propietario Habitante</strong>
                             </div>
                         </div>
                     </div>
 
-                    <h4 style="margin: 22px 0 12px; font-size: 0.95rem; font-weight: 800; color: #0F172A;">Coberturas y asistencias incluidas:</h4>
+                    <h4 style="margin: 22px 0 12px; font-size: 0.95rem; font-weight: 800; color: #0F172A;">Coberturas y asistencias incluidas (<span id="resumenPlanName">Hogar contenido básico</span>):</h4>
                     <div class="covPillList" id="resumenCovList">
                         <!-- Filled by JS -->
                     </div>
@@ -1175,34 +1241,39 @@
                             <li class="legalListItem">
                                 <div class="legalListItemIcon success"><i class="fa-solid fa-check"></i></div>
                                 <div>
-                                    <strong>Intermediación Regulada:</strong> Póliza intermediada por <strong>MHM Corredores de Seguros SpA</strong>, entidad debidamente autorizada e inscrita ante la Comisión para el Mercado Financiero (CMF).
+                                    <strong>Intermediación Regulada:</strong> Póliza intermediada por <strong>MHM Corredores de Seguros SpA</strong> (RUT 77.558.123-9), entidad autorizada e inscrita ante la Comisión para el Mercado Financiero (CMF). Contratante colectivo: MHM Servicios SpA (RUT 76.721.251-8).
                                 </div>
                             </li>
                             <li class="legalListItem">
                                 <div class="legalListItemIcon info"><i class="fa-solid fa-shield"></i></div>
                                 <div>
-                                    <strong>Compañía Aseguradora:</strong> El riesgo de incendio, sismo y contenidos es suscrito según las condiciones generales de pólizas depositadas en la CMF bajo las normativas vigentes del mercado asegurador chileno.
+                                    <strong>Compañía Aseguradora:</strong> Riesgo suscrito y cubierto por <strong>BCI Seguros Generales S.A.</strong> (Póliza GP, Sucursal G), conforme a las condiciones generales depositadas en la CMF (<strong>POL 1 2017 0129</strong> y adicionales CAD).
                                 </div>
                             </li>
                             <li class="legalListItem">
-                                <div class="legalListItemIcon teal"><i class="fa-solid fa-bolt"></i></div>
+                                <div class="legalListItemIcon teal"><i class="fa-solid fa-scale-balanced"></i></div>
                                 <div>
-                                    <strong>Asistencias de Emergencia 24/7:</strong> Cuentas con atención de gasfitería, electricidad, cerrajería y vidriería de urgencia desde las 00:00 hrs del día de inicio de vigencia, sin periodos de carencia.
+                                    <strong>Límites, Sublímites y Modalidad:</strong> Seguro <strong>a primer riesgo</strong> (no afecta al prorrateo del art. 553 del Código de Comercio) y sin rehabilitación automática. Límite por objeto (electrónica, electrodomésticos y menaje propio de casa habitación, no profesional): <strong>UF 20</strong>. Sublímite anual en rotura de cañerías flexibles: <strong>UF 25</strong>. Excluye sismo/terremoto y bienes al aire libre (CAD 1 2017 0137).
                                 </div>
                             </li>
                             <li class="legalListItem">
-                                <div class="legalListItemIcon success"><i class="fa-solid fa-house-fire"></i></div>
+                                <div class="legalListItemIcon success"><i class="fa-solid fa-kit-medical"></i></div>
                                 <div>
-                                    <strong>Capital y Deducibles:</strong> Los montos asegurados de edificio y contenido se rigen por la declaración jurada de la propiedad y el límite de UF asignado al plan contratado.
+                                    <strong>Asistencia Salud (Segunda Capa):</strong> Servicio de sala de urgencia por enfermedad o accidente operando en segunda capa posterior a Fonasa/Isapre mediante verificación <strong>i-med</strong> (honorarios médicos de urgencia en Cirugía General, Medicina Interna, Pediatría y Traumatología).
                                 </div>
                             </li>
                             <li class="legalListItem">
                                 <div class="legalListItemIcon info"><i class="fa-solid fa-receipt"></i></div>
-                                <div>
-                                    <strong>Primas y Facturación:</strong> Las primas mensuales se expresan en Pesos Chilenos (CLP) calculados en base a la Unidad de Fomento (UF) a la fecha de facturación correspondiente con IVA incluido.
+                                <div id="legalPricingDetail">
+                                    <strong>Primas y Facturación:</strong> Los valores en CLP se calculan según la UF vigente a la fecha de facturación con IVA incluido.
                                 </div>
                             </li>
                         </ul>
+                        <div style="margin-top: 14px;">
+                            <a href="../terminos-condiciones/index.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #796BFC; text-decoration: underline;">
+                                <i class="fa-regular fa-file-lines"></i> Ver términos y condiciones
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -1233,7 +1304,6 @@
                                 <p class="crossSellDesc" style="margin-top: 10px;">Indemnización accidental, telemedicina 24/7 y coberturas médicas complementarias.</p>
                             </div>
                             <div class="crossSellBottom">
-                                <span class="crossSellPriceText">Desde $6.990/mes</span>
                                 <span class="crossSellCtaLink">Cotizar <i class="fa-solid fa-arrow-right"></i></span>
                             </div>
                         </a>
@@ -1251,7 +1321,6 @@
                                 <p class="crossSellDesc" style="margin-top: 10px;">Consultas veterinarias, vacunas, exámenes y urgencias médicas 24/7 sin copago.</p>
                             </div>
                             <div class="crossSellBottom">
-                                <span class="crossSellPriceText">Desde $9.490/mes</span>
                                 <span class="crossSellCtaLink">Cotizar <i class="fa-solid fa-arrow-right"></i></span>
                             </div>
                         </a>
@@ -1269,7 +1338,6 @@
                                 <p class="crossSellDesc" style="margin-top: 10px;">Cobertura total con asistencia en ruta, auto de reemplazo y deducible inteligente.</p>
                             </div>
                             <div class="crossSellBottom">
-                                <span class="crossSellPriceText" style="color: #2563EB;">Plan a medida</span>
                                 <span class="crossSellCtaLink">Cotizar <i class="fa-solid fa-arrow-right"></i></span>
                             </div>
                         </a>
@@ -1284,24 +1352,23 @@
                     
                     <div class="checkoutCardLogoRow">
                         <div class="checkoutCarrierPill">
-                            <i class="fa-solid fa-house-shield"></i>
-                            <span>MHM Hogar</span>
+                            <img src="https://www.bciseguros.cl/wp-content/uploads/2024/04/logobci.svg" alt="BCI Seguros" style="height: 20px; width: auto; display: block;">
                         </div>
-                        <span class="checkoutPlanTierBadge" id="planTierBadge">COBERTURA TOTAL</span>
+                        <span class="checkoutPlanTierBadge" id="planTierBadge">PLAN A · BÁSICO</span>
                     </div>
 
-                    <h2 class="checkoutPlanTitle" id="planTitleHeader">Seguro de Hogar Pro</h2>
+                    <h2 class="checkoutPlanTitle" id="planTitleHeader">Hogar contenido básico</h2>
                     
                     <div class="checkoutCapitalChip" id="planCapitalChip">
                         <i class="fa-solid fa-shield-halved"></i>
-                        <span>Capital Incendio: UF 4.000 (~$150.000.000)</span>
+                        <span>Capital contenido: UF 100 (~$4.135.730)</span>
                     </div>
 
                     <div class="checkoutPriceDivider"></div>
 
                     <div class="checkoutPriceLine">
                         <span style="color: #94A3B8;">Aseguradora emisora</span>
-                        <strong style="color: #FFFFFF;">Compañía Oficial CMF</strong>
+                        <strong style="color: #FFFFFF;">BCI Seguros Generales S.A.</strong>
                     </div>
 
                     <div class="checkoutPriceLine">
@@ -1309,17 +1376,23 @@
                         <strong style="color: #FFFFFF;">MHM Corredores</strong>
                     </div>
 
-                    <div class="checkoutPriceLine">
-                        <span style="color: #94A3B8;">Valor Anual Estimado</span>
-                        <strong id="planPriceYear" style="color: #FFFFFF;">$113.880</strong>
+                    <div class="checkoutPriceLine" style="align-items: flex-start;">
+                        <span style="color: #94A3B8;">Valor anual estimado</span>
+                        <div style="text-align: right;">
+                            <strong id="planPriceYear" style="color: #FFFFFF;">$62.036</strong>
+                            <span class="checkoutPriceSubUF" id="planPriceYearUF">1,50 UF al año</span>
+                        </div>
                     </div>
 
-                    <div class="checkoutPriceLine total">
+                    <div class="checkoutPriceLine total" style="align-items: flex-start;">
                         <div>
                             <span style="display: block; font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Prima Mensual</span>
-                            <span style="font-size: 12px; color: #CBD5E1;">IVA incluido</span>
+                            <span class="checkoutPriceSubUF" id="planPriceMonthUF">0,125 UF al mes</span>
                         </div>
-                        <strong id="planPriceMonth">$9.490</strong>
+                        <div style="text-align: right;">
+                            <strong id="planPriceMonth">$5.170</strong>
+                            <span class="checkoutUfToday" id="checkoutUfToday">UF del día: $41.357,30</span>
+                        </div>
                     </div>
 
                     <!-- CONSENTIMIENTO Y POLÍTICAS (CHILE) -->
@@ -1362,7 +1435,7 @@
                     </div>
 
                     <p class="legalCmfNote">
-                        MHM Corredores de Seguros SpA. Entidad fiscalizada por la Comisión para el Mercado Financiero (CMF). Las coberturas y asistencias domiciliarias operan conforme a las condiciones oficiales de la póliza contratada.
+                        MHM Corredores de Seguros SpA. Entidad fiscalizada por la Comisión para el Mercado Financiero (CMF). Las coberturas y exclusiones corresponden a la póliza oficial de BCI Seguros Generales S.A.
                     </p>
                 </div>
             </aside>
@@ -1475,8 +1548,70 @@
 
     <!-- SCRIPT DE SINCRONIZACIÓN Y LÓGICA -->
     <script>
+        let ufDelDia = 41357.30;
+        let ufFechaLabel = '';
+
+        const BCI_HOGAR_PLANS = {
+            'hogar-basico': {
+                id: 'hogar-basico',
+                title: 'Hogar contenido básico',
+                tier: 'PLAN A · BÁSICO',
+                capitalUF: 100,
+                ufNetaIncendio: '0,78',
+                ufNetaTotal: '1,26',
+                ufBrutaAnual: 1.50
+            },
+            'hogar-medio': {
+                id: 'hogar-medio',
+                title: 'Hogar contenido medio',
+                tier: 'PLAN B · MEDIO',
+                capitalUF: 200,
+                ufNetaIncendio: '0,93',
+                ufNetaTotal: '1,41',
+                ufBrutaAnual: 1.68
+            },
+            'hogar-premium': {
+                id: 'hogar-premium',
+                title: 'Hogar contenido premium',
+                tier: 'PLAN C · PREMIUM',
+                capitalUF: 300,
+                ufNetaIncendio: '1,03',
+                ufNetaTotal: '1,51',
+                ufBrutaAnual: 1.80
+            }
+        };
+
+        function formatUF(val) {
+            const rounded = Math.round(val * 1000) / 1000;
+            return rounded.toString().replace('.', ',');
+        }
+
+        async function loadUfRateResumen() {
+            try {
+                const resp = await fetch('https://mindicador.cl/api/uf', { cache: 'no-store' });
+                if (!resp.ok) return;
+                const data = await resp.json();
+                const latest = data && Array.isArray(data.serie) && data.serie[0];
+                if (latest && typeof latest.valor === 'number' && latest.valor > 0) {
+                    ufDelDia = latest.valor;
+                    if (latest.fecha) {
+                        const d = new Date(latest.fecha);
+                        if (!isNaN(d.getTime())) {
+                            const dd = String(d.getDate()).padStart(2, '0');
+                            const mm = String(d.getMonth() + 1).padStart(2, '0');
+                            ufFechaLabel = dd + '-' + mm + '-' + d.getFullYear();
+                        }
+                    }
+                    initCheckoutData();
+                }
+            } catch (e) {
+                // Keep fallback UF
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             initCheckoutData();
+            loadUfRateResumen();
         });
 
         function initCheckoutData() {
@@ -1484,9 +1619,8 @@
                 propertyType: 'casa',
                 address: 'Av. Providencia 1234, Depto 402',
                 comuna: 'Providencia',
-                plan: 'hogar-pro',
-                priceMonth: 9490,
-                priceAnnual: 113880
+                occupancy: 'Propietario Habitante',
+                plan: 'hogar-basico'
             };
 
             const dataStr = sessionStorage.getItem('mhm_hogar_data');
@@ -1503,12 +1637,11 @@
                 try {
                     const planObj = JSON.parse(planStr);
                     if (planObj.id) data.plan = planObj.id;
-                    if (planObj.price) data.priceMonth = planObj.price;
                 } catch(e) {}
             }
 
             // Inmueble
-            const isCasa = data.propertyType === 'casa';
+            const isCasa = (data.propertyType || 'casa').toLowerCase() !== 'departamento';
             const propIconEl = document.getElementById('resumenPropIcon');
             if (propIconEl) {
                 propIconEl.className = isCasa ? 'fa-solid fa-house-chimney' : 'fa-solid fa-building';
@@ -1516,55 +1649,61 @@
             document.getElementById('resumenPropType').innerText = isCasa ? 'Casa (Vivienda Unifamiliar)' : 'Departamento (Edificio Residencial)';
             document.getElementById('resumenPropAddress').innerText = data.address || 'Av. Providencia 1234, Depto 402';
             document.getElementById('resumenPropComuna').innerText = data.comuna || 'Providencia';
+            const occEl = document.getElementById('resumenPropOccupancy');
+            if (occEl) occEl.innerText = data.occupancy || 'Propietario Habitante';
 
-            // Plan
-            const isPro = data.plan === 'hogar-pro';
-            const planTitle = isPro ? 'Seguro de Hogar Pro' : 'Seguro de Hogar Esencial';
-            document.getElementById('resumenPlanName').innerText = planTitle;
-            document.getElementById('planTitleHeader').innerText = planTitle;
+            // Plan BCI
+            const planDef = BCI_HOGAR_PLANS[data.plan] || BCI_HOGAR_PLANS['hogar-basico'];
+            document.getElementById('resumenPlanName').innerText = planDef.title;
+            document.getElementById('planTitleHeader').innerText = planDef.title;
 
             const badgeEl = document.getElementById('planTierBadge');
-            if (badgeEl) {
-                badgeEl.innerText = isPro ? 'COBERTURA TOTAL' : 'PLAN ESENCIAL';
-            }
+            if (badgeEl) badgeEl.innerText = planDef.tier;
 
+            const capitalCLP = Math.round(planDef.capitalUF * ufDelDia);
             const capitalEl = document.getElementById('planCapitalChip');
             if (capitalEl) {
-                capitalEl.innerHTML = isPro 
-                    ? '<i class="fa-solid fa-shield-halved"></i> <span>Capital Incendio: UF 4.000 (~$150.000.000)</span>'
-                    : '<i class="fa-solid fa-shield-halved"></i> <span>Capital Incendio: UF 2.000 (~$75.000.000)</span>';
+                capitalEl.innerHTML = `<i class="fa-solid fa-shield-halved"></i> <span>Capital contenido: UF ${planDef.capitalUF} (~$${capitalCLP.toLocaleString('es-CL')})</span>`;
             }
 
-            const priceMonth = data.priceMonth || (isPro ? 9490 : 7990);
-            const priceAnnual = data.priceAnnual || (priceMonth * 12);
+            const ufMensual = planDef.ufBrutaAnual / 12;
+            const priceMonth = Math.round(ufMensual * ufDelDia);
+            const priceAnnual = Math.round(planDef.ufBrutaAnual * ufDelDia);
 
             document.getElementById('planPriceMonth').innerText = `$${priceMonth.toLocaleString('es-CL')}`;
             document.getElementById('planPriceYear').innerText = `$${priceAnnual.toLocaleString('es-CL')}`;
 
-            // Coberturas
+            const monthUfEl = document.getElementById('planPriceMonthUF');
+            if (monthUfEl) monthUfEl.innerText = `${formatUF(ufMensual)} UF al mes`;
+
+            const yearUfEl = document.getElementById('planPriceYearUF');
+            if (yearUfEl) yearUfEl.innerText = `${formatUF(planDef.ufBrutaAnual)} UF al año`;
+
+            const ufTodayEl = document.getElementById('checkoutUfToday');
+            if (ufTodayEl) {
+                const ufFmt = ufDelDia.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                ufTodayEl.innerText = `UF del día: $${ufFmt}${ufFechaLabel ? ' (' + ufFechaLabel + ')' : ''}`;
+            }
+
+            const legalPriceEl = document.getElementById('legalPricingDetail');
+            if (legalPriceEl) {
+                legalPriceEl.innerHTML = `<strong>Primas y Facturación (${planDef.title}):</strong> Prima neta anual incendio y adicionales UF ${planDef.ufNetaIncendio} + Asistencia Salud UF 0,48 = Total neto UF ${planDef.ufNetaTotal} anual. Prima bruta anual: <strong>UF ${formatUF(planDef.ufBrutaAnual)}</strong> (${formatUF(ufMensual)} UF/mes, IVA incluido).`;
+            }
+
+            // Coberturas CMF exactas de la póliza BCI
             const covList = document.getElementById('resumenCovList');
             if (covList) {
-                if (isPro) {
-                    covList.innerHTML = `
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Incendio Edificio y Contenido (UF 4.000)</div>
-                        <div class="covPillItem" style="font-weight: 700; color: #796BFC;"><i class="fa-solid fa-shield-halved" style="color: #796BFC;"></i> Cobertura Sismo y Terremoto 100%</div>
-                        <div class="covPillItem" style="font-weight: 700; color: #796BFC;"><i class="fa-solid fa-lock" style="color: #796BFC;"></i> Robo y Hurto Contenido (UF 500)</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Daños por Agua y Filtraciones (UF 250)</div>
-                        <div class="covPillItem" style="font-weight: 700; color: #796BFC;"><i class="fa-solid fa-bolt" style="color: #796BFC;"></i> Asistencias de Emergencia Ilimitadas 24/7</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Cristales y Ventanales (UF 35)</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Responsabilidad Civil Familiar y Mascotas (UF 600)</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Alojamiento Alternativo por Inhabitabilidad</div>
-                    `;
-                } else {
-                    covList.innerHTML = `
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Incendio Edificio y Contenido (UF 2.000)</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Daños por Agua y Rotura de Cañerías</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Asistencia Hogar 24/7 (3 eventos / año)</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Cristales y Ventanales (UF 15)</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Responsabilidad Civil Familiar básica</div>
-                        <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Remoción de Escombros</div>
-                    `;
-                }
+                covList.innerHTML = `
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Incendio contenido hasta UF ${planDef.capitalUF} (POL 1 2017 0129)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Huelga, desorden popular o terrorismo (CAD 1 2017 0135)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Saqueo durante huelga o desorden popular (CAD 1 2017 0138)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Fenómenos naturaleza excepto sismo (CAD 1 2017 0137)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Peso de nieve o hielo (CAD 1 2020 0223)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Rotura de cañerías / estanques matrices (CAD 1 2017 0132)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Daños materiales por explosión (CAD 1 2017 0136)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Vehículos motorizados y aeronaves (CAD 1 2017 0133/0131)</div>
+                    <div class="covPillItem" style="font-weight: 700; color: #0D9488;"><i class="fa-solid fa-kit-medical" style="color: #0D9488;"></i> Asistencia Salud 2ª capa vía i-med (incluida)</div>
+                `;
             }
         }
 
