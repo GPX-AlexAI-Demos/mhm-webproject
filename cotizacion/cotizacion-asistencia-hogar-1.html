@@ -208,6 +208,17 @@
             min-height: 44px;
             border-radius: 12px !important;
         }
+        .cardFacePriceUF {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #796BFC;
+            margin-top: 2px;
+        }
+        @media (min-width: 768px) {
+            .compareHeroCardsGrid.compare-cols-3 {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+        }
 
         /* Property type selection buttons */
         .property-type-pill-group {
@@ -757,13 +768,15 @@
                 <!-- Tools Bar: Count & Quick Pills -->
                 <div class="resultTools">
                     <div class="toolsTitleGroup">
-                        <b id="availablePlansCount">2 seguros de hogar disponibles</b>
-                        <small>Alternativas oficiales con asistencia 24/7 gestionadas por MHM</small>
+                        <b id="availablePlansCount">3 seguros de hogar disponibles</b>
+                        <small>Alternativas BCI Seguros gestionadas por MHM</small>
+                        <small id="ufRateInfo" style="display: block; margin-top: 2px; font-weight: 700; color: #0F172A;">UF del día: $41.357,30</small>
                     </div>
                     <div class="toolsPillGroup">
                         <button type="button" class="toolPill active" data-pill="all" onclick="handlePillFilter('all')">Todos los planes</button>
-                        <button type="button" class="toolPill" data-pill="pro" onclick="handlePillFilter('pro')">Con Sismo y Robo (Pro)</button>
-                        <button type="button" class="toolPill" data-pill="basico" onclick="handlePillFilter('basico')">Esencial (Hogar)</button>
+                        <button type="button" class="toolPill" data-pill="basico" onclick="handlePillFilter('basico')">Básico (UF 100)</button>
+                        <button type="button" class="toolPill" data-pill="medio" onclick="handlePillFilter('medio')">Medio (UF 200)</button>
+                        <button type="button" class="toolPill" data-pill="premium" onclick="handlePillFilter('premium')">Premium (UF 300)</button>
                     </div>
                 </div>
 
@@ -801,14 +814,19 @@
                                         <span class="radioLabel">Todos los planes</span>
                                     </label>
                                     <label class="customRadio">
-                                        <input type="radio" name="priorityRadio" value="pro" onchange="handlePriorityFilter('pro')">
-                                        <span class="radioDot"></span>
-                                        <span class="radioLabel">Hogar Pro (Sismo + Robo)</span>
-                                    </label>
-                                    <label class="customRadio">
                                         <input type="radio" name="priorityRadio" value="basico" onchange="handlePriorityFilter('basico')">
                                         <span class="radioDot"></span>
-                                        <span class="radioLabel">Hogar Estándar</span>
+                                        <span class="radioLabel">Hogar contenido básico (UF 100)</span>
+                                    </label>
+                                    <label class="customRadio">
+                                        <input type="radio" name="priorityRadio" value="medio" onchange="handlePriorityFilter('medio')">
+                                        <span class="radioDot"></span>
+                                        <span class="radioLabel">Hogar contenido medio (UF 200)</span>
+                                    </label>
+                                    <label class="customRadio">
+                                        <input type="radio" name="priorityRadio" value="premium" onchange="handlePriorityFilter('premium')">
+                                        <span class="radioDot"></span>
+                                        <span class="radioLabel">Hogar contenido premium (UF 300)</span>
                                     </label>
                                 </div>
                             </fieldset>
@@ -1108,6 +1126,62 @@
         let currentFilterPriority = 'all';
         const openDetailsState = {};
         const selectedForCompare = new Set();
+        const BCI_LOGO_URL = 'https://www.bciseguros.cl/wp-content/uploads/2024/04/logobci.svg';
+        let ufDelDia = 41357.30;
+        let ufFechaLabel = '';
+
+        function formatCLP(amount) {
+            return '$' + Math.round(amount).toLocaleString('es-CL');
+        }
+
+        function formatUFValue(val) {
+            // Show up to 3 decimals without trailing zeros (e.g. 0,125 / 0,14 / 0,15)
+            const rounded = Math.round(val * 1000) / 1000;
+            return rounded.toString().replace('.', ',');
+        }
+
+        function updateUfBanner() {
+            const el = document.getElementById('ufRateInfo');
+            if (!el) return;
+            const ufFormatted = ufDelDia.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            el.textContent = 'UF del día: $' + ufFormatted + (ufFechaLabel ? ' (' + ufFechaLabel + ')' : '');
+        }
+
+        async function loadUfRate() {
+            updateUfBanner();
+            try {
+                const resp = await fetch('https://mindicador.cl/api/uf', { cache: 'no-store' });
+                if (!resp.ok) return;
+                const data = await resp.json();
+                const latest = data && Array.isArray(data.serie) && data.serie[0];
+                if (latest && typeof latest.valor === 'number' && latest.valor > 0) {
+                    ufDelDia = latest.valor;
+                    if (latest.fecha) {
+                        const d = new Date(latest.fecha);
+                        if (!isNaN(d.getTime())) {
+                            const dd = String(d.getDate()).padStart(2, '0');
+                            const mm = String(d.getMonth() + 1).padStart(2, '0');
+                            ufFechaLabel = dd + '-' + mm + '-' + d.getFullYear();
+                        }
+                    }
+                    updateUfBanner();
+                    renderPlans();
+                }
+            } catch (e) {
+                // Keep fallback UF rate silently
+            }
+        }
+
+        const BASE_COBERTURAS_CMF = [
+            'Incendio contenido (POL 1 2017 0129)',
+            'Daños materiales o incendio por huelga, desorden popular o actos terroristas (CAD 1 2017 0135)',
+            'Saqueo y daños materiales por saqueo durante huelga o desorden popular (CAD 1 2017 0138)',
+            'Incendios por fenómenos de la naturaleza, excepto sismo: erupción volcánica, salida de mar, inundación, viento, filtración de lluvias, desbordamiento de cauces, huracán, ciclón, avalancha, aluvión o deslizamiento (CAD 1 2017 0137)',
+            'Daños materiales causados por peso de nieve o hielo (CAD 1 2020 0223)',
+            'Daños físicos causados por rotura de cañerías o desbordamiento de estanques matrices (CAD 1 2017 0132)',
+            'Daños materiales causados por explosión (CAD 1 2017 0136)',
+            'Daños físicos causados por vehículos motorizados y aeronaves (CAD 1 2017 0133 / CAD 1 2017 0131)'
+        ];
 
         function getHogarPlans() {
             const isDepto = hogarProfile.propertyType === 'Departamento';
@@ -1116,120 +1190,142 @@
             const isLandlord = occ === 'Propietario que Arrienda';
             const secCount = (hogarProfile.securityConserje ? 1 : 0) + (hogarProfile.securityPorton ? 1 : 0);
 
-            const basicMatch = Math.min(99, (isDepto ? 92 : 88) + secCount);
-            const proMatch = Math.min(99, (isTenant ? 95 : 97) + (secCount > 0 ? 1 : 0));
+            const basicMatch = Math.min(99, (isDepto ? 91 : 88) + secCount);
+            const medioMatch = Math.min(99, (isTenant ? 94 : 93) + secCount);
+            const premiumMatch = Math.min(99, 97 + (secCount > 0 ? 1 : 0));
 
-            const basicSubtitle = isTenant
-                ? 'Protección de Contenidos, Resp. Civil y Asistencia 24/7'
-                : 'Protección Esencial para Inmueble y Asistencia 24/7';
+            const buildPricing = (ufBrutaAnual) => {
+                const ufMensual = ufBrutaAnual / 12;
+                const clpMensual = Math.round(ufMensual * ufDelDia);
+                const clpAnual = Math.round(ufBrutaAnual * ufDelDia);
+                return {
+                    ufAnnual: ufBrutaAnual,
+                    ufMonth: ufMensual,
+                    ufMonthText: formatUFValue(ufMensual) + ' UF al mes',
+                    ufAnnualText: formatUFValue(ufBrutaAnual) + ' UF anual',
+                    rawPrice: clpMensual,
+                    priceMonth: formatCLP(clpMensual) + '/mes',
+                    priceYear: formatCLP(clpAnual) + ' anual (' + formatUFValue(ufBrutaAnual) + ' UF)'
+                };
+            };
 
-            const basicLead = isTenant
-                ? 'Pensado para arrendatarios: protege tus bienes, daños por agua, responsabilidad civil ante el propietario y asistencias 24/7.'
+            const pA = buildPricing(1.50);
+            const pB = buildPricing(1.68);
+            const pC = buildPricing(1.80);
+
+            const occContextNote = isTenant
+                ? 'Ideal para proteger tus bienes y contenidos en arriendo.'
                 : (isLandlord
-                    ? 'Resguarda la estructura de tu propiedad arrendada frente a incendio, daños por agua y emergencias 24/7.'
-                    : 'Protección esencial contra incendio, explosión, daños por agua y red de asistencias domiciliarias 24/7.');
-
-            const proSubtitle = isTenant
-                ? 'Contenidos, Robo, Sismo y Asistencias Ilimitadas 24/7'
-                : 'Cobertura Integral con Sismo, Robo y Asistencias Ilimitadas';
-
-            const proLead = isTenant
-                ? 'Máxima protección para tu arriendo: cubre tus pertenencias ante robo/hurto, sismo, daños por agua y asistencias ilimitadas.'
-                : (isLandlord
-                    ? 'Protección total para propietarios que arriendan: estructura al 100% ante sismo e incendio, más asistencias ilimitadas.'
-                    : 'Protección integral completa que incluye terremoto 100%, robo y hurto valorizado y asistencias de emergencia ilimitadas.');
+                    ? 'Respaldo para contenidos y daños cubiertos en tu propiedad arrendada.'
+                    : 'Respaldo integral para tus bienes y contenidos en el hogar.');
 
             return [
                 {
                     id: 'hogar-basico',
                     planType: 'basico',
-                    tier: 'PLAN HOGAR ESTÁNDAR',
-                    badgeSub: isDepto ? (isLandlord ? 'Ideal Dpto en Arriendo' : 'Ideal Departamentos') : (isTenant ? 'Para Arrendatarios' : 'Protección Esencial'),
+                    tier: 'PLAN A · BÁSICO',
+                    badgeSub: 'Incendio Contenido y Adicionales',
                     bandTheme: 'band-individual',
-                    capitalUF: 'UF 2.000',
-                    capitalLabel: isTenant ? 'Contenido y Resp. Civil' : 'Incendio y Estructura',
-                    capitalValue: 2000,
-                    insurer: 'MHM · SEGURO DE HOGAR',
-                    title: 'Seguro de Hogar',
-                    subtitle: basicSubtitle,
+                    capitalUF: 'UF 100',
+                    capitalLabel: 'Capital Asegurado Contenido',
+                    capitalValue: 100,
+                    insurer: 'BCI SEGUROS · HOGAR CONTENIDO',
+                    title: 'Hogar contenido básico',
+                    subtitle: 'Cobertura esencial hasta UF 100 + Asistencia Salud',
                     match: basicMatch,
-                    bestMatchBadge: isDepto ? 'MUY BUENA OPCIÓN' : null,
+                    bestMatchBadge: 'MÁS ECONÓMICO',
                     isRecommended: false,
-                    lead: basicLead,
-                    priceMonth: '$7.990/mes',
-                    priceYear: '$95.880 anual',
-                    rawPrice: 7990,
+                    lead: 'Plan A con capital asegurado de UF 100 para incendio contenido y adicionales, más Asistencia Salud incluida. ' + occContextNote,
+                    ...pA,
                     quickBenefits: [
-                        'Incendio, explosión y humo: UF 2.000',
-                        'Daños por agua e inundación: UF 300',
-                        'Responsabilidad civil familiar: UF 500',
-                        'Asistencias de emergencia 24/7 incluidas'
+                        'Incendio contenido hasta UF 100 (POL 1 2017 0129)',
+                        'Rotura de cañerías y desbordamiento de estanques',
+                        'Fenómenos de la naturaleza (excepto sismo)',
+                        'Explosión, huelga, saqueo y peso de nieve o hielo',
+                        'Daños por vehículos motorizados y aeronaves',
+                        'Asistencia Salud incluida (Cond. Particulares)'
                     ],
-                    coberturas: [
-                        'Incendio y explosión edificio y/o contenido: UF 2.000',
-                        'Daños por agua por rotura de cañerías e inundación: UF 300',
-                        'Responsabilidad civil extracontractual familiar: UF 500',
-                        'Remoción de escombros y demolición: UF 150',
-                        'Rotura accidental de cristales y vidrios: UF 30'
-                    ],
+                    coberturas: BASE_COBERTURAS_CMF,
                     adicionales: [
-                        'Gasfitería de emergencia (hasta 3 eventos al año)',
-                        'Cerrajería de urgencia en puertas de acceso',
-                        'Electricidad domiciliaria ante emergencias',
-                        'Orientación legal telefónica en caso de siniestros'
+                        'Asistencia Salud incluida según Condiciones Particulares (prima neta UF 0,48)',
+                        'Prima neta incendio y adicionales: UF 0,78 anual',
+                        'Prima neta total anual: UF 1,26 · Prima bruta anual: UF 1,50'
                     ],
                     exclusiones: [
-                        'No incluye cobertura de sismo ni terremoto en plan estándar.',
-                        'No incluye robo de contenido valorizado (disponible en Pro).',
-                        'Inmuebles deshabitados por más de 60 días consecutivos.',
-                        'Viviendas de adobe o materiales ligeros no clasificados.'
+                        'No incluye cobertura de sismo ni terremoto (excluido en CAD 1 2017 0137).',
+                        'Sujeto a condiciones particulares y generales depositadas en la CMF.'
                     ]
                 },
                 {
-                    id: 'hogar-pro',
-                    planType: 'pro',
-                    tier: 'PLAN RECOMENDADO MHM',
-                    badgeSub: secCount === 2 ? 'Máxima Protección · Seguridad Verificada' : 'Máxima Protección + Sismo + Robo',
-                    bandTheme: 'band-familiar',
-                    capitalUF: 'UF 3.500',
-                    capitalLabel: isTenant ? 'Contenido + Robo + Sismo' : 'Respaldo Integral Total',
-                    capitalValue: 3500,
-                    insurer: 'MHM · SEGURO DE HOGAR PRO',
-                    title: 'Seguro de Hogar Pro',
-                    subtitle: proSubtitle,
-                    match: proMatch,
-                    bestMatchBadge: 'MEJOR COINCIDENCIA TOTAL',
-                    isRecommended: true,
-                    lead: proLead,
-                    priceMonth: '$9.490/mes',
-                    priceYear: '$113.880 anual',
-                    rawPrice: 9490,
+                    id: 'hogar-medio',
+                    planType: 'medio',
+                    tier: 'PLAN B · MEDIO',
+                    badgeSub: isDepto ? 'Ideal Departamentos · UF 200' : 'Incendio Contenido y Adicionales',
+                    bandTheme: 'band-individual',
+                    capitalUF: 'UF 200',
+                    capitalLabel: 'Capital Asegurado Contenido',
+                    capitalValue: 200,
+                    insurer: 'BCI SEGUROS · HOGAR CONTENIDO',
+                    title: 'Hogar contenido medio',
+                    subtitle: 'Equilibrio en cobertura hasta UF 200 + Asistencia Salud',
+                    match: medioMatch,
+                    bestMatchBadge: 'EQUILIBRIO IDEAL',
+                    isRecommended: false,
+                    lead: 'Plan B con el doble de capital asegurado (UF 200) para incendio contenido y adicionales, más Asistencia Salud incluida. ' + occContextNote,
+                    ...pB,
                     quickBenefits: [
-                        'Todo lo de Seguro Hogar +',
-                        'Sismo y Terremoto Completa (100%)',
-                        'Robo y Hurto con contenido (hasta UF 500)',
-                        secCount > 0 ? 'Asistencias 24/7 + Bonus Seguridad Activa' : 'Asistencias de Emergencia Ilimitadas 24/7'
+                        'Incendio contenido hasta UF 200 (POL 1 2017 0129)',
+                        'Rotura de cañerías y desbordamiento de estanques',
+                        'Fenómenos de la naturaleza (excepto sismo)',
+                        'Explosión, huelga, saqueo y peso de nieve o hielo',
+                        'Daños por vehículos motorizados y aeronaves',
+                        'Asistencia Salud incluida (Cond. Particulares)'
                     ],
-                    coberturas: [
-                        'Incendio y explosión edificio y/o contenido: UF 3.500',
-                        'Sismo y terremoto completo (100% valor asegurado)',
-                        'Robo, hurto y daños por fuerza en las cosas: UF 500',
-                        'Daños por agua e inundación sin copago: UF 600',
-                        'Daños por viento, temporal y granizo en techumbres: UF 400',
-                        'Responsabilidad civil ampliada: UF 1.000',
-                        'Gastos de alojamiento alternativo por inhabitalidad: UF 150'
-                    ],
+                    coberturas: BASE_COBERTURAS_CMF,
                     adicionales: [
-                        'Asistencias de emergencia ilimitadas 24/7 (gasfitería, cerrajería, electricidad)',
-                        'Servicio de mantención preventiva anual (revisión de calefón y gas)',
-                        'Instalación de cortinas, lámparas y soportes de TV (manitas hogar)',
-                        'Asistencia de cristales y vidrios de ventanas sin tope',
-                        'Orientación jurídica especializada y asistencia tributaria'
+                        'Asistencia Salud incluida según Condiciones Particulares (prima neta UF 0,48)',
+                        'Prima neta incendio y adicionales: UF 0,93 anual',
+                        'Prima neta total anual: UF 1,41 · Prima bruta anual: UF 1,68'
                     ],
                     exclusiones: [
-                        'Inmuebles destinados a actividades comerciales o industriales.',
-                        'Daños preexistentes anteriores a la contratación.',
-                        'Inmuebles deshabitados por más de 60 días sin notificación.'
+                        'No incluye cobertura de sismo ni terremoto (excluido en CAD 1 2017 0137).',
+                        'Sujeto a condiciones particulares y generales depositadas en la CMF.'
+                    ]
+                },
+                {
+                    id: 'hogar-premium',
+                    planType: 'premium',
+                    tier: 'PLAN C · PREMIUM',
+                    badgeSub: secCount === 2 ? 'Máximo Capital · Seguridad Activa' : 'Máximo Capital Contenido · UF 300',
+                    bandTheme: 'band-familiar',
+                    capitalUF: 'UF 300',
+                    capitalLabel: 'Capital Asegurado Contenido',
+                    capitalValue: 300,
+                    insurer: 'BCI SEGUROS · HOGAR CONTENIDO',
+                    title: 'Hogar contenido premium',
+                    subtitle: 'Máxima protección de contenido hasta UF 300 + Asistencia Salud',
+                    match: premiumMatch,
+                    bestMatchBadge: 'MEJOR PROTECCIÓN',
+                    isRecommended: true,
+                    lead: 'Plan C con máximo capital asegurado de UF 300 para incendio contenido y adicionales, más Asistencia Salud incluida. ' + occContextNote,
+                    ...pC,
+                    quickBenefits: [
+                        'Incendio contenido hasta UF 300 (POL 1 2017 0129)',
+                        'Rotura de cañerías y desbordamiento de estanques',
+                        'Fenómenos de la naturaleza (excepto sismo)',
+                        'Explosión, huelga, saqueo y peso de nieve o hielo',
+                        'Daños por vehículos motorizados y aeronaves',
+                        'Asistencia Salud incluida (Cond. Particulares)'
+                    ],
+                    coberturas: BASE_COBERTURAS_CMF,
+                    adicionales: [
+                        'Asistencia Salud incluida según Condiciones Particulares (prima neta UF 0,48)',
+                        'Prima neta incendio y adicionales: UF 1,03 anual',
+                        'Prima neta total anual: UF 1,51 · Prima bruta anual: UF 1,80'
+                    ],
+                    exclusiones: [
+                        'No incluye cobertura de sismo ni terremoto (excluido en CAD 1 2017 0137).',
+                        'Sujeto a condiciones particulares y generales depositadas en la CMF.'
                     ]
                 }
             ];
@@ -1481,94 +1577,72 @@
             const container = document.getElementById('compareTableContent');
             if (!modal || !container) return;
 
-            container.innerHTML = `
-            <div class="compareHeroCardsGrid">
-                <div class="compareHeroCard card-ind-hero">
-                    <div class="compareHeroCardHead">
-                        <div class="heroCardLogo"><i class="fa-solid fa-house-chimney" style="font-size: 22px; color: #796BFC;"></i></div>
-                        <span class="heroCardTierBadge">PLAN ESTÁNDAR</span>
-                    </div>
-                    <h4 class="heroCardTitle">Seguro de Hogar</h4>
-                    <div class="heroCardPrice">
-                        <strong>$7.990</strong> <span>/ mes</span>
-                        <small style="color: #64748B; margin-left: 8px;">($95.880/año)</small>
-                    </div>
-                    <p style="font-size: 12px; color: #64748B; margin: 0;">Incendio, agua, RC y asistencias esenciales.</p>
-                    <button type="button" class="btn-contratar-action" style="width: 100%; margin-top: 8px; font-size: 13px; padding: 10px 18px;" onclick="closeCompareModal(); contratarPlan('hogar-basico');">
-                        <span>Contratar Hogar</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
+            const plans = getHogarPlans();
+            const chosen = selectedForCompare.size >= 2
+                ? plans.filter(p => selectedForCompare.has(p.id))
+                : plans;
 
-                <div class="compareHeroCard card-fam-hero">
+            const heroCardsHtml = chosen.map((p, idx) => `
+                <div class="compareHeroCard ${idx === chosen.length - 1 ? 'card-fam-hero' : 'card-ind-hero'}">
                     <div class="compareHeroCardHead">
-                        <div class="heroCardLogo"><i class="fa-solid fa-shield-halved" style="font-size: 22px; color: #10B981;"></i></div>
-                        <span class="heroCardTierBadge">PLAN PRO RECOMENDADO</span>
+                        <div class="heroCardLogo"><img src="${BCI_LOGO_URL}" alt="BCI Seguros" style="max-width: 56px; max-height: 24px; object-fit: contain;"></div>
+                        <span class="heroCardTierBadge">${p.tier}</span>
                     </div>
-                    <h4 class="heroCardTitle">Seguro de Hogar Pro</h4>
+                    <h4 class="heroCardTitle">${p.title}</h4>
                     <div class="heroCardPrice">
-                        <strong>$9.490</strong> <span>/ mes</span>
-                        <small style="color: #64748B; margin-left: 8px;">($113.880/año)</small>
+                        <strong>${p.priceMonth}</strong>
+                        <small style="display:block; color: #796BFC; font-weight: 700;">${p.ufMonthText} · (${p.ufAnnualText})</small>
                     </div>
-                    <p style="font-size: 12px; color: #64748B; margin: 0;">Terremoto 100%, robo/hurto valorizado y asistencias ilimitadas.</p>
-                    <button type="button" class="btn-contratar-action" style="width: 100%; margin-top: 8px; font-size: 13px; padding: 10px 18px;" onclick="closeCompareModal(); contratarPlan('hogar-pro');">
-                        <span>Contratar Hogar Pro</span>
+                    <p style="font-size: 12px; color: #64748B; margin: 0;">Capital asegurado: <strong>${p.capitalUF}</strong> · Asistencia Salud incluida.</p>
+                    <button type="button" class="btn-contratar-action" style="width: 100%; margin-top: 8px; font-size: 13px; padding: 10px 18px;" onclick="closeCompareModal(); contratarPlan('${p.id}');">
+                        <span>Contratar</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+            `).join('');
+
+            const headerCols = chosen.map(p => `<th>${p.title} (${p.priceMonth})</th>`).join('');
+            const capitalCols = chosen.map(p => `<td><strong>${p.capitalUF}</strong></td>`).join('');
+            const primaBrutaCols = chosen.map(p => `<td><strong>${p.ufAnnualText}</strong> (${p.ufMonthText})</td>`).join('');
+            const cmfRows = BASE_COBERTURAS_CMF.map(cov => `
+                <tr>
+                    <td>${cov}</td>
+                    ${chosen.map(p => `<td><i class="fa-solid fa-check" style="color:#0D9488;"></i> Hasta ${p.capitalUF}</td>`).join('')}
+                </tr>
+            `).join('');
+
+            container.innerHTML = `
+            <div class="compareHeroCardsGrid ${chosen.length === 3 ? 'compare-cols-3' : ''}">
+                ${heroCardsHtml}
             </div>
 
             <div class="compareTableWrapper">
                 <table class="compareTable">
                     <thead>
                         <tr>
-                            <th style="width: 32%;">Característica / Cobertura</th>
-                            <th style="width: 34%;">Seguro de Hogar ($7.990)</th>
-                            <th style="width: 34%;">Seguro de Hogar Pro ($9.490)</th>
+                            <th>Característica / Cobertura</th>
+                            ${headerCols}
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="compareCategoryRow">
-                            <th colspan="3"><i class="fa-solid fa-house-fire" style="margin-right: 8px; color: var(--color-primary);"></i> 1. Coberturas Catastróficas</th>
+                            <th colspan="${chosen.length + 1}"><i class="fa-solid fa-coins" style="margin-right: 8px; color: var(--color-primary);"></i> Resumen de Capital y Prima</th>
                         </tr>
                         <tr>
-                            <td>Incendio y Humo</td>
-                            <td class="colIndCell">UF 2.000</td>
-                            <td class="colFamCell"><strong>UF 3.500</strong> <span class="diffChip violet">Mayor Tope</span></td>
+                            <td>Capital Asegurado Contenido</td>
+                            ${capitalCols}
                         </tr>
                         <tr>
-                            <td>Sismo y Terremoto</td>
-                            <td class="colIndCell"><span style="color:#EF4444;"><i class="fa-solid fa-xmark"></i> No incluida</span></td>
-                            <td class="colFamCell"><strong><i class="fa-solid fa-check" style="color:#10B981;"></i> Incluida 100%</strong> <span class="diffChip teal">Clave en Chile</span></td>
+                            <td>Prima Bruta Anual / Mensual</td>
+                            ${primaBrutaCols}
                         </tr>
-                        <tr>
-                            <td>Robo y Hurto de Contenidos</td>
-                            <td class="colIndCell"><span style="color:#EF4444;"><i class="fa-solid fa-xmark"></i> No incluida</span></td>
-                            <td class="colFamCell"><strong><i class="fa-solid fa-check" style="color:#10B981;"></i> Hasta UF 500</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Daños por Agua e Inundación</td>
-                            <td class="colIndCell">Hasta UF 300</td>
-                            <td class="colFamCell"><strong>Hasta UF 600</strong></td>
-                        </tr>
-
                         <tr class="compareCategoryRow">
-                            <th colspan="3"><i class="fa-solid fa-wrench" style="margin-right: 8px; color: #10B981;"></i> 2. Asistencias Domiciliarias 24/7</th>
+                            <th colspan="${chosen.length + 1}"><i class="fa-solid fa-shield-halved" style="margin-right: 8px; color: var(--color-primary);"></i> Coberturas CMF Incluidas</th>
                         </tr>
+                        ${cmfRows}
                         <tr>
-                            <td>Gasfitería, Cerrajería y Electricidad</td>
-                            <td class="colIndCell">3 eventos anuales</td>
-                            <td class="colFamCell"><strong>Eventos Ilimitados sin copago</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Instalaciones ("Manitas del Hogar")</td>
-                            <td class="colIndCell"><span style="color:#EF4444;"><i class="fa-solid fa-xmark"></i> No</span></td>
-                            <td class="colFamCell"><strong><i class="fa-solid fa-check" style="color:#10B981;"></i> Incluido 2 eventos/año</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Mantención preventiva calefón / gas</td>
-                            <td class="colIndCell"><span style="color:#EF4444;"><i class="fa-solid fa-xmark"></i> No</span></td>
-                            <td class="colFamCell"><strong><i class="fa-solid fa-check" style="color:#10B981;"></i> 1 visita anual gratis</strong></td>
+                            <td>Asistencia Salud (Condiciones Particulares)</td>
+                            ${chosen.map(() => `<td><i class="fa-solid fa-check" style="color:#0D9488;"></i> Incluida (UF 0,48 neta anual)</td>`).join('')}
                         </tr>
                     </tbody>
                 </table>
@@ -1591,8 +1665,7 @@
 
             const plans = getHogarPlans();
             const filtered = plans.filter(p => {
-                if (currentFilterPriority === 'pro' && p.planType !== 'pro') return false;
-                if (currentFilterPriority === 'basico' && p.planType !== 'basico') return false;
+                if (currentFilterPriority !== 'all' && p.planType !== currentFilterPriority) return false;
                 return true;
             });
 
@@ -1610,8 +1683,8 @@
                     <div class="cardTopRow">
                         <div class="policyBand ` + p.bandTheme + `">
                             <span class="bandTier">` + p.tier + `</span>
-                            <div class="healthMark" title="MHM Corredores de Seguros">
-                                <i class="fa-solid ` + (p.planType === 'pro' ? 'fa-shield-halved' : 'fa-house-chimney') + `"></i>
+                            <div class="healthMark" title="BCI Seguros">
+                                <img src="` + BCI_LOGO_URL + `" alt="BCI Seguros" style="max-width: 66px; max-height: 30px; width: auto; height: auto; object-fit: contain; display: block;">
                             </div>
                             <b class="bandCapital">` + p.capitalUF + `</b>
                             <small class="bandSub"><strong>` + p.badgeSub + `</strong><br>` + p.capitalLabel + `</small>
@@ -1632,6 +1705,7 @@
                                 </div>
                                 <div class="cardFacePrice">
                                     <div class="cardFacePriceValue">` + p.priceMonth + `</div>
+                                    <div class="cardFacePriceUF">` + p.ufMonthText + `</div>
                                     <span class="cardFacePricePeriod">Valor mensual</span>
                                 </div>
                             </div>
@@ -1738,15 +1812,17 @@
             const plans = getHogarPlans();
             const planDef = plans.find(p => p.id === planId) || plans[0];
 
-            const isPro = planDef.planType === 'pro' || planId === 'hogar-pro';
-            const priceMonthNum = parseInt(planDef.rawPrice, 10) || (isPro ? 9490 : 7990);
-            const priceAnnualNum = priceMonthNum * 12;
+            const priceMonthNum = parseInt(planDef.rawPrice, 10) || 5170;
+            const priceAnnualNum = Math.round(planDef.ufAnnual * ufDelDia);
 
             sessionStorage.setItem('mhm_hogar_plan', JSON.stringify({
-                id: planId,
+                id: planDef.id,
                 name: planDef.title,
                 tier: planDef.tier,
                 capitalUF: planDef.capitalUF,
+                ufMonth: planDef.ufMonth,
+                ufAnnual: planDef.ufAnnual,
+                ufMonthText: planDef.ufMonthText,
                 price: priceMonthNum,
                 priceFormatted: planDef.priceMonth,
                 priceYear: planDef.priceYear,
@@ -1760,9 +1836,10 @@
                 occupancy: hogarProfile.occupancy,
                 securityConserje: hogarProfile.securityConserje,
                 securityPorton: hogarProfile.securityPorton,
-                plan: planId,
+                plan: planDef.id,
                 planName: planDef.title,
-                price: '$' + priceMonthNum.toLocaleString('es-CL'),
+                price: formatCLP(priceMonthNum),
+                priceUF: planDef.ufMonthText,
                 priceMonth: priceMonthNum,
                 priceAnnual: priceAnnualNum
             }));
@@ -1878,6 +1955,7 @@
 
             updateHogarProfile();
             renderPlans();
+            loadUfRate();
         });
     </script>
 </body>
