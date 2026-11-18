@@ -42,6 +42,173 @@
             font-size: 16px !important;
         }
 
+        /* Match cotizador.mhmseguros.cl/seguros/salud purple highlight tile & CTA */
+        .healthFinder {
+            border-radius: 24px !important;
+            border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08) !important;
+        }
+
+        .assuredField {
+            background: linear-gradient(135deg, #796BFC 0%, #503DE6 100%) !important;
+            border: 1.5px solid #6355F5 !important;
+            box-shadow: 0 8px 22px -4px rgba(121, 107, 252, 0.35) !important;
+        }
+        .assuredField:hover {
+            background: linear-gradient(135deg, #6E5FF8 0%, #4331D8 100%) !important;
+            box-shadow: 0 12px 26px -4px rgba(121, 107, 252, 0.45) !important;
+        }
+        .assuredField:hover .assured-badge-icon,
+        .assuredField.active .assured-badge-icon {
+            background: #FFFFFF !important;
+            color: #503DE6 !important;
+            border-color: #FFFFFF !important;
+        }
+        .assuredField:hover .assured-badge-icon i,
+        .assuredField.active .assured-badge-icon i {
+            color: #503DE6 !important;
+        }
+
+        .finderSubmit {
+            background: linear-gradient(135deg, #796BFC 0%, #503DE6 100%) !important;
+            box-shadow: 0 10px 26px -4px rgba(121, 107, 252, 0.45) !important;
+            border-radius: 18px !important;
+        }
+        .finderSubmit:hover:not(:disabled) {
+            box-shadow: 0 16px 34px -4px rgba(121, 107, 252, 0.55) !important;
+        }
+        .finderSubmit:hover:not(:disabled) .submit-icon-circle,
+        .finderSubmit:hover:not(:disabled) .submit-icon-circle i {
+            color: #503DE6 !important;
+        }
+        .finderSubmit:disabled {
+            background: #B8B0FE !important;
+            opacity: 0.78 !important;
+            box-shadow: none !important;
+        }
+
+        .assuredPanel-close {
+            background: transparent !important;
+            border: none !important;
+            font-size: 1.2rem;
+            color: #94A3B8 !important;
+            cursor: pointer;
+            padding: 6px 10px;
+            min-width: 40px;
+            min-height: 40px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none !important;
+        }
+        .assuredPanel-close:hover {
+            background: #F1F5F9 !important;
+            color: #0F172A !important;
+        }
+
+        /* Results Banner & Controls matching Salud */
+        .resultsBanner {
+            position: relative;
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 55%, rgba(121, 107, 252, 0.75) 100%) !important;
+        }
+        .resultsBanner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2ED9C3 0%, #796BFC 50%, #503DE6 100%);
+        }
+        .resultProfile #btnEditProfile,
+        .toolPill.active,
+        .btn-advisor-mini {
+            background: #2ED9C3 !important;
+            border-color: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 6px 16px -3px rgba(46, 217, 195, 0.4) !important;
+        }
+        .resultProfile #btnEditProfile:hover,
+        .btn-advisor-mini:hover {
+            background: #22C4AF !important;
+        }
+
+        /* Product Cards matching Salud design */
+        .healthPolicyCard {
+            border: 1.5px solid rgba(121, 107, 252, 0.28) !important;
+            border-radius: 24px !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+        }
+        .healthPolicyCard:hover {
+            border-color: rgba(121, 107, 252, 0.5) !important;
+            box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.12) !important;
+        }
+        .policyBand.band-individual,
+        .policyBand.band-familiar {
+            background: linear-gradient(155deg, #796BFC 0%, #503DE6 100%) !important;
+        }
+        .policyBand .healthMark {
+            width: 84px !important;
+            height: 48px !important;
+            border-radius: 12px !important;
+            background: #FFFFFF !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14) !important;
+            margin: 10px 0 !important;
+        }
+        .policyBand .healthMark i {
+            color: #503DE6 !important;
+            font-size: 22px !important;
+        }
+        .badge-best-match {
+            background: #0F172A !important;
+            color: #FFFFFF !important;
+        }
+        .badge-affinity {
+            background: rgba(46, 217, 195, 0.16) !important;
+            color: #0D9488 !important;
+        }
+        .benefitItem-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            background: rgba(46, 217, 195, 0.16);
+            color: #0D9488;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 11px;
+        }
+        .benefitItem i {
+            color: #0D9488 !important;
+            font-size: 11px !important;
+        }
+        .btn-details-toggle {
+            background: #2ED9C3 !important;
+            border: none !important;
+            color: #FFFFFF !important;
+            min-height: 44px;
+            padding: 11px 22px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 6px 18px -3px rgba(46, 217, 195, 0.45) !important;
+        }
+        .btn-details-toggle:hover {
+            background: #22C4AF !important;
+            transform: translateY(-1px);
+        }
+        .btn-details-toggle i {
+            color: #FFFFFF !important;
+        }
+        .btn-contratar-action {
+            background: linear-gradient(135deg, #796BFC 0%, #503DE6 100%) !important;
+            min-height: 44px;
+            border-radius: 12px !important;
+        }
+
         /* Property type selection buttons */
         .property-type-pill-group {
             display: flex;
@@ -58,8 +225,9 @@
             cursor: pointer;
             transition: all 0.2s ease;
             border: 1.5px solid #CBD5E1;
-            background: #FFFFFF;
-            color: #475569;
+            background: #FFFFFF !important;
+            color: #475569 !important;
+            box-shadow: none !important;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -67,7 +235,7 @@
         }
         .prop-type-btn:hover {
             border-color: #94A3B8;
-            background: #F8FAFC;
+            background: #F8FAFC !important;
         }
         .prop-type-btn.active {
             border-color: #796BFC !important;
@@ -218,6 +386,14 @@
             }
             .healthFinder .finderFields .submit-col {
                 grid-column: auto !important;
+            }
+            .finder-tile,
+            .finderSubmit {
+                min-height: 80px !important;
+                height: 80px !important;
+            }
+            .cardTopRow {
+                grid-template-columns: 200px 1fr !important;
             }
         }
 
@@ -485,7 +661,7 @@
                                         <strong><i class="fa-solid fa-house-circle-check"></i> Características del Inmueble</strong>
                                         <p>Personaliza las condiciones de tu vivienda para afinar las coberturas.</p>
                                     </div>
-                                    <button type="button" onclick="closePanel()" style="background: none; border: none; font-size: 1.2rem; color: #94A3B8; cursor: pointer; padding: 4px 8px;" aria-label="Cerrar">
+                                    <button type="button" class="assuredPanel-close" onclick="closePanel()" aria-label="Cerrar">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
@@ -554,7 +730,7 @@
 
         <!-- PANTALLA DE RESULTADOS AURORA -->
         <section class="healthResults" id="resultados">
-            <div class="resultsBanner" style="background: linear-gradient(135deg, #0A0E1A 0%, #171E38 50%, #0F172A 100%) !important;">
+            <div class="resultsBanner">
                 <div class="container">
                     <span class="resultsKicker"><i class="fa-solid fa-house-chimney"></i> COTIZACIÓN DE SEGUROS DE HOGAR</span>
                     <h2>Opciones pensadas para tu inmueble</h2>
@@ -1435,7 +1611,7 @@
                         <div class="policyBand ` + p.bandTheme + `">
                             <span class="bandTier">` + p.tier + `</span>
                             <div class="healthMark" title="MHM Corredores de Seguros">
-                                <i class="fa-solid ` + (p.planType === 'pro' ? 'fa-shield-halved' : 'fa-house-chimney') + `" style="font-size: 26px; color: #FFFFFF;"></i>
+                                <i class="fa-solid ` + (p.planType === 'pro' ? 'fa-shield-halved' : 'fa-house-chimney') + `"></i>
                             </div>
                             <b class="bandCapital">` + p.capitalUF + `</b>
                             <small class="bandSub"><strong>` + p.badgeSub + `</strong><br>` + p.capitalLabel + `</small>
@@ -1464,7 +1640,7 @@
                             <div class="healthBenefitsGrid">
                                 ` + p.quickBenefits.map(b => `
                                     <div class="benefitItem">
-                                        <i class="fa-solid fa-check"></i>
+                                        <span class="benefitItem-icon"><i class="fa-solid fa-check"></i></span>
                                         <span>` + b + `</span>
                                     </div>
                                 `).join('') + `
