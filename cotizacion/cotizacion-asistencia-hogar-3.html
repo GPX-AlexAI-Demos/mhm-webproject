@@ -15,8 +15,11 @@
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
 
     <style>
-        html, body, .wizard-shell, .wizard-shell * {
+        html, body, .wizard-shell {
             font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
             box-sizing: border-box;
         }
         body.bg-body {
@@ -630,7 +633,7 @@
                             <strong id="ckRiesgoDir">—</strong>
                         </div>
                         <div class="kv-item">
-                            <small>Comuna / Ciudad</small>
+                            <small>Región / Comuna</small>
                             <strong id="ckRiesgoComunaCiudad">—</strong>
                         </div>
                         <div class="kv-item">
@@ -986,7 +989,7 @@
             document.getElementById('ckPropType').textContent = propLabel;
             const dirText = [riesgo.calle, riesgo.numero, riesgo.depto].filter(Boolean).join(' ') || hogarData.address || '—';
             document.getElementById('ckRiesgoDir').textContent = dirText;
-            document.getElementById('ckRiesgoComunaCiudad').textContent = [riesgo.comuna || hogarData.comuna, riesgo.ciudad || 'Santiago'].filter(Boolean).join(', ');
+            document.getElementById('ckRiesgoComunaCiudad').textContent = [riesgo.region, riesgo.comuna || hogarData.comuna].filter(Boolean).join(', ');
 
             renderKVList('ckContratanteList', [
                 ['RUT', contratante.rut],
@@ -994,7 +997,7 @@
                 ['Correo electrónico', contratante.email],
                 ['Teléfono', contratante.telefono],
                 ['Dirección', contratante.direccion],
-                ['Comuna / Ciudad', [contratante.comuna, contratante.ciudad].filter(Boolean).join(', ')]
+                ['Región / Comuna', [contratante.region, contratante.comuna].filter(Boolean).join(', ')]
             ]);
 
             renderKVList('ckTitularList', [
@@ -1004,7 +1007,7 @@
                 ['Correo electrónico', titular.email],
                 ['Teléfono', titular.telefono],
                 ['Dirección', titular.direccion],
-                ['Comuna / Ciudad', [titular.comuna, titular.ciudad].filter(Boolean).join(', ')]
+                ['Región / Comuna', [titular.region, titular.comuna].filter(Boolean).join(', ')]
             ]);
 
             const cap = 'UF ' + activePlan.capitalUF;

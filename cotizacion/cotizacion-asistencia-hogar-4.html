@@ -15,8 +15,11 @@
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
 
     <style>
-        html, body, .wizard-shell, .wizard-shell * {
+        html, body, .wizard-shell {
             font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
             box-sizing: border-box;
         }
         body.bg-body {
@@ -245,30 +248,36 @@
             box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
         }
         .rich-field-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            background: rgba(121, 107, 252, 0.08);
-            color: #796BFC;
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            color: #64748B;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
             flex-shrink: 0;
         }
         .rich-field.is-error .rich-field-icon {
-            background: rgba(220, 38, 38, 0.1);
             color: #DC2626;
         }
-        .rich-field input {
+        .rich-field input,
+        .rich-field select {
             width: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-size: 16px;
-            font-weight: 600;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            font-size: 15px;
+            font-weight: 500;
             color: #0F172A;
             padding: 6px 0;
+        }
+        .rich-field select {
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13.5px;
+            font-weight: 600;
         }
         .rich-field.is-readonly input {
             color: #475569;
@@ -551,20 +560,20 @@
 
                     <div class="form-row-2">
                         <div>
+                            <label class="field-label" for="tRegion">Región <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-tRegion">
+                                <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
+                                <select id="tRegion"></select>
+                            </div>
+                            <span class="field-error-msg" id="err-tRegion">Selecciona una región.</span>
+                        </div>
+                        <div>
                             <label class="field-label" for="tComuna">Comuna <span class="req">*</span></label>
                             <div class="rich-field" id="wrap-tComuna">
                                 <span class="rich-field-icon"><i class="fa-regular fa-building"></i></span>
-                                <input type="text" id="tComuna" placeholder="Ej: Providencia">
+                                <select id="tComuna"></select>
                             </div>
-                            <span class="field-error-msg" id="err-tComuna">Este campo es obligatorio.</span>
-                        </div>
-                        <div>
-                            <label class="field-label" for="tCiudad">Ciudad <span class="req">*</span></label>
-                            <div class="rich-field" id="wrap-tCiudad">
-                                <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
-                                <input type="text" id="tCiudad" placeholder="Ej: Santiago" value="Santiago">
-                            </div>
-                            <span class="field-error-msg" id="err-tCiudad">Este campo es obligatorio.</span>
+                            <span class="field-error-msg" id="err-tComuna">Selecciona una comuna.</span>
                         </div>
                     </div>
 
@@ -601,20 +610,20 @@
 
                         <div class="form-row-2">
                             <div>
+                                <label class="field-label" for="rRegion">Región <span class="req">*</span></label>
+                                <div class="rich-field" id="wrap-rRegion">
+                                    <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
+                                    <select id="rRegion"></select>
+                                </div>
+                                <span class="field-error-msg" id="err-rRegion">Selecciona una región.</span>
+                            </div>
+                            <div>
                                 <label class="field-label" for="rComuna">Comuna <span class="req">*</span></label>
                                 <div class="rich-field" id="wrap-rComuna">
                                     <span class="rich-field-icon"><i class="fa-regular fa-building"></i></span>
-                                    <input type="text" id="rComuna" placeholder="Ej: Providencia">
+                                    <select id="rComuna"></select>
                                 </div>
-                                <span class="field-error-msg" id="err-rComuna">Este campo es obligatorio.</span>
-                            </div>
-                            <div>
-                                <label class="field-label" for="rCiudad">Ciudad <span class="req">*</span></label>
-                                <div class="rich-field" id="wrap-rCiudad">
-                                    <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
-                                    <input type="text" id="rCiudad" placeholder="Ej: Santiago" value="Santiago">
-                                </div>
-                                <span class="field-error-msg" id="err-rCiudad">Este campo es obligatorio.</span>
+                                <span class="field-error-msg" id="err-rComuna">Selecciona una comuna.</span>
                             </div>
                         </div>
                     </div>
@@ -708,6 +717,7 @@
         </div>
     </footer>
 
+    <script src="../js/chile-regiones.js"></script>
     <script>
         function formatRut(raw) {
             const clean = raw.replace(/[^0-9kK]/g, '').toUpperCase();
@@ -745,8 +755,7 @@
                 if (c.email) document.getElementById('tEmail').value = c.email;
                 if (c.telefono) document.getElementById('tTelefono').value = c.telefono;
                 if (c.direccion) document.getElementById('tDireccion').value = c.direccion;
-                if (c.comuna) document.getElementById('tComuna').value = c.comuna;
-                if (c.ciudad) document.getElementById('tCiudad').value = c.ciudad;
+                window.initRegionComunaSelects('tRegion', 'tComuna', c.region || '', c.comuna || '');
                 validateAll(false);
             } catch (e) {}
         }
@@ -769,12 +778,12 @@
                 ['tEmail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('tEmail').value.trim())],
                 ['tTelefono', document.getElementById('tTelefono').value.trim().replace(/\D/g, '').length >= 8],
                 ['tDireccion', document.getElementById('tDireccion').value.trim().length >= 4],
+                ['tRegion', document.getElementById('tRegion').value.trim().length >= 2],
                 ['tComuna', document.getElementById('tComuna').value.trim().length >= 2],
-                ['tCiudad', document.getElementById('tCiudad').value.trim().length >= 2],
                 ['rCalle', document.getElementById('rCalle').value.trim().length >= 3],
                 ['rNumero', document.getElementById('rNumero').value.trim().length >= 1],
-                ['rComuna', document.getElementById('rComuna').value.trim().length >= 2],
-                ['rCiudad', document.getElementById('rCiudad').value.trim().length >= 2]
+                ['rRegion', document.getElementById('rRegion').value.trim().length >= 2],
+                ['rComuna', document.getElementById('rComuna').value.trim().length >= 2]
             ];
 
             let allOk = true;
@@ -818,6 +827,8 @@
             document.getElementById('vHasta').value = formatDateDMY(nextYear);
 
             // Pre-fill Riesgo a Asegurar from Step 1
+            let defaultRRegion = '';
+            let defaultRComuna = '';
             const dataStr = sessionStorage.getItem('mhm_hogar_data');
             if (dataStr) {
                 try {
@@ -826,11 +837,13 @@
                     if (parsed.calle) document.getElementById('rCalle').value = parsed.calle;
                     if (parsed.numero) document.getElementById('rNumero').value = parsed.numero;
                     if (parsed.depto) document.getElementById('rDepto').value = parsed.depto;
-                    if (data.comuna) document.getElementById('rComuna').value = data.comuna;
+                    if (data.comuna) defaultRComuna = data.comuna;
                 } catch (e) {}
             }
 
             // Restore saved titular/riesgo if user navigated back
+            let defaultTRegion = '';
+            let defaultTComuna = '';
             const savedT = sessionStorage.getItem('mhm_hogar_titular');
             if (savedT) {
                 try {
@@ -843,8 +856,8 @@
                     if (t.email) document.getElementById('tEmail').value = t.email;
                     if (t.telefono) document.getElementById('tTelefono').value = t.telefono;
                     if (t.direccion) document.getElementById('tDireccion').value = t.direccion;
-                    if (t.comuna) document.getElementById('tComuna').value = t.comuna;
-                    if (t.ciudad) document.getElementById('tCiudad').value = t.ciudad;
+                    if (t.region) defaultTRegion = t.region;
+                    if (t.comuna) defaultTComuna = t.comuna;
                 } catch (e) {}
             }
             const savedR = sessionStorage.getItem('mhm_hogar_riesgo');
@@ -854,16 +867,19 @@
                     if (r.calle) document.getElementById('rCalle').value = r.calle;
                     if (r.numero) document.getElementById('rNumero').value = r.numero;
                     if (r.depto !== undefined) document.getElementById('rDepto').value = r.depto;
-                    if (r.comuna) document.getElementById('rComuna').value = r.comuna;
-                    if (r.ciudad) document.getElementById('rCiudad').value = r.ciudad;
+                    if (r.region) defaultRRegion = r.region;
+                    if (r.comuna) defaultRComuna = r.comuna;
                 } catch (e) {}
             }
+
+            window.initRegionComunaSelects('tRegion', 'tComuna', defaultTRegion, defaultTComuna);
+            window.initRegionComunaSelects('rRegion', 'rComuna', defaultRRegion, defaultRComuna);
 
             document.getElementById('tRut').addEventListener('input', (e) => {
                 e.target.value = formatRut(e.target.value);
             });
 
-            document.querySelectorAll('#titularRiesgoForm input:not([readonly])').forEach(inp => {
+            document.querySelectorAll('#titularRiesgoForm input:not([readonly]), #titularRiesgoForm select').forEach(inp => {
                 inp.addEventListener('blur', () => validateAll(true));
             });
 
@@ -885,16 +901,16 @@
                     email: document.getElementById('tEmail').value.trim(),
                     telefono: document.getElementById('tTelefono').value.trim(),
                     direccion: document.getElementById('tDireccion').value.trim(),
-                    comuna: document.getElementById('tComuna').value.trim(),
-                    ciudad: document.getElementById('tCiudad').value.trim()
+                    region: document.getElementById('tRegion').value.trim(),
+                    comuna: document.getElementById('tComuna').value.trim()
                 };
 
                 const riesgo = {
                     calle: document.getElementById('rCalle').value.trim(),
                     numero: document.getElementById('rNumero').value.trim(),
                     depto: document.getElementById('rDepto').value.trim(),
-                    comuna: document.getElementById('rComuna').value.trim(),
-                    ciudad: document.getElementById('rCiudad').value.trim()
+                    region: document.getElementById('rRegion').value.trim(),
+                    comuna: document.getElementById('rComuna').value.trim()
                 };
 
                 const vigencia = {

@@ -15,8 +15,11 @@
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
 
     <style>
-        html, body, .wizard-shell, .wizard-shell * {
+        html, body, .wizard-shell {
             font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
             box-sizing: border-box;
         }
         body.bg-body {
@@ -187,19 +190,17 @@
             box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
         }
         .rich-field-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            background: rgba(121, 107, 252, 0.08);
-            color: #796BFC;
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            color: #64748B;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
             flex-shrink: 0;
         }
         .rich-field.is-error .rich-field-icon {
-            background: rgba(220, 38, 38, 0.1);
             color: #DC2626;
         }
         .rich-field input,
@@ -208,10 +209,17 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 16px;
-            font-weight: 600;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            font-size: 15px;
+            font-weight: 500;
             color: #0F172A;
             padding: 6px 0;
+        }
+        .rich-field select {
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13.5px;
+            font-weight: 600;
         }
         .field-error-msg {
             display: none;
@@ -527,20 +535,20 @@
 
                     <div class="form-row-2">
                         <div>
+                            <label class="field-label" for="cRegion">Región <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-cRegion">
+                                <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
+                                <select id="cRegion"></select>
+                            </div>
+                            <span class="field-error-msg" id="err-cRegion">Selecciona una región.</span>
+                        </div>
+                        <div>
                             <label class="field-label" for="cComuna">Comuna <span class="req">*</span></label>
                             <div class="rich-field" id="wrap-cComuna">
                                 <span class="rich-field-icon"><i class="fa-regular fa-building"></i></span>
-                                <input type="text" id="cComuna" placeholder="Ej: Providencia">
+                                <select id="cComuna"></select>
                             </div>
-                            <span class="field-error-msg" id="err-cComuna">Este campo es obligatorio.</span>
-                        </div>
-                        <div>
-                            <label class="field-label" for="cCiudad">Ciudad <span class="req">*</span></label>
-                            <div class="rich-field" id="wrap-cCiudad">
-                                <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
-                                <input type="text" id="cCiudad" placeholder="Ej: Santiago" value="Santiago">
-                            </div>
-                            <span class="field-error-msg" id="err-cCiudad">Este campo es obligatorio.</span>
+                            <span class="field-error-msg" id="err-cComuna">Selecciona una comuna.</span>
                         </div>
                     </div>
 
@@ -569,17 +577,23 @@
                 <div class="wizard-side-card">
                     <h3 class="side-title">Resumen de Selección</h3>
                     <div class="summary-mini-box">
-                        <div class="summary-mini-plan" id="sidePlanName">Hogar contenido básico</div>
-                        <div style="font-size: 12.5px; color: #64748B;">BCI Seguros Generales S.A. · Capital <strong id="sideCapital">UF 100</strong></div>
-                        <div>
-                            <span class="summary-mini-price" id="sidePriceCLP">$5.170</span>
-                            <span style="font-size: 13px; color: #64748B; font-weight: 600;">/ mes</span>
-                            <div class="summary-mini-uf" id="sidePriceUF">0,125 UF al mes</div>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+                            <div>
+                                <div class="summary-mini-plan" id="sidePlanName">Hogar contenido básico</div>
+                                <div style="font-size: 12px; color: #64748B;">BCI Seguros · <strong id="sideCapital">UF 100</strong></div>
+                            </div>
+                            <div style="text-align:right; flex-shrink:0;">
+                                <div><span class="summary-mini-price" id="sidePriceCLP" style="font-size:18px; color:#796BFC;">$5.170</span> <span style="font-size: 11px; color: #64748B;">/ mes</span></div>
+                                <div class="summary-mini-uf" id="sidePriceUF" style="font-size:11px; color:#0F172A;">0,125 UF al mes</div>
+                            </div>
                         </div>
-                        <button type="button" class="btn-ver-coberturas" onclick="openCovModal()">Ver Coberturas</button>
-                        <div class="proteccion-box">
-                            <i class="fa-solid fa-heart-pulse" style="font-size: 18px; color: #10B981;"></i>
-                            <span>Póliza oficial BCI Seguros + Asistencia Salud incluida.</span>
+                        <button type="button" class="btn-ver-coberturas" onclick="openCovModal()" style="display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+                            <i class="fa-solid fa-list-ul"></i> Ver Coberturas
+                        </button>
+                        <div class="proteccion-box" style="flex-direction:column; text-align:center; gap:6px;">
+                            <i class="fa-solid fa-heart-pulse" style="font-size: 20px; color: #10B981;"></i>
+                            <strong style="color:#0F172A; font-size:13px;">Protección Activa</strong>
+                            <span style="font-size:12px; color:#64748B; font-weight:500;">Estás a pocos pasos de asegurar tu hogar.</span>
                         </div>
                     </div>
                 </div>
@@ -589,22 +603,38 @@
 
     <!-- Modal Coberturas -->
     <div class="cov-modal-backdrop" id="covModal" onclick="if(event.target===this) closeCovModal()">
-        <div class="cov-modal-box">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h3 style="margin:0; font-size:1.2rem; font-weight:800; color:#0F172A;">Coberturas de tu Plan BCI</h3>
-                <button type="button" onclick="closeCovModal()" style="border:none; background:#F1F5F9; border-radius:8px; width:36px; height:36px; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        <div class="cov-modal-box" style="max-width:780px; padding:28px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:18px;">
+                <div>
+                    <h3 id="covModalTitle" style="margin:0 0 4px; font-size:1.35rem; font-weight:800; color:#0F172A;">Coberturas: Hogar contenido básico</h3>
+                    <p style="margin:0; font-size:13px; color:#64748B;">Detalle de coberturas CMF, límites y prima neta anual.</p>
+                </div>
+                <button type="button" onclick="closeCovModal()" aria-label="Cerrar" style="border:2px solid #F59E0B; background:#FFFFFF !important; color:#0D9488 !important; border-radius:999px; width:38px; height:38px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; box-shadow:none !important;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            <ul style="padding-left:18px; margin:0; display:flex; flex-direction:column; gap:8px; font-size:13.5px; color:#334155;">
-                <li>Incendio contenido (POL 1 2017 0129)</li>
-                <li>Daños materiales o incendio por huelga, desorden popular o terrorismo (CAD 1 2017 0135)</li>
-                <li>Saqueo y daños materiales por saqueo durante huelga o desorden popular (CAD 1 2017 0138)</li>
-                <li>Incendios por fenómenos de la naturaleza, excepto sismo (CAD 1 2017 0137)</li>
-                <li>Daños materiales causados por peso de nieve o hielo (CAD 1 2020 0223)</li>
-                <li>Daños físicos por rotura de cañerías o desbordamiento de estanques matrices (CAD 1 2017 0132)</li>
-                <li>Daños materiales causados por explosión (CAD 1 2017 0136)</li>
-                <li>Daños físicos causados por vehículos motorizados y aeronaves (CAD 1 2017 0133 / CAD 1 2017 0131)</li>
-                <li><strong>Asistencia Salud:</strong> Sala de urgencia en 2ª capa vía i-med (Condiciones Particulares)</li>
-            </ul>
+            <div style="border:1px solid #E2E8F0; border-radius:14px; overflow-x:auto;">
+                <table style="width:100%; border-collapse:collapse; min-width:520px; font-size:13px;">
+                    <thead>
+                        <tr style="background:#0F3557; color:#FFFFFF;">
+                            <th style="padding:13px 16px; text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em;">Cobertura</th>
+                            <th style="padding:13px 16px; text-align:center; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em;">Registro CMF</th>
+                            <th style="padding:13px 16px; text-align:center; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em;">Límite</th>
+                        </tr>
+                    </thead>
+                    <tbody id="covModalBody" style="color:#0F172A;">
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Incendio contenido</td><td style="padding:12px 16px; text-align:center;">POL 1 2017 0129</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Huelga, desorden popular o terrorismo</td><td style="padding:12px 16px; text-align:center;">CAD 1 2017 0135</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Saqueo durante huelga o desorden popular</td><td style="padding:12px 16px; text-align:center;">CAD 1 2017 0138</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Fenómenos de la naturaleza (excepto sismo)</td><td style="padding:12px 16px; text-align:center;">CAD 1 2017 0137</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Daños por peso de nieve o hielo</td><td style="padding:12px 16px; text-align:center;">CAD 1 2020 0223</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Rotura de cañerías o estanques matrices</td><td style="padding:12px 16px; text-align:center;">CAD 1 2017 0132</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Daños materiales por explosión</td><td style="padding:12px 16px; text-align:center;">CAD 1 2017 0136</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;"><td style="padding:12px 16px;">Vehículos motorizados y aeronaves</td><td style="padding:12px 16px; text-align:center;">CAD 1 2017 0133/0131</td><td style="padding:12px 16px; text-align:center; font-weight:700;" class="covCapCell">UF 100</td></tr>
+                        <tr><td style="padding:12px 16px;">Asistencia Salud (Sala de urgencia 2ª capa vía i-med)</td><td style="padding:12px 16px; text-align:center;">Cond. Particulares</td><td style="padding:12px 16px; text-align:center; font-weight:700; color:#0D9488;">Incluida</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -648,6 +678,7 @@
         </div>
     </footer>
 
+    <script src="../js/chile-regiones.js"></script>
     <script>
         function formatRut(raw) {
             const clean = raw.replace(/[^0-9kK]/g, '').toUpperCase();
@@ -697,8 +728,8 @@
             const emailVal = document.getElementById('cEmail').value.trim();
             const telVal = document.getElementById('cTelefono').value.trim();
             const dirVal = document.getElementById('cDireccion').value.trim();
+            const regVal = document.getElementById('cRegion').value.trim();
             const comVal = document.getElementById('cComuna').value.trim();
-            const ciuVal = document.getElementById('cCiudad').value.trim();
 
             const checks = [
                 ['cRut', isValidRut(rutVal)],
@@ -708,8 +739,8 @@
                 ['cEmail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)],
                 ['cTelefono', telVal.replace(/\D/g, '').length >= 8],
                 ['cDireccion', dirVal.length >= 4],
-                ['cComuna', comVal.length >= 2],
-                ['cCiudad', ciuVal.length >= 2]
+                ['cRegion', regVal.length >= 2],
+                ['cComuna', comVal.length >= 2]
             ];
 
             let allOk = true;
@@ -733,9 +764,13 @@
             document.getElementById('sideCapital').textContent = plan.capitalUF || 'UF 100';
             document.getElementById('sidePriceCLP').textContent = '$' + (parseInt(plan.price, 10) || 5170).toLocaleString('es-CL');
             document.getElementById('sidePriceUF').textContent = plan.ufMonthText || '0,125 UF al mes';
+            document.getElementById('covModalTitle').textContent = 'Coberturas: ' + plan.name;
+            document.querySelectorAll('.covCapCell').forEach(el => { el.textContent = plan.capitalUF || 'UF 100'; });
 
-            // Pre-fill address/comuna from step 1 if user hasn't filled contractor yet
+            // Pre-fill address/region/comuna from saved or step 1
             const savedC = sessionStorage.getItem('mhm_hogar_contratante');
+            let defaultRegion = '';
+            let defaultComuna = data.comuna || '';
             if (savedC) {
                 try {
                     const c = JSON.parse(savedC);
@@ -746,20 +781,20 @@
                     if (c.email) document.getElementById('cEmail').value = c.email;
                     if (c.telefono) document.getElementById('cTelefono').value = c.telefono;
                     if (c.direccion) document.getElementById('cDireccion').value = c.direccion;
-                    if (c.comuna) document.getElementById('cComuna').value = c.comuna;
-                    if (c.ciudad) document.getElementById('cCiudad').value = c.ciudad;
+                    if (c.region) defaultRegion = c.region;
+                    if (c.comuna) defaultComuna = c.comuna;
                 } catch (e) {}
             } else {
                 if (data.address) document.getElementById('cDireccion').value = data.address;
-                if (data.comuna) document.getElementById('cComuna').value = data.comuna;
             }
+            window.initRegionComunaSelects('cRegion', 'cComuna', defaultRegion, defaultComuna);
 
             const rutInput = document.getElementById('cRut');
             rutInput.addEventListener('input', (e) => {
                 e.target.value = formatRut(e.target.value);
             });
 
-            document.querySelectorAll('#contratanteForm input').forEach(inp => {
+            document.querySelectorAll('#contratanteForm input, #contratanteForm select').forEach(inp => {
                 inp.addEventListener('blur', () => {
                     validateAll(true);
                 });
@@ -782,8 +817,8 @@
                     email: document.getElementById('cEmail').value.trim(),
                     telefono: document.getElementById('cTelefono').value.trim(),
                     direccion: document.getElementById('cDireccion').value.trim(),
-                    comuna: document.getElementById('cComuna').value.trim(),
-                    ciudad: document.getElementById('cCiudad').value.trim()
+                    region: document.getElementById('cRegion').value.trim(),
+                    comuna: document.getElementById('cComuna').value.trim()
                 };
                 sessionStorage.setItem('mhm_hogar_contratante', JSON.stringify(payload));
                 window.location.href = 'cotizacion-asistencia-hogar-4.html';
