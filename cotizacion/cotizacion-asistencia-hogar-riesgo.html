@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riesgo a Asegurar y Vigencia | Seguro de Hogar | MHM Corredores</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1785907847" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/mobile-first.css">
+    <link rel="stylesheet" href="../css/style.css?v=1789287000">
+    <link rel="stylesheet" href="../css/style-quote.css?v=1789287000">
+    <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
+
+    <style>
+        html, body, .wizard-shell {
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body.bg-body {
+            background: #F8FAFC;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .wizard-shell {
+            max-width: 1334px;
+            margin: 0 auto;
+            padding: 24px 16px 64px;
+        }
+        .wizard-status-wrap {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .wizard-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: #334155;
+            text-transform: uppercase;
+        }
+        .wizard-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #2ED9C3;
+            box-shadow: 0 0 0 4px rgba(46, 217, 195, 0.2);
+        }
+        .wizard-header-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+            padding: 24px 20px 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+        }
+        .wizard-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .wizard-eyebrow {
+            font-size: 15px;
+            font-weight: 700;
+            color: #796BFC;
+        }
+        .wizard-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #796BFC;
+            text-decoration: none;
+        }
+        .wizard-back-link:hover {
+            text-decoration: underline;
+        }
+        .wizard-progress-track {
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: #F1F5F9;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+        .wizard-progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #2ED9C3 0%, #796BFC 100%);
+        }
+        .wizard-main-title {
+            margin: 0 0 6px;
+            font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(90deg, #0D9488 0%, #796BFC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .wizard-subtitle {
+            margin: 0;
+            font-size: 15px;
+            color: #64748B;
+        }
+        .wizard-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+        .wizard-form-card {
+            width: 100%;
+            max-width: 580px;
+            background: #FFFFFF;
+            border: 1px solid #F1F5F9;
+            border-radius: 20px;
+            padding: 28px 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 40px -15px rgba(15, 23, 42, 0.08);
+        }
+        .wizard-form-card::before,
+        .wizard-side-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #796BFC 0%, #2ED9C3 100%);
+        }
+        .wizard-card-title {
+            margin: 0 0 18px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #796BFC;
+        }
+        .section-divider {
+            margin: 24px 0 16px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0;
+        }
+        .section-subhead {
+            margin: 0 0 12px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0F172A;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-subhead i {
+            color: #796BFC;
+        }
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .form-row-1 {
+            margin-bottom: 16px;
+        }
+        .field-label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+        .field-label .req {
+            color: #DC2626;
+        }
+        .rich-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 46px;
+            padding: 4px 12px;
+            border-radius: 10px;
+            border: 1.5px solid #CBD5E1;
+            background: #FFFFFF;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .rich-field:focus-within {
+            border-color: #2ED9C3;
+            box-shadow: 0 0 0 3px rgba(46, 217, 195, 0.16);
+        }
+        .rich-field.is-readonly {
+            background: #F1F5F9;
+            border-color: #CBD5E1;
+            cursor: not-allowed;
+        }
+        .rich-field.is-error {
+            border-color: #DC2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+        .rich-field-icon {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            color: #64748B;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .rich-field.is-error .rich-field-icon {
+            color: #DC2626;
+        }
+        .rich-field input,
+        .rich-field select {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #0F172A;
+            padding: 6px 0;
+        }
+        .rich-field select {
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13.5px;
+            font-weight: 600;
+        }
+        .rich-field.is-readonly input {
+            color: #475569;
+            cursor: not-allowed;
+        }
+        .field-error-msg {
+            display: none;
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #DC2626;
+        }
+        .field-error-msg.visible {
+            display: block;
+        }
+        .vigencia-box {
+            border-radius: 14px;
+            border: 1.5px solid #E2E8F0;
+            background: #F8FAFC;
+            padding: 16px;
+        }
+        .vigencia-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #0D9488;
+            background: rgba(46, 217, 195, 0.16);
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+        .wizard-actions-end {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+        .btn-next-step {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 12px 28px;
+            border-radius: 999px;
+            border: none;
+            background: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(46, 217, 195, 0.3);
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .btn-next-step:hover:not(:disabled) {
+            background: #22C4AF !important;
+            transform: translateY(-1px);
+        }
+        .wizard-sidebar {
+            width: 100%;
+            max-width: 580px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .wizard-side-card {
+            background: #FFFFFF;
+            border: 1px solid #F1F5F9;
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.06);
+        }
+        .side-title {
+            margin: 0 0 16px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: #0EA5E9;
+            text-transform: uppercase;
+        }
+        .route-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .route-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #94A3B8;
+        }
+        .route-item.done { color: #10B981; }
+        .route-item.active { color: #796BFC; font-weight: 700; }
+        @media (min-width: 640px) {
+            .form-row-2 { grid-template-columns: 1fr 1fr; }
+            .btn-next-step { width: auto; }
+            .wizard-header-card { padding: 32px 36px; }
+            .wizard-form-card { padding: 34px 36px; }
+        }
+        @media (min-width: 1024px) {
+            .wizard-shell { padding: 32px 44px 72px; }
+            .wizard-grid {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 32px;
+            }
+            .wizard-sidebar {
+                width: 340px;
+                flex-shrink: 0;
+                position: sticky;
+                top: 96px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-body">
+    <div class="top-header-aurora">
+        <div class="container top-bar-flex">
+            <div class="top-info-group">
+                <a href="tel:+56961446652" class="top-link glass-hover"><i class="fa-solid fa-phone pulse-icon"></i> <span>+56 9 6144 6652</span></a>
+                <span class="divider-vertical"></span>
+                <a href="mailto:info@mhmseguros.cl" class="top-link glass-hover"><i class="fa-solid fa-envelope"></i> <span>info@mhmseguros.cl</span></a>
+            </div>
+            <div class="top-social-group">
+                <span class="social-label desktop-only">Conectar:</span>
+                <a href="https://www.facebook.com/profile.php?id=61559262527632&locale=es_LA" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/mhmseguros.cl" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="aurora-border-glow"></div>
+    </div>
+
+    <header class="site-header glass-navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <img src="../assets/img/logo-mhm-color.png" alt="MHM Corredores de Seguros" class="site-logo">
+            </a>
+            <div class="nav-actions">
+                <a href="../cotizacion/cotizacion.html" class="btn-aurora-gradient js-trigger-quote">
+                    <span>Cotizar seguro</span>
+                    <i class="fa-solid fa-arrow-right-long btn-icon-anim"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="wizard-shell">
+        <div class="wizard-status-wrap">
+            <span class="wizard-status-pill">
+                <span class="wizard-status-dot"></span> Cotización en Tiempo Real
+            </span>
+        </div>
+
+        <section class="wizard-header-card">
+            <div class="wizard-header-top">
+                <span class="wizard-eyebrow">Para Empezar</span>
+                <a href="cotizacion-asistencia-hogar-4.html" class="wizard-back-link">
+                    <i class="fa-solid fa-chevron-left"></i> Volver
+                </a>
+            </div>
+            <div class="wizard-progress-track">
+                <div class="wizard-progress-fill" style="width: 72%;"></div>
+            </div>
+            <h1 class="wizard-main-title" id="headerPlanTitle">Hogar contenido básico</h1>
+            <p class="wizard-subtitle">Confirma la dirección del inmueble asegurado y la vigencia de tu póliza.</p>
+        </section>
+
+        <div class="wizard-grid">
+            <section class="wizard-form-card">
+                <h2 class="wizard-card-title">Riesgo a Asegurar</h2>
+
+                <form id="riesgoForm" novalidate>
+                    <div class="form-row-2">
+                        <div>
+                            <label class="field-label" for="rCalle">Dirección de Riesgo (Calle) <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-rCalle">
+                                <span class="rich-field-icon"><i class="fa-solid fa-road"></i></span>
+                                <input type="text" id="rCalle" placeholder="Ej: Av. Providencia">
+                            </div>
+                            <span class="field-error-msg" id="err-rCalle">Este campo es obligatorio.</span>
+                        </div>
+                        <div>
+                            <label class="field-label" for="rNumero">N° <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-rNumero">
+                                <span class="rich-field-icon"><i class="fa-solid fa-hashtag"></i></span>
+                                <input type="text" id="rNumero" placeholder="Ej: 1234">
+                            </div>
+                            <span class="field-error-msg" id="err-rNumero">Este campo es obligatorio.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row-1">
+                        <label class="field-label" for="rDepto">Departamento (si aplica)</label>
+                        <div class="rich-field" id="wrap-rDepto">
+                            <span class="rich-field-icon"><i class="fa-solid fa-door-closed"></i></span>
+                            <input type="text" id="rDepto" placeholder="Ej: Dpto 402 (dejar vacío si es casa)">
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div>
+                            <label class="field-label" for="rRegion">Región <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-rRegion">
+                                <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
+                                <select id="rRegion"></select>
+                            </div>
+                            <span class="field-error-msg" id="err-rRegion">Selecciona una región.</span>
+                        </div>
+                        <div>
+                            <label class="field-label" for="rComuna">Comuna <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-rComuna">
+                                <span class="rich-field-icon"><i class="fa-regular fa-building"></i></span>
+                                <select id="rComuna"></select>
+                            </div>
+                            <span class="field-error-msg" id="err-rComuna">Selecciona una comuna.</span>
+                        </div>
+                    </div>
+
+                    <div class="section-divider">
+                        <h3 class="section-subhead"><i class="fa-solid fa-calendar-check"></i> Vigencia del Seguro</h3>
+                        <div class="vigencia-box">
+                            <span class="vigencia-badge"><i class="fa-solid fa-lock"></i> No editable · Vigencia anual (12 meses)</span>
+                            <div class="form-row-2" style="margin-bottom: 0;">
+                                <div>
+                                    <label class="field-label" for="vDesde">Desde (Día en curso)</label>
+                                    <div class="rich-field is-readonly">
+                                        <span class="rich-field-icon"><i class="fa-regular fa-calendar"></i></span>
+                                        <input type="text" id="vDesde" readonly tabindex="-1">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="field-label" for="vHasta">Hasta (12 meses)</label>
+                                    <div class="rich-field is-readonly">
+                                        <span class="rich-field-icon"><i class="fa-regular fa-calendar-check"></i></span>
+                                        <input type="text" id="vHasta" readonly tabindex="-1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wizard-actions-end">
+                        <button type="submit" class="btn-next-step">
+                            <span>Siguiente Paso</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <aside class="wizard-sidebar">
+                <div class="wizard-side-card">
+                    <h3 class="side-title">Ruta de Contratación</h3>
+                    <ul class="route-list">
+                        <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Selección de Cobertura</li>
+                        <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Revisión y Condiciones</li>
+                        <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Datos del Contratante</li>
+                        <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Datos del Asegurado Titular</li>
+                        <li class="route-item active"><i class="fa-solid fa-circle-dot"></i> Riesgo a Asegurar y Vigencia</li>
+                        <li class="route-item"><i class="fa-regular fa-circle"></i> Resumen de Selección (Checkout)</li>
+                        <li class="route-item"><i class="fa-regular fa-circle"></i> Protección Activa</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer-aurora">
+        <div class="footer-light-mesh"></div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <a href="../index.html" class="footer-logo">
+                        <img src="../assets/img/logo-mhm-blanco.png" alt="MHM Corredores de Seguros" class="footer-logo-img" style="max-width:180px;">
+                    </a>
+                    <p class="footer-tagline">Te ofrecemos el seguro ideal para ti. Somos tu intermediario de confianza.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">Productos</h4>
+                    <ul class="footer-links">
+                        <li><a href="cotizacion-1.html">Seguros de auto</a></li>
+                        <li><a href="cotizacion-salud-1.html">Vida y salud</a></li>
+                        <li><a href="cotizacion-asistencia-hogar-1.html">Seguros de hogar</a></li>
+                        <li><a href="cotizacion-mascota-nueva-1.html">Seguros para mascotas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">Contacto y Acceso</h4>
+                    <ul class="contact-list">
+                        <li><i class="fa-solid fa-phone"></i> <a href="tel:+56961446652">+56 9 6144 6652</a></li>
+                        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@mhmseguros.cl">info@mhmseguros.cl</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container bottom-flex">
+                <div class="copyright-text">&copy; 2026 MHM Corredores de Seguros. Todos los derechos reservados.</div>
+                <div class="legal-links">
+                    <a href="https://mhmseguros.cl/privacy-policy" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>
+                    <span class="divider">|</span>
+                    <a href="https://mhmseguros.cl/terms-and-conditions" target="_blank" rel="noopener noreferrer">Términos de Servicio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/chile-regiones.js"></script>
+    <script>
+        function formatDateDMY(d) {
+            return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
+        }
+
+        function parseAddressParts(fullAddr) {
+            const cleaned = (fullAddr || '').trim();
+            if (!cleaned) return { calle: '', numero: '', depto: '' };
+            const parts = cleaned.split(',');
+            const main = (parts[0] || '').trim();
+            const depto = parts.slice(1).join(',').trim();
+            const matchNum = main.match(/^(.*?)\s+(\d+[A-Za-z]?)$/);
+            if (matchNum) {
+                return { calle: matchNum[1].trim(), numero: matchNum[2].trim(), depto };
+            }
+            return { calle: main, numero: '', depto };
+        }
+
+        function setFieldState(id, valid) {
+            const wrap = document.getElementById('wrap-' + id);
+            const err = document.getElementById('err-' + id);
+            if (wrap) wrap.classList.toggle('is-error', !valid);
+            if (err) err.classList.toggle('visible', !valid);
+            return valid;
+        }
+
+        function validateAll(showErrors) {
+            const checks = [
+                ['rCalle', document.getElementById('rCalle').value.trim().length >= 3],
+                ['rNumero', document.getElementById('rNumero').value.trim().length >= 1],
+                ['rRegion', document.getElementById('rRegion').value.trim().length >= 2],
+                ['rComuna', document.getElementById('rComuna').value.trim().length >= 2]
+            ];
+            let allOk = true;
+            checks.forEach(([id, ok]) => {
+                if (!ok) allOk = false;
+                if (showErrors) setFieldState(id, ok);
+            });
+            return allOk;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const planStr = sessionStorage.getItem('mhm_hogar_plan');
+            let plan = { name: 'Hogar contenido básico' };
+            try { if (planStr) plan = { ...plan, ...JSON.parse(planStr) }; } catch (e) {}
+            document.getElementById('headerPlanTitle').textContent = plan.name;
+
+            const today = new Date();
+            const nextYear = new Date(today);
+            nextYear.setFullYear(today.getFullYear() + 1);
+            document.getElementById('vDesde').value = formatDateDMY(today);
+            document.getElementById('vHasta').value = formatDateDMY(nextYear);
+
+            let defaultRRegion = '';
+            let defaultRComuna = '';
+            const dataStr = sessionStorage.getItem('mhm_hogar_data');
+            if (dataStr) {
+                try {
+                    const data = JSON.parse(dataStr);
+                    const parsed = parseAddressParts(data.address);
+                    if (parsed.calle) document.getElementById('rCalle').value = parsed.calle;
+                    if (parsed.numero) document.getElementById('rNumero').value = parsed.numero;
+                    if (parsed.depto) document.getElementById('rDepto').value = parsed.depto;
+                    if (data.comuna) defaultRComuna = data.comuna;
+                } catch (e) {}
+            }
+
+            const savedR = sessionStorage.getItem('mhm_hogar_riesgo');
+            if (savedR) {
+                try {
+                    const r = JSON.parse(savedR);
+                    if (r.calle) document.getElementById('rCalle').value = r.calle;
+                    if (r.numero) document.getElementById('rNumero').value = r.numero;
+                    if (r.depto !== undefined) document.getElementById('rDepto').value = r.depto;
+                    if (r.region) defaultRRegion = r.region;
+                    if (r.comuna) defaultRComuna = r.comuna;
+                } catch (e) {}
+            }
+
+            window.initRegionComunaSelects('rRegion', 'rComuna', defaultRRegion, defaultRComuna);
+
+            document.querySelectorAll('#riesgoForm input:not([readonly]), #riesgoForm select').forEach(inp => {
+                inp.addEventListener('blur', () => validateAll(true));
+            });
+
+            document.getElementById('riesgoForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!validateAll(true)) return;
+
+                const riesgo = {
+                    calle: document.getElementById('rCalle').value.trim(),
+                    numero: document.getElementById('rNumero').value.trim(),
+                    depto: document.getElementById('rDepto').value.trim(),
+                    region: document.getElementById('rRegion').value.trim(),
+                    comuna: document.getElementById('rComuna').value.trim()
+                };
+                const vigencia = {
+                    desde: document.getElementById('vDesde').value,
+                    hasta: document.getElementById('vHasta').value
+                };
+                sessionStorage.setItem('mhm_hogar_riesgo', JSON.stringify(riesgo));
+                sessionStorage.setItem('mhm_hogar_vigencia', JSON.stringify(vigencia));
+                window.location.href = 'cotizacion-asistencia-hogar-3.html';
+            });
+        });
+    </script>
+</body>
+</html>

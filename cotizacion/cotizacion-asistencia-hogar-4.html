@@ -464,10 +464,10 @@
                 </a>
             </div>
             <div class="wizard-progress-track">
-                <div class="wizard-progress-fill" style="width: 67%;"></div>
+                <div class="wizard-progress-fill" style="width: 57%;"></div>
             </div>
             <h1 class="wizard-main-title" id="headerPlanTitle">Hogar contenido básico</h1>
-            <p class="wizard-subtitle">Ingresa los datos del asegurado titular y verifica el riesgo a asegurar.</p>
+            <p class="wizard-subtitle">Ingresa los datos del asegurado titular de la póliza.</p>
         </section>
 
         <div class="wizard-grid">
@@ -577,81 +577,6 @@
                         </div>
                     </div>
 
-                    <!-- RIESGO A ASEGURAR -->
-                    <div class="section-divider">
-                        <h3 class="section-subhead"><i class="fa-solid fa-house-chimney"></i> Riesgo a Asegurar</h3>
-
-                        <div class="form-row-2">
-                            <div>
-                                <label class="field-label" for="rCalle">Dirección de Riesgo (Calle) <span class="req">*</span></label>
-                                <div class="rich-field" id="wrap-rCalle">
-                                    <span class="rich-field-icon"><i class="fa-solid fa-road"></i></span>
-                                    <input type="text" id="rCalle" placeholder="Ej: Av. Providencia">
-                                </div>
-                                <span class="field-error-msg" id="err-rCalle">Este campo es obligatorio.</span>
-                            </div>
-                            <div>
-                                <label class="field-label" for="rNumero">N° <span class="req">*</span></label>
-                                <div class="rich-field" id="wrap-rNumero">
-                                    <span class="rich-field-icon"><i class="fa-solid fa-hashtag"></i></span>
-                                    <input type="text" id="rNumero" placeholder="Ej: 1234">
-                                </div>
-                                <span class="field-error-msg" id="err-rNumero">Este campo es obligatorio.</span>
-                            </div>
-                        </div>
-
-                        <div class="form-row-1">
-                            <label class="field-label" for="rDepto">Departamento (si aplica)</label>
-                            <div class="rich-field" id="wrap-rDepto">
-                                <span class="rich-field-icon"><i class="fa-solid fa-door-closed"></i></span>
-                                <input type="text" id="rDepto" placeholder="Ej: Dpto 402 (dejar vacío si es casa)">
-                            </div>
-                        </div>
-
-                        <div class="form-row-2">
-                            <div>
-                                <label class="field-label" for="rRegion">Región <span class="req">*</span></label>
-                                <div class="rich-field" id="wrap-rRegion">
-                                    <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
-                                    <select id="rRegion"></select>
-                                </div>
-                                <span class="field-error-msg" id="err-rRegion">Selecciona una región.</span>
-                            </div>
-                            <div>
-                                <label class="field-label" for="rComuna">Comuna <span class="req">*</span></label>
-                                <div class="rich-field" id="wrap-rComuna">
-                                    <span class="rich-field-icon"><i class="fa-regular fa-building"></i></span>
-                                    <select id="rComuna"></select>
-                                </div>
-                                <span class="field-error-msg" id="err-rComuna">Selecciona una comuna.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- VIGENCIA DEL SEGURO (NO EDITABLE) -->
-                    <div class="section-divider">
-                        <h3 class="section-subhead"><i class="fa-solid fa-calendar-check"></i> Vigencia del Seguro</h3>
-                        <div class="vigencia-box">
-                            <span class="vigencia-badge"><i class="fa-solid fa-lock"></i> No editable · Vigencia anual (12 meses)</span>
-                            <div class="form-row-2" style="margin-bottom: 0;">
-                                <div>
-                                    <label class="field-label" for="vDesde">Desde (Día en curso)</label>
-                                    <div class="rich-field is-readonly">
-                                        <span class="rich-field-icon"><i class="fa-regular fa-calendar"></i></span>
-                                        <input type="text" id="vDesde" readonly tabindex="-1">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="field-label" for="vHasta">Hasta (12 meses)</label>
-                                    <div class="rich-field is-readonly">
-                                        <span class="rich-field-icon"><i class="fa-regular fa-calendar-check"></i></span>
-                                        <input type="text" id="vHasta" readonly tabindex="-1">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="wizard-actions-end">
                         <button type="submit" class="btn-next-step">
                             <span>Siguiente Paso</span>
@@ -668,7 +593,8 @@
                         <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Selección de Cobertura</li>
                         <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Revisión y Condiciones</li>
                         <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Datos del Contratante</li>
-                        <li class="route-item active"><i class="fa-solid fa-circle-dot"></i> Titular y Riesgo a Asegurar</li>
+                        <li class="route-item active"><i class="fa-solid fa-circle-dot"></i> Datos del Asegurado Titular</li>
+                        <li class="route-item"><i class="fa-regular fa-circle"></i> Riesgo a Asegurar y Vigencia</li>
                         <li class="route-item"><i class="fa-regular fa-circle"></i> Resumen de Selección (Checkout)</li>
                         <li class="route-item"><i class="fa-regular fa-circle"></i> Protección Activa</li>
                     </ul>
@@ -779,11 +705,7 @@
                 ['tTelefono', document.getElementById('tTelefono').value.trim().replace(/\D/g, '').length >= 8],
                 ['tDireccion', document.getElementById('tDireccion').value.trim().length >= 4],
                 ['tRegion', document.getElementById('tRegion').value.trim().length >= 2],
-                ['tComuna', document.getElementById('tComuna').value.trim().length >= 2],
-                ['rCalle', document.getElementById('rCalle').value.trim().length >= 3],
-                ['rNumero', document.getElementById('rNumero').value.trim().length >= 1],
-                ['rRegion', document.getElementById('rRegion').value.trim().length >= 2],
-                ['rComuna', document.getElementById('rComuna').value.trim().length >= 2]
+                ['tComuna', document.getElementById('tComuna').value.trim().length >= 2]
             ];
 
             let allOk = true;
@@ -819,29 +741,7 @@
             try { if (planStr) plan = { ...plan, ...JSON.parse(planStr) }; } catch (e) {}
             document.getElementById('headerPlanTitle').textContent = plan.name;
 
-            // Vigencia no editable: día en curso -> 12 meses
-            const today = new Date();
-            const nextYear = new Date(today);
-            nextYear.setFullYear(today.getFullYear() + 1);
-            document.getElementById('vDesde').value = formatDateDMY(today);
-            document.getElementById('vHasta').value = formatDateDMY(nextYear);
-
-            // Pre-fill Riesgo a Asegurar from Step 1
-            let defaultRRegion = '';
-            let defaultRComuna = '';
-            const dataStr = sessionStorage.getItem('mhm_hogar_data');
-            if (dataStr) {
-                try {
-                    const data = JSON.parse(dataStr);
-                    const parsed = parseAddressParts(data.address);
-                    if (parsed.calle) document.getElementById('rCalle').value = parsed.calle;
-                    if (parsed.numero) document.getElementById('rNumero').value = parsed.numero;
-                    if (parsed.depto) document.getElementById('rDepto').value = parsed.depto;
-                    if (data.comuna) defaultRComuna = data.comuna;
-                } catch (e) {}
-            }
-
-            // Restore saved titular/riesgo if user navigated back
+            // Restore saved titular if user navigated back
             let defaultTRegion = '';
             let defaultTComuna = '';
             const savedT = sessionStorage.getItem('mhm_hogar_titular');
@@ -860,26 +760,14 @@
                     if (t.comuna) defaultTComuna = t.comuna;
                 } catch (e) {}
             }
-            const savedR = sessionStorage.getItem('mhm_hogar_riesgo');
-            if (savedR) {
-                try {
-                    const r = JSON.parse(savedR);
-                    if (r.calle) document.getElementById('rCalle').value = r.calle;
-                    if (r.numero) document.getElementById('rNumero').value = r.numero;
-                    if (r.depto !== undefined) document.getElementById('rDepto').value = r.depto;
-                    if (r.region) defaultRRegion = r.region;
-                    if (r.comuna) defaultRComuna = r.comuna;
-                } catch (e) {}
-            }
 
             window.initRegionComunaSelects('tRegion', 'tComuna', defaultTRegion, defaultTComuna);
-            window.initRegionComunaSelects('rRegion', 'rComuna', defaultRRegion, defaultRComuna);
 
             document.getElementById('tRut').addEventListener('input', (e) => {
                 e.target.value = formatRut(e.target.value);
             });
 
-            document.querySelectorAll('#titularRiesgoForm input:not([readonly]), #titularRiesgoForm select').forEach(inp => {
+            document.querySelectorAll('#titularRiesgoForm input, #titularRiesgoForm select').forEach(inp => {
                 inp.addEventListener('blur', () => validateAll(true));
             });
 
@@ -905,23 +793,8 @@
                     comuna: document.getElementById('tComuna').value.trim()
                 };
 
-                const riesgo = {
-                    calle: document.getElementById('rCalle').value.trim(),
-                    numero: document.getElementById('rNumero').value.trim(),
-                    depto: document.getElementById('rDepto').value.trim(),
-                    region: document.getElementById('rRegion').value.trim(),
-                    comuna: document.getElementById('rComuna').value.trim()
-                };
-
-                const vigencia = {
-                    desde: document.getElementById('vDesde').value,
-                    hasta: document.getElementById('vHasta').value
-                };
-
                 sessionStorage.setItem('mhm_hogar_titular', JSON.stringify(titular));
-                sessionStorage.setItem('mhm_hogar_riesgo', JSON.stringify(riesgo));
-                sessionStorage.setItem('mhm_hogar_vigencia', JSON.stringify(vigencia));
-                window.location.href = 'cotizacion-asistencia-hogar-3.html';
+                window.location.href = 'cotizacion-asistencia-hogar-riesgo.html';
             });
         });
     </script>
