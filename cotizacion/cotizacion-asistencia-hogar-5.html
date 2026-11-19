@@ -858,5 +858,37 @@
             50% { transform: translateY(-10px); }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const titular = JSON.parse(sessionStorage.getItem('mhm_hogar_titular') || '{}');
+                const contratante = JSON.parse(sessionStorage.getItem('mhm_hogar_contratante') || '{}');
+                const order = JSON.parse(sessionStorage.getItem('mhm_hogar_order') || '{}');
+                const vigencia = JSON.parse(sessionStorage.getItem('mhm_hogar_vigencia') || '{}');
+                const plan = JSON.parse(sessionStorage.getItem('mhm_hogar_plan') || '{}');
+
+                const email = titular.email || contratante.email;
+                const ownerEmailEl = document.getElementById('ownerEmail');
+                if (ownerEmailEl && email) ownerEmailEl.textContent = email;
+
+                const totalEl = document.getElementById('totalMonthly');
+                if (totalEl && (order.amountCLP || plan.price)) {
+                    const clp = order.amountCLP || plan.price;
+                    const ufTxt = order.amountUF ? ' (' + order.amountUF + ' UF)' : '';
+                    totalEl.textContent = '$' + Number(clp).toLocaleString('es-CL') + ufTxt;
+                }
+
+                const dateEl = document.getElementById('activationDate');
+                if (dateEl && vigencia.desde && vigencia.hasta) {
+                    dateEl.textContent = vigencia.desde + ' al ' + vigencia.hasta;
+                }
+
+                const contractEl = document.getElementById('contractNumber');
+                if (contractEl && order.orderId) {
+                    contractEl.textContent = order.orderId;
+                }
+            } catch (e) {}
+        });
+    </script>
 </body>
 </html>

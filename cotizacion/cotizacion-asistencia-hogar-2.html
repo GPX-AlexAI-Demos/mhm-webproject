@@ -3,129 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Contratante | Seguro de Hogar | MHM Corredores</title>
-    
+    <title>Datos del Contratante | Seguro de Hogar | MHM Corredores</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1785907847" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../css/style.css?v=1789287000"> 
-    <link rel="stylesheet" href="../css/style-quote.css?v=1789287000"> 
+
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/mobile-first.css">
+    <link rel="stylesheet" href="../css/style.css?v=1789287000">
+    <link rel="stylesheet" href="../css/style-quote.css?v=1789287000">
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
 
     <style>
-        html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-            overflow-x: hidden !important;
-            width: 100% !important;
+        html, body, .wizard-shell, .wizard-shell * {
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            box-sizing: border-box;
         }
-
-        .footer-logo-img {
-            height: auto !important;
-            max-width: 180px !important;
-            object-fit: contain !important;
-            display: block !important;
+        body.bg-body {
+            background: #F8FAFC;
+            margin: 0;
+            overflow-x: hidden;
         }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .wizard-shell {
+            max-width: 1334px;
+            margin: 0 auto;
+            padding: 24px 16px 64px;
         }
-
-        .quotePreFilledBox {
-            background: rgba(121, 107, 252, 0.05);
-            border: 1.5px solid rgba(121, 107, 252, 0.22);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 28px;
+        .wizard-status-wrap {
+            text-align: center;
+            margin-bottom: 18px;
         }
-
-        .step2-actions-row {
-            display: flex;
-            justify-content: space-between;
+        .wizard-status-pill {
+            display: inline-flex;
             align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: #334155;
+            text-transform: uppercase;
+        }
+        .wizard-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #2ED9C3;
+            box-shadow: 0 0 0 4px rgba(46, 217, 195, 0.2);
+        }
+        .wizard-header-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+            padding: 24px 20px 26px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+        }
+        .wizard-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .wizard-eyebrow {
+            font-size: 15px;
+            font-weight: 700;
+            color: #796BFC;
+        }
+        .wizard-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #796BFC;
+            text-decoration: none;
+        }
+        .wizard-back-link:hover {
+            text-decoration: underline;
+        }
+        .wizard-progress-track {
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: #F1F5F9;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+        .wizard-progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #2ED9C3 0%, #796BFC 100%);
+        }
+        .wizard-main-title {
+            margin: 0 0 6px;
+            font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(90deg, #0D9488 0%, #796BFC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .wizard-subtitle {
+            margin: 0;
+            font-size: 15px;
+            color: #64748B;
+        }
+        .wizard-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+        .wizard-form-card {
+            width: 100%;
+            max-width: 580px;
+            background: #FFFFFF;
+            border: 1px solid #F1F5F9;
+            border-radius: 20px;
+            padding: 28px 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 40px -15px rgba(15, 23, 42, 0.08);
+        }
+        .wizard-form-card::before,
+        .wizard-side-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #796BFC 0%, #2ED9C3 100%);
+        }
+        .wizard-card-title {
+            margin: 0 0 20px;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #796BFC;
+        }
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 16px;
-            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .form-row-1 {
+            margin-bottom: 16px;
+        }
+        .field-label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+        .field-label .req {
+            color: #DC2626;
+        }
+        .rich-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 46px;
+            padding: 4px 12px;
+            border-radius: 10px;
+            border: 1.5px solid #CBD5E1;
+            background: #FFFFFF;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .rich-field:focus-within {
+            border-color: #2ED9C3;
+            box-shadow: 0 0 0 3px rgba(46, 217, 195, 0.16);
+        }
+        .rich-field.is-error {
+            border-color: #DC2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+        .rich-field-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(121, 107, 252, 0.08);
+            color: #796BFC;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+        .rich-field.is-error .rich-field-icon {
+            background: rgba(220, 38, 38, 0.1);
+            color: #DC2626;
+        }
+        .rich-field input,
+        .rich-field select {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 600;
+            color: #0F172A;
+            padding: 6px 0;
+        }
+        .field-error-msg {
+            display: none;
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #DC2626;
+        }
+        .field-error-msg.visible {
+            display: block;
+        }
+        .wizard-actions-end {
+            display: flex;
+            justify-content: flex-end;
             margin-top: 24px;
         }
-
-        @media (max-width: 768px) {
-            .page-wrapper {
-                padding: 12px 10px !important;
+        .btn-next-step {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 12px 28px;
+            border-radius: 999px;
+            border: none;
+            background: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(46, 217, 195, 0.3);
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .btn-next-step:hover:not(:disabled) {
+            background: #22C4AF !important;
+            transform: translateY(-1px);
+        }
+        .btn-next-step:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .wizard-sidebar {
+            width: 100%;
+            max-width: 580px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .wizard-side-card {
+            background: #FFFFFF;
+            border: 1px solid #F1F5F9;
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.06);
+        }
+        .side-title {
+            margin: 0 0 16px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            color: #0EA5E9;
+            text-transform: uppercase;
+        }
+        .route-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .route-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #94A3B8;
+        }
+        .route-item.done {
+            color: #10B981;
+        }
+        .route-item.active {
+            color: #796BFC;
+            font-weight: 700;
+        }
+        .summary-mini-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .summary-mini-plan {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0F172A;
+        }
+        .summary-mini-price {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0D9488;
+        }
+        .summary-mini-uf {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #796BFC;
+        }
+        .btn-ver-coberturas {
+            width: 100%;
+            min-height: 44px;
+            border-radius: 999px;
+            border: none;
+            background: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .proteccion-box {
+            margin-top: 12px;
+            border-radius: 14px;
+            border: 1.5px dashed #10B981;
+            background: rgba(16, 185, 129, 0.06);
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12.5px;
+            color: #065F46;
+            font-weight: 600;
+        }
+        .cov-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 99999;
+        }
+        .cov-modal-backdrop.open {
+            display: flex;
+        }
+        .cov-modal-box {
+            background: #FFFFFF;
+            border-radius: 20px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 24px;
+            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.3);
+        }
+        @media (min-width: 640px) {
+            .form-row-2 {
+                grid-template-columns: 1fr 1fr;
             }
-            .wizard-container {
-                padding: 20px 16px !important;
-                border-radius: 18px !important;
+            .btn-next-step {
+                width: auto;
             }
-            .brand-page-header h1 {
-                font-size: 1.6rem !important;
+            .wizard-header-card {
+                padding: 32px 36px;
             }
-            .specs-layout-grid {
-                padding: 0 !important;
-                margin: 12px auto !important;
-                gap: 16px !important;
-                display: flex !important;
-                flex-direction: column !important;
+            .wizard-form-card {
+                padding: 34px 36px;
             }
-            .main-spec-col, .config-sidebar {
-                width: 100% !important;
+        }
+        @media (min-width: 1024px) {
+            .wizard-shell {
+                padding: 32px 44px 72px;
             }
-            .premium-white-card {
-                padding: 20px 16px !important;
-                border-radius: 18px !important;
+            .wizard-grid {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 32px;
             }
-            .form-grid {
-                grid-template-columns: 1fr !important;
-                gap: 14px !important;
-            }
-            .step2-actions-row {
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 12px !important;
-            }
-            .step2-actions-row a,
-            .step2-actions-row button {
-                width: 100% !important;
-                justify-content: center !important;
-                box-sizing: border-box !important;
-                text-align: center !important;
-            }
-            .rich-input {
-                width: 100% !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
+            .wizard-sidebar {
+                width: 340px;
+                flex-shrink: 0;
+                position: sticky;
+                top: 96px;
             }
         }
     </style>
 </head>
 <body class="bg-body">
-
-    <div id="toast-container"></div>
-    <div class="noise-overlay"></div>
-
     <div class="top-header-aurora">
         <div class="container top-bar-flex">
             <div class="top-info-group">
-                <a href="tel:+56961446652" class="top-link glass-hover">
-                    <i class="fa-solid fa-phone pulse-icon"></i> 
-                    <span>+56 9 6144 6652</span>
-                </a>
+                <a href="tel:+56961446652" class="top-link glass-hover"><i class="fa-solid fa-phone pulse-icon"></i> <span>+56 9 6144 6652</span></a>
                 <span class="divider-vertical"></span>
-                <a href="mailto:info@mhmseguros.cl" class="top-link glass-hover">
-                    <i class="fa-solid fa-envelope"></i> 
-                    <span>info@mhmseguros.cl</span>
-                </a>
+                <a href="mailto:info@mhmseguros.cl" class="top-link glass-hover"><i class="fa-solid fa-envelope"></i> <span>info@mhmseguros.cl</span></a>
             </div>
             <div class="top-social-group">
                 <span class="social-label desktop-only">Conectar:</span>
-                <a href="https://www.facebook.com/profile.php?id=61559262527632&locale=es_LA" target="_blank" class="social-btn" aria-label="Facebook">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="https://www.instagram.com/mhmseguros.cl" target="_blank" class="social-btn" aria-label="Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
+                <a href="https://www.facebook.com/profile.php?id=61559262527632&locale=es_LA" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/mhmseguros.cl" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
         <div class="aurora-border-glow"></div>
@@ -145,252 +434,190 @@
         </div>
     </header>
 
-    <nav class="quote-nav">
-        <a href="cotizacion-asistencia-hogar-resumen.html" class="nav-back-btn">
-            <div class="icon-circle"><i class="fa-solid fa-arrow-left"></i></div>
-            <span> Volver al Resumen de Solicitud</span>
-        </a>
-        <div class="lang-switch-modern">
-            <span class="lang-opt active">ES</span>
-            <span class="lang-opt">EN</span>
+    <main class="wizard-shell">
+        <div class="wizard-status-wrap">
+            <span class="wizard-status-pill">
+                <span class="wizard-status-dot"></span> Cotización en Tiempo Real
+            </span>
         </div>
-    </nav>
 
-    <div class="text-center">
-        <div class="header-status-light">
-            <span class="pulse-blue"></span> 
-            <strong class="text-gradient-corp" style="background: linear-gradient(135deg, #3B82F6, #796bfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Cotización en Tiempo Real</strong> 
-        </div>
-    </div>
-
-    <div class="page-wrapper">
-        <div class="wizard-container">
-            <div class="wizard-top">
-                <div class="wizard-title"><i class="fa-solid fa-user-check"></i> Paso 3: Registro de Contratación</div>
-                <div class="wizard-title"><i class="fa-solid fa-shield-halved"></i> SEGURO DE HOGAR</div>
+        <section class="wizard-header-card">
+            <div class="wizard-header-top">
+                <span class="wizard-eyebrow">Para Empezar</span>
+                <a href="cotizacion-asistencia-hogar-resumen.html" class="wizard-back-link">
+                    <i class="fa-solid fa-chevron-left"></i> Volver
+                </a>
             </div>
-            <div class="progress-track"><div class="progress-fill" style="width: 75%;"></div></div>
-            <div class="header-split"></div>
-            <header class="brand-page-header">
-                <div class="title-group">
-                    <h1 class="text-gradient-corp">Registro de Contratante</h1>
-                    <div class="aurora-line"></div> 
-                </div>
-                <p>Verifica los datos del inmueble e ingresa la información del titular de la póliza para proceder al pago seguro.</p>
-            </header>
-        </div>
+            <div class="wizard-progress-track">
+                <div class="wizard-progress-fill" style="width: 43%;"></div>
+            </div>
+            <h1 class="wizard-main-title" id="headerPlanTitle">Hogar contenido básico</h1>
+            <p class="wizard-subtitle">Ingresa los datos del contratante para continuar con la contratación.</p>
+        </section>
 
-        <div class="specs-layout-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 30px; align-items: start;">
-            
-            <div class="main-spec-col">
-                <div class="premium-white-card" style="padding: 30px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);">
-                    
-                    <!-- BOX PRE-FILLED INMUEBLE -->
-                    <div class="quotePreFilledBox">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                            <span style="font-size: 11px; font-weight: 800; color: #796BFC; text-transform: uppercase; letter-spacing: 0.08em;">
-                                <i class="fa-solid fa-house-circle-check" style="margin-right: 4px;"></i> INMUEBLE Y PLAN SELECCIONADO
-                            </span>
-                            <a href="cotizacion-asistencia-hogar-1.html" style="font-size: 0.8rem; font-weight: 700; color: #796BFC; text-decoration: none;">
-                                <i class="fa-solid fa-pen-to-square"></i> Cambiar
-                            </a>
+        <div class="wizard-grid">
+            <section class="wizard-form-card">
+                <h2 class="wizard-card-title">Datos del Contratante</h2>
+
+                <form id="contratanteForm" novalidate>
+                    <div class="form-row-1">
+                        <label class="field-label" for="cRut">RUT <span class="req">*</span></label>
+                        <div class="rich-field" id="wrap-cRut">
+                            <span class="rich-field-icon"><i class="fa-solid fa-hashtag"></i></span>
+                            <input type="text" id="cRut" placeholder="Ej: 12.345.678-9" maxlength="12" autocomplete="off">
                         </div>
-                        <div id="preFilledHogarGrid">
-                            <!-- Populated by JS -->
+                        <span class="field-error-msg" id="err-cRut">Ingresa un RUT chileno válido.</span>
+                    </div>
+
+                    <div class="form-row-1">
+                        <label class="field-label" for="cNombre">Nombre <span class="req">*</span></label>
+                        <div class="rich-field" id="wrap-cNombre">
+                            <span class="rich-field-icon"><i class="fa-regular fa-user"></i></span>
+                            <input type="text" id="cNombre" placeholder="Ingrese nombres" autocomplete="given-name">
+                        </div>
+                        <span class="field-error-msg" id="err-cNombre">Este campo es obligatorio.</span>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div>
+                            <label class="field-label" for="cApellidoP">Apellido Paterno <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-cApellidoP">
+                                <span class="rich-field-icon"><i class="fa-solid fa-users"></i></span>
+                                <input type="text" id="cApellidoP" placeholder="Apellido paterno" autocomplete="family-name">
+                            </div>
+                            <span class="field-error-msg" id="err-cApellidoP">Este campo es obligatorio.</span>
+                        </div>
+                        <div>
+                            <label class="field-label" for="cApellidoM">Apellido Materno <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-cApellidoM">
+                                <span class="rich-field-icon"><i class="fa-solid fa-users"></i></span>
+                                <input type="text" id="cApellidoM" placeholder="Apellido materno">
+                            </div>
+                            <span class="field-error-msg" id="err-cApellidoM">Este campo es obligatorio.</span>
                         </div>
                     </div>
 
-                    <!-- FORMULARIO CONTRATANTE -->
-                    <form id="contractorForm" onsubmit="event.preventDefault(); submitContractor();">
-                        
-                        <div style="font-size: 1.15rem; font-weight: 800; color: #0F172A; margin-bottom: 18px; border-bottom: 1px solid #E2E8F0; padding-bottom: 10px;">
-                            Datos Personales del Titular
-                        </div>
-
-                        <!-- RUT Input -->
-                        <div class="input-group-modern" style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">RUT del Contratante *</label>
-                            <div class="input-with-icon" style="position: relative;">
-                                <i class="fa-solid fa-id-card" style="position: absolute; left: 16px; top: 16px; color: #94A3B8;"></i>
-                                <input type="text" id="rutInput" onkeyup="validateHogarContractorForm()" onblur="this.value = formatRut(this.value); validateHogarContractorForm();" class="rich-input" placeholder="Ej: 12.345.678-9" style="width: 100%; max-width: 320px; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; transition: 0.3s; font-size: 1rem; color: #0F172A;" required>
+                    <div class="form-row-2">
+                        <div>
+                            <label class="field-label" for="cEmail">Correo Electrónico <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-cEmail">
+                                <span class="rich-field-icon"><i class="fa-regular fa-envelope"></i></span>
+                                <input type="email" id="cEmail" placeholder="correo@ejemplo.cl" autocomplete="email">
                             </div>
-                            <small id="rutFeedback" style="display: block; margin-top: 5px; font-size: 0.8rem; color: #DC2626;"></small>
+                            <span class="field-error-msg" id="err-cEmail">Ingresa un correo válido.</span>
                         </div>
-
-                        <!-- Nombres y Apellidos -->
-                        <div class="form-grid" style="margin-bottom: 20px;">
-                            <div class="input-group-modern">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">Nombres *</label>
-                                <div class="input-with-icon" style="position: relative;">
-                                    <i class="fa-solid fa-user" style="position: absolute; left: 16px; top: 16px; color: #94A3B8;"></i>
-                                    <input type="text" id="nameInput" onkeyup="validateHogarContractorForm()" class="rich-input" placeholder="Ej: Juan Carlos" style="width: 100%; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; transition: 0.3s; font-size: 1rem; color: #0F172A;" required>
-                                </div>
+                        <div>
+                            <label class="field-label" for="cTelefono">Teléfono <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-cTelefono">
+                                <span class="rich-field-icon"><i class="fa-solid fa-phone"></i></span>
+                                <input type="tel" id="cTelefono" placeholder="+56 9 1234 5678" autocomplete="tel-national">
                             </div>
-
-                            <div class="input-group-modern">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">Apellido Paterno *</label>
-                                <div class="input-with-icon" style="position: relative;">
-                                    <i class="fa-solid fa-user" style="position: absolute; left: 16px; top: 16px; color: #94A3B8;"></i>
-                                    <input type="text" id="lastNameInput" onkeyup="validateHogarContractorForm()" class="rich-input" placeholder="Ej: Pérez" style="width: 100%; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; transition: 0.3s; font-size: 1rem; color: #0F172A;" required>
-                                </div>
-                            </div>
+                            <span class="field-error-msg" id="err-cTelefono">Ingresa un teléfono válido.</span>
                         </div>
-
-                        <!-- Apellido Materno y Email -->
-                        <div class="form-grid" style="margin-bottom: 20px;">
-                            <div class="input-group-modern">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">Apellido Materno</label>
-                                <div class="input-with-icon" style="position: relative;">
-                                    <i class="fa-solid fa-user" style="position: absolute; left: 16px; top: 16px; color: #94A3B8;"></i>
-                                    <input type="text" id="secondLastNameInput" onkeyup="validateHogarContractorForm()" class="rich-input" placeholder="Ej: González" style="width: 100%; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; transition: 0.3s; font-size: 1rem; color: #0F172A;">
-                                </div>
-                            </div>
-
-                            <div class="input-group-modern">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">Correo Electrónico *</label>
-                                <div class="input-with-icon" style="position: relative;">
-                                    <i class="fa-solid fa-envelope" style="position: absolute; left: 16px; top: 16px; color: #94A3B8;"></i>
-                                    <input type="email" id="emailInput" onkeyup="validateHogarContractorForm()" class="rich-input" placeholder="nombre@correo.com" style="width: 100%; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; transition: 0.3s; font-size: 1rem; color: #0F172A;" required>
-                                </div>
-                                <small id="emailFeedback" style="display: block; margin-top: 5px; font-size: 0.8rem; color: #DC2626;"></small>
-                            </div>
-                        </div>
-
-                        <!-- Teléfono Móvil -->
-                        <div class="input-group-modern" style="margin-bottom: 25px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">Teléfono Celular *</label>
-                            <div class="input-with-icon" style="position: relative;">
-                                <i class="fa-solid fa-phone" style="position: absolute; left: 16px; top: 16px; color: #94A3B8;"></i>
-                                <input type="tel" id="phoneInput" onkeyup="validateHogarContractorForm()" class="rich-input" placeholder="+56 9 1234 5678" style="width: 100%; max-width: 320px; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; transition: 0.3s; font-size: 1rem; color: #0F172A;" required>
-                            </div>
-                        </div>
-
-                        <!-- Toggle Misma Dirección -->
-                        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 16px 18px; margin-bottom: 25px;">
-                            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 700; color: #0F172A; margin: 0;">
-                                <input type="checkbox" id="sameAddressToggle" onchange="toggleSameAddress()" checked style="width: 18px; height: 18px; accent-color: #796BFC; cursor: pointer;">
-                                <span>Mi dirección personal es la misma del inmueble asegurado</span>
-                            </label>
-                        </div>
-
-                        <!-- Campos Dirección Personal (Alternativa) -->
-                        <div id="customAddressGroup" style="display: none; margin-bottom: 25px;">
-                            <div class="input-group-modern" style="margin-bottom: 18px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">Dirección Residencial del Contratante *</label>
-                                <div class="input-with-icon" style="position: relative;">
-                                    <i class="fa-solid fa-location-dot" style="position: absolute; left: 16px; top: 16px; color: #94A3B8;"></i>
-                                    <input type="text" id="contractorAddressInput" onkeyup="validateHogarContractorForm()" class="rich-input" placeholder="Av. Los Leones 2500, Providencia" style="width: 100%; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; transition: 0.3s; font-size: 1rem; color: #0F172A;">
-                                </div>
-                            </div>
-                            <div class="input-group-modern">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700; color: #1E293B; font-size: 0.92rem;">Comuna del Contratante *</label>
-                                <div class="input-with-icon" style="position: relative;">
-                                    <i class="fa-solid fa-map-location-dot" style="position: absolute; left: 16px; top: 16px; color: #94A3B8; z-index: 2;"></i>
-                                    <select id="contractorComunaInput" onchange="validateHogarContractorForm()" class="rich-input" style="width: 100%; padding: 14px 15px 14px 45px; border-radius: 12px; border: 1px solid #CBD5E1; background: #FFFFFF; font-size: 1rem; color: #0F172A; appearance: none; cursor: pointer;">
-                                        <option value="" disabled selected>Selecciona comuna</option>
-                                        <option value="Santiago Centro">Santiago Centro</option>
-                                        <option value="Providencia">Providencia</option>
-                                        <option value="Las Condes">Las Condes</option>
-                                        <option value="Ñuñoa">Ñuñoa</option>
-                                        <option value="Vitacura">Vitacura</option>
-                                        <option value="Lo Barnechea">Lo Barnechea</option>
-                                        <option value="La Reina">La Reina</option>
-                                        <option value="Macul">Macul</option>
-                                        <option value="La Florida">La Florida</option>
-                                        <option value="Maipú">Maipú</option>
-                                        <option value="Viña del Mar">Viña del Mar</option>
-                                        <option value="Concepción">Concepción</option>
-                                    </select>
-                                    <i class="fa-solid fa-chevron-down" style="position: absolute; right: 16px; top: 18px; pointer-events: none; color: #94A3B8;"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Botones de Acción -->
-                        <div class="step2-actions-row">
-                            <a href="cotizacion-asistencia-hogar-resumen.html" style="display: inline-flex; align-items: center; gap: 8px; color: #475569; text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 14px 22px; border-radius: 14px; border: 1px solid #CBD5E1; background: #F8FAFC; transition: all 0.2s ease;">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                <span>Volver al resumen</span>
-                            </a>
-                            <button type="submit" id="btn-continue" style="background: linear-gradient(135deg, #796BFC 0%, #5E4BF5 100%) !important; color: #FFFFFF !important; opacity: 0.5; pointer-events: none; transition: all 0.3s ease; padding: 16px 36px; border-radius: 14px; font-weight: 800; font-size: 1rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 8px 22px -3px rgba(121, 107, 252, 0.45);">
-                                <span>Continuar con el Pago</span>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
-
-            <!-- SIDEBAR RESUMEN DE LA ORDEN -->
-            <aside class="config-sidebar anim-entry delay-2">
-                <div class="organic-panel ruta-container" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 24px; margin-bottom: 20px;">
-                    <div class="sidebar-title text-gradient-corp" style="font-size: 1.15rem; font-weight: 800; margin-bottom: 18px;">
-                        Ruta de Contratación
                     </div>
-                    <ul class="aurora-list" style="margin-bottom: 0; padding-bottom: 0;">
-                        <li style="color: #10B981; font-weight: 600;"><i class="fa-solid fa-circle-check" style="color: #10B981;"></i> Inmueble y Plan</li>
-                        <li style="color: #10B981; font-weight: 600;"><i class="fa-solid fa-circle-check" style="color: #10B981;"></i> Resumen de Solicitud</li>
-                        <li class="active"><span class="pulse-dot"></span> Datos del Contratante</li>
-                        <li><i class="fa-regular fa-circle"></i> Pago Seguro</li>
+
+                    <div class="form-row-1">
+                        <label class="field-label" for="cDireccion">Dirección <span class="req">*</span></label>
+                        <div class="rich-field" id="wrap-cDireccion">
+                            <span class="rich-field-icon"><i class="fa-solid fa-location-dot"></i></span>
+                            <input type="text" id="cDireccion" placeholder="Ej: Av. Providencia 1234, depto 402" autocomplete="street-address">
+                        </div>
+                        <span class="field-error-msg" id="err-cDireccion">Este campo es obligatorio.</span>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div>
+                            <label class="field-label" for="cComuna">Comuna <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-cComuna">
+                                <span class="rich-field-icon"><i class="fa-regular fa-building"></i></span>
+                                <input type="text" id="cComuna" placeholder="Ej: Providencia">
+                            </div>
+                            <span class="field-error-msg" id="err-cComuna">Este campo es obligatorio.</span>
+                        </div>
+                        <div>
+                            <label class="field-label" for="cCiudad">Ciudad <span class="req">*</span></label>
+                            <div class="rich-field" id="wrap-cCiudad">
+                                <span class="rich-field-icon"><i class="fa-regular fa-map"></i></span>
+                                <input type="text" id="cCiudad" placeholder="Ej: Santiago" value="Santiago">
+                            </div>
+                            <span class="field-error-msg" id="err-cCiudad">Este campo es obligatorio.</span>
+                        </div>
+                    </div>
+
+                    <div class="wizard-actions-end">
+                        <button type="submit" id="btnNextContratante" class="btn-next-step">
+                            <span>Siguiente Paso</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <aside class="wizard-sidebar">
+                <div class="wizard-side-card">
+                    <h3 class="side-title">Ruta de Contratación</h3>
+                    <ul class="route-list">
+                        <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Selección de Cobertura</li>
+                        <li class="route-item done"><i class="fa-regular fa-circle-check"></i> Revisión y Condiciones</li>
+                        <li class="route-item active"><i class="fa-solid fa-circle-dot"></i> Datos del Contratante</li>
+                        <li class="route-item"><i class="fa-regular fa-circle"></i> Titular y Riesgo a Asegurar</li>
+                        <li class="route-item"><i class="fa-regular fa-circle"></i> Resumen de Selección (Checkout)</li>
+                        <li class="route-item"><i class="fa-regular fa-circle"></i> Protección Activa</li>
                     </ul>
                 </div>
 
-                <div class="organic-panel resumen-container" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 24px;">
-                    <div class="sidebar-title text-gradient-corp" style="font-size: 1.15rem; font-weight: 800; margin-bottom: 18px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px;">
-                        Resumen de la Orden
-                    </div>
-                    
-                    <div id="cart-summary-step2">
-                        <div class="summary-item" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-                            <div>
-                                <span style="font-size: 10px; font-weight: 800; color: #796BFC; text-transform: uppercase; letter-spacing: 0.1em; display: block;">SEGURO DE HOGAR</span>
-                                <h4 style="margin: 3px 0 2px; color: #0F172A; font-weight: 800; font-size: 1.05rem;" id="sidePlanName">Seguro de Hogar Pro</h4>
-                                <span style="font-size: 0.8rem; color: #64748B;" id="sidePropSub">Casa · Providencia</span>
-                            </div>
-                            <div style="text-align: right;">
-                                <div id="sidePriceMonth" style="color: #796bfc; font-weight: 900; font-size: 1.25rem;">$9.490</div>
-                                <div style="color: #94A3B8; font-size: 0.75rem;">/ mes</div>
-                            </div>
+                <div class="wizard-side-card">
+                    <h3 class="side-title">Resumen de Selección</h3>
+                    <div class="summary-mini-box">
+                        <div class="summary-mini-plan" id="sidePlanName">Hogar contenido básico</div>
+                        <div style="font-size: 12.5px; color: #64748B;">BCI Seguros Generales S.A. · Capital <strong id="sideCapital">UF 100</strong></div>
+                        <div>
+                            <span class="summary-mini-price" id="sidePriceCLP">$5.170</span>
+                            <span style="font-size: 13px; color: #64748B; font-weight: 600;">/ mes</span>
+                            <div class="summary-mini-uf" id="sidePriceUF">0,125 UF al mes</div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px dashed #E2E8F0; font-size: 0.85rem; color: #64748B;">
-                            <span>Total anual estimado:</span>
-                            <strong id="sidePriceAnnual" style="color: #0F172A;">$113.880</strong>
+                        <button type="button" class="btn-ver-coberturas" onclick="openCovModal()">Ver Coberturas</button>
+                        <div class="proteccion-box">
+                            <i class="fa-solid fa-heart-pulse" style="font-size: 18px; color: #10B981;"></i>
+                            <span>Póliza oficial BCI Seguros + Asistencia Salud incluida.</span>
                         </div>
-                    </div>
-
-                    <div style="background: rgba(46, 217, 195, 0.08); border: 1.5px dashed #2ED9C3; border-radius: 16px; padding: 16px; margin-top: 20px; text-align: center;">
-                        <i class="fa-solid fa-house-shield" style="font-size: 1.8rem; color: #0F766E; margin-bottom: 8px;"></i>
-                        <h4 style="margin: 0 0 4px 0; color: #0F172A; font-weight: 800; font-size: 0.95rem;">Hogar Protegido 24/7</h4>
-                        <p style="margin: 0; font-size: 0.8rem; color: #475569;">Asistencias de emergencia inmediatas y póliza con respaldo líder.</p>
                     </div>
                 </div>
             </aside>
-
         </div>
-    </div> <!-- End page-wrapper -->
+    </main>
 
-    <!-- FOOTER MHM AURORA (FULL BLEED) -->
+    <!-- Modal Coberturas -->
+    <div class="cov-modal-backdrop" id="covModal" onclick="if(event.target===this) closeCovModal()">
+        <div class="cov-modal-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h3 style="margin:0; font-size:1.2rem; font-weight:800; color:#0F172A;">Coberturas de tu Plan BCI</h3>
+                <button type="button" onclick="closeCovModal()" style="border:none; background:#F1F5F9; border-radius:8px; width:36px; height:36px; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <ul style="padding-left:18px; margin:0; display:flex; flex-direction:column; gap:8px; font-size:13.5px; color:#334155;">
+                <li>Incendio contenido (POL 1 2017 0129)</li>
+                <li>Daños materiales o incendio por huelga, desorden popular o terrorismo (CAD 1 2017 0135)</li>
+                <li>Saqueo y daños materiales por saqueo durante huelga o desorden popular (CAD 1 2017 0138)</li>
+                <li>Incendios por fenómenos de la naturaleza, excepto sismo (CAD 1 2017 0137)</li>
+                <li>Daños materiales causados por peso de nieve o hielo (CAD 1 2020 0223)</li>
+                <li>Daños físicos por rotura de cañerías o desbordamiento de estanques matrices (CAD 1 2017 0132)</li>
+                <li>Daños materiales causados por explosión (CAD 1 2017 0136)</li>
+                <li>Daños físicos causados por vehículos motorizados y aeronaves (CAD 1 2017 0133 / CAD 1 2017 0131)</li>
+                <li><strong>Asistencia Salud:</strong> Sala de urgencia en 2ª capa vía i-med (Condiciones Particulares)</li>
+            </ul>
+        </div>
+    </div>
+
     <footer class="footer-aurora">
         <div class="footer-light-mesh"></div>
-
         <div class="container">
             <div class="footer-grid">
-                
                 <div class="footer-col brand-col">
                     <a href="../index.html" class="footer-logo">
-                        <img src="../assets/img/logo-mhm-blanco.png" alt="MHM Corredores de Seguros" class="footer-logo-img">
+                        <img src="../assets/img/logo-mhm-blanco.png" alt="MHM Corredores de Seguros" class="footer-logo-img" style="max-width:180px;">
                     </a>
-                    <p class="footer-tagline">
-                        Te ofrecemos el seguro ideal para ti. Somos tu intermediario de confianza y nos enfocamos en resolver todas tus necesidades que mejorarán tu vida de forma accesible, dinámica y eficiente.
-                    </p>
-                    <div class="footer-social-mini">
-                        <a href="https://www.facebook.com/profile.php?id=61559262527632&locale=es_LA" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/mhmseguros.cl" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
+                    <p class="footer-tagline">Te ofrecemos el seguro ideal para ti. Somos tu intermediario de confianza.</p>
                 </div>
-
                 <div class="footer-col">
                     <h4 class="footer-heading">Productos</h4>
                     <ul class="footer-links">
@@ -398,142 +625,42 @@
                         <li><a href="cotizacion-salud-1.html">Vida y salud</a></li>
                         <li><a href="cotizacion-asistencia-hogar-1.html">Seguros de hogar</a></li>
                         <li><a href="cotizacion-mascota-nueva-1.html">Seguros para mascotas</a></li>
-                        <li><a href="../seguro-pymes/index.html">Seguro Pymes</a></li>
-                        <li><a href="cotizacion.html">Otros seguros</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
-                    <h4 class="footer-heading">Compañía</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://www.instagram.com/mhmseguros.cl" target="_blank">Sobre nosotros</a></li>
-                        <li><a href="../blog/index.html">Blog</a></li>
-                        <li><a href="../contacto/index.html">Contactar con soporte</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col contact-col">
                     <h4 class="footer-heading">Contacto y Acceso</h4>
                     <ul class="contact-list">
-                        <li>
-                            <i class="fa-solid fa-phone"></i> 
-                            <a href="tel:+56961446652">+56 9 6144 6652</a>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope"></i> 
-                            <a href="mailto:info@mhmseguros.cl">info@mhmseguros.cl</a>
-                        </li>
+                        <li><i class="fa-solid fa-phone"></i> <a href="tel:+56961446652">+56 9 6144 6652</a></li>
+                        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@mhmseguros.cl">info@mhmseguros.cl</a></li>
                     </ul>
                 </div>
-
             </div>
         </div>
-
         <div class="footer-bottom">
             <div class="container bottom-flex">
-                <div class="copyright-text">
-                    &copy; 2026 MHM Corredores de Seguros. Todos los derechos reservados.
-                </div>
+                <div class="copyright-text">&copy; 2026 MHM Corredores de Seguros. Todos los derechos reservados.</div>
                 <div class="legal-links">
-                    <a href="../politica-privacidad/index.html">Política de Privacidad</a>
+                    <a href="https://mhmseguros.cl/privacy-policy" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>
                     <span class="divider">|</span>
-                    <a href="../terminos-condiciones/index.html">Términos de Servicio</a>
+                    <a href="https://mhmseguros.cl/terms-and-conditions" target="_blank" rel="noopener noreferrer">Términos de Servicio</a>
                 </div>
             </div>
-            <div class="aurora-bottom-line"></div>
         </div>
     </footer>
 
     <script>
-        let cachedHogarData = null;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initContractorHogar();
-        });
-
-        function initContractorHogar() {
-            const dataStr = sessionStorage.getItem('mhm_hogar_data');
-            if (!dataStr) {
-                window.location.href = 'cotizacion-asistencia-hogar-1.html';
-                return;
-            }
-
-            try {
-                cachedHogarData = JSON.parse(dataStr);
-
-                // Populate Pre-filled Box
-                const preBox = document.getElementById('preFilledHogarGrid');
-                const isCasa = cachedHogarData.propertyType === 'casa';
-                const isPro = cachedHogarData.plan === 'hogar-pro';
-
-                preBox.innerHTML = `
-                    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);">
-                        <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(121, 107, 252, 0.12); color: #796BFC; display: grid; place-items: center; font-size: 1.25rem; flex-shrink: 0;">
-                            <i class="fa-solid ${isCasa ? 'fa-house-chimney' : 'fa-building'}"></i>
-                        </div>
-                        <div style="flex: 1; min-width: 0;">
-                            <div style="font-weight: 800; font-size: 0.98rem; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                ${cachedHogarData.address || 'Inmueble Asegurado'} (${cachedHogarData.comuna || ''})
-                            </div>
-                            <div style="font-size: 0.78rem; color: #64748B;">
-                                ${isCasa ? 'Casa Unifamiliar' : 'Departamento'} · ${cachedHogarData.planName || (isPro ? 'Seguro de Hogar Pro' : 'Seguro de Hogar')}
-                            </div>
-                        </div>
-                        <div style="text-align: right; flex-shrink: 0;">
-                            <strong style="color: #796BFC; font-size: 1.15rem; font-weight: 900;">$${(cachedHogarData.priceMonth || (isPro ? 9490 : 7990)).toLocaleString('es-CL')}</strong>
-                            <small style="display: block; color: #64748B; font-size: 0.75rem;">/ mes</small>
-                        </div>
-                    </div>
-                `;
-
-                // Sidebar
-                document.getElementById('sidePlanName').innerText = cachedHogarData.planName || (isPro ? 'Seguro de Hogar Pro' : 'Seguro de Hogar');
-                document.getElementById('sidePropSub').innerText = `${isCasa ? 'Casa' : 'Departamento'} · ${cachedHogarData.comuna || ''}`;
-                document.getElementById('sidePriceMonth').innerText = `$${(cachedHogarData.priceMonth || (isPro ? 9490 : 7990)).toLocaleString('es-CL')}`;
-                document.getElementById('sidePriceAnnual').innerText = `$${(cachedHogarData.priceAnnual || (isPro ? 113880 : 95880)).toLocaleString('es-CL')}`;
-
-                // Restore previous contractor inputs if exists
-                const prevContractorStr = sessionStorage.getItem('contratanteHogarData');
-                if (prevContractorStr) {
-                    const c = JSON.parse(prevContractorStr);
-                    if (c.rut) document.getElementById('rutInput').value = c.rut;
-                    if (c.name) document.getElementById('nameInput').value = c.name;
-                    if (c.lastName) document.getElementById('lastNameInput').value = c.lastName;
-                    if (c.secondLastName) document.getElementById('secondLastNameInput').value = c.secondLastName;
-                    if (c.email) document.getElementById('emailInput').value = c.email;
-                    if (c.phone) document.getElementById('phoneInput').value = c.phone;
-                    if (c.sameAddress !== undefined) {
-                        document.getElementById('sameAddressToggle').checked = c.sameAddress;
-                        toggleSameAddress();
-                        if (!c.sameAddress) {
-                            if (c.customAddress) document.getElementById('contractorAddressInput').value = c.customAddress;
-                            if (c.customComuna) document.getElementById('contractorComunaInput').value = c.customComuna;
-                        }
-                    }
-                }
-
-                validateHogarContractorForm();
-
-            } catch(e) {
-                console.error(e);
-            }
+        function formatRut(raw) {
+            const clean = raw.replace(/[^0-9kK]/g, '').toUpperCase();
+            if (clean.length <= 1) return clean;
+            const body = clean.slice(0, -1);
+            const dv = clean.slice(-1);
+            const formattedBody = body.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            return formattedBody + '-' + dv;
         }
 
-        function toggleSameAddress() {
-            const isSame = document.getElementById('sameAddressToggle').checked;
-            const customGroup = document.getElementById('customAddressGroup');
-            customGroup.style.display = isSame ? 'none' : 'block';
-            validateHogarContractorForm();
-        }
-
-        function validateEmail(email) {
-            return /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(email);
-        }
-
-        function validateRut(rut) {
-            if (!rut || typeof rut !== 'string') return false;
+        function isValidRut(rut) {
             const clean = rut.replace(/[^0-9kK]/g, '').toUpperCase();
-            if (clean.length < 2 || clean.length > 9) return false;
+            if (clean.length < 8) return false;
             const body = clean.slice(0, -1);
             const dv = clean.slice(-1);
             let sum = 0;
@@ -542,102 +669,126 @@
                 sum += parseInt(body[i], 10) * mul;
                 mul = mul === 7 ? 2 : mul + 1;
             }
-            let expectedDv = 11 - (sum % 11);
-            if (expectedDv === 11) expectedDv = '0';
-            else if (expectedDv === 10) expectedDv = 'K';
-            else expectedDv = expectedDv.toString();
-            return dv === expectedDv;
+            const res = 11 - (sum % 11);
+            const expected = res === 11 ? '0' : (res === 10 ? 'K' : String(res));
+            return dv === expected;
         }
 
-        function formatRut(rut) {
-            if (!rut) return '';
-            const clean = rut.replace(/[^0-9kK]/g, '').toUpperCase();
-            if (clean.length <= 1) return clean;
-            const body = clean.slice(0, -1);
-            const dv = clean.slice(-1);
-            let formatted = '';
-            let count = 0;
-            for (let i = body.length - 1; i >= 0; i--) {
-                formatted = body[i] + formatted;
-                count++;
-                if (count === 3 && i !== 0) {
-                    formatted = '.' + formatted;
-                    count = 0;
-                }
-            }
-            return formatted + '-' + dv;
+        function openCovModal() {
+            document.getElementById('covModal').classList.add('open');
+        }
+        function closeCovModal() {
+            document.getElementById('covModal').classList.remove('open');
         }
 
-        function validateHogarContractorForm() {
-            const rut = document.getElementById('rutInput')?.value.trim() || '';
-            const name = document.getElementById('nameInput')?.value.trim() || '';
-            const lastName = document.getElementById('lastNameInput')?.value.trim() || '';
-            const email = document.getElementById('emailInput')?.value.trim() || '';
-            const phone = document.getElementById('phoneInput')?.value.trim() || '';
-            const isSame = document.getElementById('sameAddressToggle')?.checked;
-            
-            const rutValid = validateRut(rut);
-            const emailValid = validateEmail(email);
+        function setFieldState(id, valid) {
+            const wrap = document.getElementById('wrap-' + id);
+            const err = document.getElementById('err-' + id);
+            if (wrap) wrap.classList.toggle('is-error', !valid);
+            if (err) err.classList.toggle('visible', !valid);
+            return valid;
+        }
 
-            const rutFeedback = document.getElementById('rutFeedback');
-            if (rutFeedback) {
-                if (rut.length > 3 && !rutValid) {
-                    rutFeedback.innerText = 'RUT inválido. Verifica el número y dígito verificador.';
-                } else {
-                    rutFeedback.innerText = '';
-                }
-            }
+        function validateAll(showErrors) {
+            const rutVal = document.getElementById('cRut').value.trim();
+            const nombreVal = document.getElementById('cNombre').value.trim();
+            const apPVal = document.getElementById('cApellidoP').value.trim();
+            const apMVal = document.getElementById('cApellidoM').value.trim();
+            const emailVal = document.getElementById('cEmail').value.trim();
+            const telVal = document.getElementById('cTelefono').value.trim();
+            const dirVal = document.getElementById('cDireccion').value.trim();
+            const comVal = document.getElementById('cComuna').value.trim();
+            const ciuVal = document.getElementById('cCiudad').value.trim();
 
-            const emailFeedback = document.getElementById('emailFeedback');
-            if (emailFeedback) {
-                if (email.length > 4 && !emailValid) {
-                    emailFeedback.innerText = 'Formato de correo electrónico inválido.';
-                } else {
-                    emailFeedback.innerText = '';
-                }
-            }
+            const checks = [
+                ['cRut', isValidRut(rutVal)],
+                ['cNombre', nombreVal.length >= 2],
+                ['cApellidoP', apPVal.length >= 2],
+                ['cApellidoM', apMVal.length >= 2],
+                ['cEmail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)],
+                ['cTelefono', telVal.replace(/\D/g, '').length >= 8],
+                ['cDireccion', dirVal.length >= 4],
+                ['cComuna', comVal.length >= 2],
+                ['cCiudad', ciuVal.length >= 2]
+            ];
 
-            let addressValid = true;
-            if (!isSame) {
-                const cAddr = document.getElementById('contractorAddressInput')?.value.trim() || '';
-                const cCom = document.getElementById('contractorComunaInput')?.value || '';
-                addressValid = cAddr.length >= 5 && cCom !== '';
-            }
+            let allOk = true;
+            checks.forEach(([id, ok]) => {
+                if (!ok) allOk = false;
+                if (showErrors) setFieldState(id, ok);
+            });
+            return allOk;
+        }
 
-            const btn = document.getElementById('btn-continue');
-            const allValid = rutValid && name.length >= 2 && lastName.length >= 2 && emailValid && phone.length >= 8 && addressValid;
+        document.addEventListener('DOMContentLoaded', () => {
+            const planStr = sessionStorage.getItem('mhm_hogar_plan');
+            const dataStr = sessionStorage.getItem('mhm_hogar_data');
+            let plan = { name: 'Hogar contenido básico', capitalUF: 'UF 100', price: 5170, ufMonthText: '0,125 UF al mes' };
+            let data = {};
+            try { if (planStr) plan = { ...plan, ...JSON.parse(planStr) }; } catch (e) {}
+            try { if (dataStr) data = JSON.parse(dataStr); } catch (e) {}
 
-            if (allValid) {
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
+            document.getElementById('headerPlanTitle').textContent = plan.name;
+            document.getElementById('sidePlanName').textContent = plan.name;
+            document.getElementById('sideCapital').textContent = plan.capitalUF || 'UF 100';
+            document.getElementById('sidePriceCLP').textContent = '$' + (parseInt(plan.price, 10) || 5170).toLocaleString('es-CL');
+            document.getElementById('sidePriceUF').textContent = plan.ufMonthText || '0,125 UF al mes';
+
+            // Pre-fill address/comuna from step 1 if user hasn't filled contractor yet
+            const savedC = sessionStorage.getItem('mhm_hogar_contratante');
+            if (savedC) {
+                try {
+                    const c = JSON.parse(savedC);
+                    if (c.rut) document.getElementById('cRut').value = c.rut;
+                    if (c.nombre) document.getElementById('cNombre').value = c.nombre;
+                    if (c.apellidoP) document.getElementById('cApellidoP').value = c.apellidoP;
+                    if (c.apellidoM) document.getElementById('cApellidoM').value = c.apellidoM;
+                    if (c.email) document.getElementById('cEmail').value = c.email;
+                    if (c.telefono) document.getElementById('cTelefono').value = c.telefono;
+                    if (c.direccion) document.getElementById('cDireccion').value = c.direccion;
+                    if (c.comuna) document.getElementById('cComuna').value = c.comuna;
+                    if (c.ciudad) document.getElementById('cCiudad').value = c.ciudad;
+                } catch (e) {}
             } else {
-                btn.style.opacity = '0.5';
-                btn.style.pointerEvents = 'none';
+                if (data.address) document.getElementById('cDireccion').value = data.address;
+                if (data.comuna) document.getElementById('cComuna').value = data.comuna;
             }
-        }
 
-        function submitContractor() {
-            const isSame = document.getElementById('sameAddressToggle').checked;
-            const contractorData = {
-                rut: document.getElementById('rutInput').value.trim(),
-                name: document.getElementById('nameInput').value.trim(),
-                lastName: document.getElementById('lastNameInput').value.trim(),
-                secondLastName: document.getElementById('secondLastNameInput').value.trim(),
-                email: document.getElementById('emailInput').value.trim(),
-                phone: document.getElementById('phoneInput').value.trim(),
-                sameAddress: isSame,
-                address: isSame ? cachedHogarData.address : document.getElementById('contractorAddressInput').value.trim(),
-                comuna: isSame ? cachedHogarData.comuna : document.getElementById('contractorComunaInput').value
-            };
+            const rutInput = document.getElementById('cRut');
+            rutInput.addEventListener('input', (e) => {
+                e.target.value = formatRut(e.target.value);
+            });
 
-            sessionStorage.setItem('contratanteHogarData', JSON.stringify(contractorData));
+            document.querySelectorAll('#contratanteForm input').forEach(inp => {
+                inp.addEventListener('blur', () => {
+                    validateAll(true);
+                });
+            });
 
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.25s ease';
-            setTimeout(() => {
-                window.location.href = 'pago-flow.html';
-            }, 250);
-        }
+            document.getElementById('contratanteForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!validateAll(true)) return;
+
+                const payload = {
+                    rut: document.getElementById('cRut').value.trim(),
+                    nombre: document.getElementById('cNombre').value.trim(),
+                    apellidoP: document.getElementById('cApellidoP').value.trim(),
+                    apellidoM: document.getElementById('cApellidoM').value.trim(),
+                    nombreCompleto: [
+                        document.getElementById('cNombre').value.trim(),
+                        document.getElementById('cApellidoP').value.trim(),
+                        document.getElementById('cApellidoM').value.trim()
+                    ].join(' '),
+                    email: document.getElementById('cEmail').value.trim(),
+                    telefono: document.getElementById('cTelefono').value.trim(),
+                    direccion: document.getElementById('cDireccion').value.trim(),
+                    comuna: document.getElementById('cComuna').value.trim(),
+                    ciudad: document.getElementById('cCiudad').value.trim()
+                };
+                sessionStorage.setItem('mhm_hogar_contratante', JSON.stringify(payload));
+                window.location.href = 'cotizacion-asistencia-hogar-4.html';
+            });
+        });
     </script>
 </body>
 </html>
