@@ -309,7 +309,7 @@
                 </div>
                 <div class="policy-tile">
                     <small>Medio de Pago</small>
-                    <strong id="paymentMethodLabel">Flow.cl · Pago mensual</strong>
+                    <strong id="paymentMethodLabel">Flow.cl · Suscripción mensual</strong>
                 </div>
                 <div class="policy-tile">
                     <small id="totalLabelTitle">Total Mensual</small>
@@ -434,12 +434,13 @@
                 }
                 if (order.paymentMode) {
                     document.getElementById('paymentMethodLabel').textContent = 'Flow.cl · ' + order.paymentMode;
-                    const isSingle = order.paymentMode.toLowerCase().includes('1 sola');
+                    const isSingle = order.paymentMode.toLowerCase().includes('único') || order.paymentMode.toLowerCase().includes('unico');
                     document.getElementById('totalLabelTitle').textContent = isSingle ? 'Total Anual (Pago Único)' : 'Total Mensual';
                 }
                 if (order.amountCLP || plan.price) {
                     const clp = order.amountCLP || plan.price;
-                    const suffix = (order.paymentMode || '').toLowerCase().includes('1 sola') ? ' / año' : ' / mes';
+                    const isSingleMode = (order.paymentMode || '').toLowerCase().includes('único') || (order.paymentMode || '').toLowerCase().includes('unico');
+                    const suffix = isSingleMode ? ' / año' : ' / mes';
                     const ufTxt = order.amountUF ? ' (' + order.amountUF + ' UF)' : '';
                     document.getElementById('totalMonthly').textContent = '$' + Number(clp).toLocaleString('es-CL') + suffix + ufTxt;
                 }

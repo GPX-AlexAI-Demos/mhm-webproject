@@ -494,11 +494,15 @@
                         </div>
                         <div>
                             <label class="field-label" for="tNacimiento">Fecha de Nacimiento <span class="req">*</span></label>
-                            <div class="rich-field" id="wrap-tNacimiento">
+                            <div class="rich-field" id="wrap-tNacimiento" style="position:relative;">
                                 <span class="rich-field-icon"><i class="fa-regular fa-calendar"></i></span>
-                                <input type="date" id="tNacimiento">
+                                <input type="text" id="tNacimiento" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric" autocomplete="bday">
+                                <input type="date" id="tNacimientoPicker" tabindex="-1" aria-hidden="true" style="position:absolute; right:8px; width:28px; height:28px; opacity:0; cursor:pointer;">
+                                <button type="button" onclick="const p=document.getElementById('tNacimientoPicker'); if(p.showPicker) p.showPicker(); else p.click();" aria-label="Abrir calendario" style="border:none; background:transparent !important; color:#64748B !important; padding:4px; cursor:pointer; box-shadow:none !important; flex-shrink:0;">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                </button>
                             </div>
-                            <span class="field-error-msg" id="err-tNacimiento">Ingresa una fecha válida.</span>
+                            <span class="field-error-msg" id="err-tNacimiento">Ingresa una fecha válida (dd/mm/aaaa).</span>
                         </div>
                     </div>
 
@@ -694,10 +698,29 @@
             return valid;
         }
 
+        function formatDateDMYMask(raw) {
+            const digits = raw.replace(/\D/g, '').slice(0, 8);
+            if (digits.length <= 2) return digits;
+            if (digits.length <= 4) return digits.slice(0, 2) + '/' + digits.slice(2);
+            return digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
+        }
+
+        function isValidDMYDate(str) {
+            const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str.trim());
+            if (!m) return false;
+            const d = parseInt(m[1], 10);
+            const mo = parseInt(m[2], 10);
+            const y = parseInt(m[3], 10);
+            if (y < 1900 || mo < 1 || mo > 12 || d < 1 || d > 31) return false;
+            const dt = new Date(y, mo - 1, d);
+            if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return false;
+            return dt <= new Date();
+        }
+
         function validateAll(showErrors) {
             const checks = [
                 ['tRut', isValidRut(document.getElementById('tRut').value.trim())],
-                ['tNacimiento', document.getElementById('tNacimiento').value.trim() !== ''],
+                ['tNacimiento', isValidDMYDate(document.getElementById('tNacimiento').value.trim())],
                 ['tNombre', document.getElementById('tNombre').value.trim().length >= 2],
                 ['tApellidoP', document.getElementById('tApellidoP').value.trim().length >= 2],
                 ['tApellidoM', document.getElementById('tApellidoM').value.trim().length >= 2],
@@ -765,6 +788,20 @@
 
             document.getElementById('tRut').addEventListener('input', (e) => {
                 e.target.value = formatRut(e.target.value);
+            });
+
+            const nacInput = document.getElementById('tNacimiento');
+            const nacPicker = document.getElementById('tNacimientoPicker');
+            nacInput.addEventListener('input', (e) => {
+                e.target.value = formatDateDMYMask(e.target.value);
+            });
+            nacPicker.addEventListener('change', (e) => {
+                if (!e.target.value) return;
+                const [y, m, d] = e.target.value.split('-');
+                if (y && m && d) {
+                    nacInput.value = `${d}/${m}/${y}`;
+                    setFieldState('tNacimiento', isValidDMYDate(nacInput.value));
+                }
             });
 
             document.querySelectorAll('#titularRiesgoForm input, #titularRiesgoForm select').forEach(inp => {

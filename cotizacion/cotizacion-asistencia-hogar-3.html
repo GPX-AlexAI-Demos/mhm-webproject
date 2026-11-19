@@ -602,7 +602,7 @@
                     </div>
                     <div class="plan-hl-price-row">
                         <div>
-                            <small style="display:block; font-size:12px; color:#64748B;">Valor anual (1 sola exhibición)</small>
+                            <small style="display:block; font-size:12px; color:#64748B;">Valor anual (Pago único)</small>
                             <strong id="ckAnnualCLP" style="font-size:1.15rem; color:#0F172A;">$62.036</strong>
                             <span id="ckAnnualUF" style="display:block; font-size:12px; color:#64748B; font-weight:600;">1,50 UF al año</span>
                         </div>
@@ -684,14 +684,14 @@
                     <div class="beneficiary-box">El propio asegurado titular</div>
                 </div>
 
-                <!-- 6. Modalidad de Pago (2 botones: Mensual por defecto / 1 sola exhibición) -->
+                <!-- 6. Modalidad de Pago (Pago único a la izquierda / Suscripción mensual a la derecha por defecto) -->
                 <div class="payment-toggle-section">
                     <span style="font-size: 13.5px; font-weight: 700; color: #475569;">¿Cómo prefieres pagar?</span>
                     <div class="payment-toggle-group">
-                        <button type="button" class="pay-mode-btn active" id="btnPayMonthly" onclick="setPaymentMode('mensual')">Pago mensual</button>
-                        <button type="button" class="pay-mode-btn" id="btnPaySingle" onclick="setPaymentMode('unico')">Pago en 1 sola exhibición</button>
+                        <button type="button" class="pay-mode-btn" id="btnPaySingle" onclick="setPaymentMode('unico')">Pago único</button>
+                        <button type="button" class="pay-mode-btn active" id="btnPayMonthly" onclick="setPaymentMode('mensual')">Suscripción mensual</button>
                     </div>
-                    <p class="payment-helper" id="paymentHelperText">Paga $5.170 cada mes a través de Flow.cl.</p>
+                    <p class="payment-helper" id="paymentHelperText">Registra tu tarjeta en Flow.cl y paga $5.170 cada mes, de forma automática.</p>
                 </div>
 
                 <!-- 7. Términos y Condiciones + Confirm CTA -->
@@ -882,9 +882,9 @@
             const aUF = formatUF(activePlan.ufBrutaAnual);
 
             if (mode === 'mensual') {
-                helper.textContent = `Paga $${mCLP.toLocaleString('es-CL')} cada mes (${mUF} UF/mes) mediante suscripción en Flow.cl.`;
+                helper.textContent = `Registra tu tarjeta en Flow.cl y paga $${mCLP.toLocaleString('es-CL')} cada mes (${mUF} UF/mes), de forma automática.`;
             } else {
-                helper.textContent = `Pagas ahora $${aCLP.toLocaleString('es-CL')} (${aUF} UF anual) en 1 sola exhibición por 12 meses de cobertura, sin cargos automáticos.`;
+                helper.textContent = `Pagas ahora $${aCLP.toLocaleString('es-CL')} (${aUF} UF anual) por 12 meses de cobertura, sin cargos automáticos.`;
             }
         }
 
@@ -902,10 +902,10 @@
 
             document.getElementById('flowPlanName').textContent = activePlan.title + ' (UF ' + activePlan.capitalUF + ')';
             if (paymentMode === 'mensual') {
-                document.getElementById('flowPayMode').textContent = 'Pago mensual (Flow)';
+                document.getElementById('flowPayMode').textContent = 'Suscripción mensual (Flow)';
                 document.getElementById('flowTotalAmount').textContent = `$${mCLP.toLocaleString('es-CL')} / mes (${mUF} UF)`;
             } else {
-                document.getElementById('flowPayMode').textContent = 'Pago en 1 sola exhibición (Anual)';
+                document.getElementById('flowPayMode').textContent = 'Pago único (Anual)';
                 document.getElementById('flowTotalAmount').textContent = `$${aCLP.toLocaleString('es-CL')} (${aUF} UF)`;
             }
             document.getElementById('flowModal').classList.add('open');
@@ -918,7 +918,7 @@
         function completeFlowMock() {
             const order = {
                 orderId: 'FLW-' + Math.floor(100000 + Math.random() * 900000),
-                paymentMode: paymentMode === 'mensual' ? 'Pago mensual' : 'Pago en 1 sola exhibición',
+                paymentMode: paymentMode === 'mensual' ? 'Suscripción mensual' : 'Pago único',
                 amountCLP: paymentMode === 'mensual' ? getMonthlyCLP() : getAnnualCLP(),
                 amountUF: paymentMode === 'mensual' ? formatUF(activePlan.ufBrutaAnual / 12) : formatUF(activePlan.ufBrutaAnual),
                 paidAt: new Date().toISOString()
