@@ -254,6 +254,52 @@
             color: #796BFC !important;
         }
 
+        /* Segmented pill toggle inside INMUEBLE finder tile */
+        .inmueble-pill-group {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            background: #F1F5F9;
+            padding: 3px;
+            border-radius: 12px;
+            margin-top: 2px;
+        }
+        .inmueble-pill-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 40px;
+            padding: 6px 8px;
+            border-radius: 9px;
+            border: none !important;
+            background: transparent !important;
+            color: #64748B !important;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: none !important;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .inmueble-pill-btn:hover {
+            color: #0F172A !important;
+        }
+        .inmueble-pill-btn.active {
+            background: #FFFFFF !important;
+            color: #796BFC !important;
+            box-shadow: 0 2px 8px rgba(121, 107, 252, 0.18) !important;
+        }
+        @media (min-width: 1024px) {
+            .inmueble-pill-btn {
+                min-height: 34px;
+                font-size: 13px;
+                padding: 4px 8px;
+            }
+        }
+
         /* Select wrapper inside modal panel */
         .modal-select-wrap {
             position: relative;
@@ -601,15 +647,19 @@
                 <div class="finderFields">
                     <!-- Campo Tipo Inmueble -->
                     <div class="finder-field-col">
-                        <div class="finder-tile select-tile">
-                            <label class="finder-label" for="hogarPropertyType">
-                                <i class="fa-solid fa-building"></i> INMUEBLE
-                            </label>
-                            <select id="hogarPropertyType" class="finder-select" onchange="updateHogarProfile()">
-                                <option value="Casa" selected>Casa</option>
-                                <option value="Departamento">Departamento</option>
-                            </select>
-                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        <div class="finder-tile" style="cursor: default;">
+                            <span class="finder-label">
+                                <i class="fa-solid fa-house-chimney"></i> INMUEBLE
+                            </span>
+                            <input type="hidden" id="hogarPropertyType" value="Casa">
+                            <div class="inmueble-pill-group" role="group" aria-label="Tipo de inmueble">
+                                <button type="button" id="btnInmuebleCasa" class="inmueble-pill-btn active" onclick="selectInmueble('Casa')">
+                                    <i class="fa-solid fa-house"></i> Casa
+                                </button>
+                                <button type="button" id="btnInmuebleDepto" class="inmueble-pill-btn" onclick="selectInmueble('Departamento')">
+                                    <i class="fa-solid fa-building"></i> Dpto
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -1376,10 +1426,14 @@
             }
         });
 
-        function setSidebarPropType(type) {
+        function selectInmueble(type) {
             hogarProfile.propertyType = type;
             document.getElementById('hogarPropertyType').value = type;
             updateHogarProfile();
+        }
+
+        function setSidebarPropType(type) {
+            selectInmueble(type);
         }
 
         function updateHogarProfile() {
@@ -1389,6 +1443,10 @@
             hogarProfile.occupancy = document.getElementById('hogarOccupancy')?.value || 'Propietario Habitante';
             hogarProfile.securityConserje = document.getElementById('secConserje')?.checked ?? true;
             hogarProfile.securityPorton = document.getElementById('secPorton')?.checked ?? true;
+
+            // Sync INMUEBLE pill buttons
+            document.getElementById('btnInmuebleCasa')?.classList.toggle('active', hogarProfile.propertyType === 'Casa');
+            document.getElementById('btnInmuebleDepto')?.classList.toggle('active', hogarProfile.propertyType === 'Departamento');
 
             // Sync sidebar segmented
             document.querySelectorAll('#propertySegmented .filterHealth').forEach(btn => {
