@@ -300,6 +300,53 @@
             }
         }
 
+        /* Location trigger tile (white style matching finder tiles, opens popover/bottom-sheet) */
+        .locationField {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            outline: none;
+            cursor: pointer;
+            background: #FFFFFF !important;
+            text-align: left;
+        }
+        .locationField-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+            flex: 1;
+        }
+        .location-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0F172A;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
+        .location-value.is-placeholder {
+            color: #94A3B8;
+            font-weight: 600;
+        }
+        .location-chevron {
+            color: #94A3B8;
+            font-size: 12px;
+            transition: transform 0.25s ease, color 0.25s ease;
+            flex-shrink: 0;
+        }
+        .locationField.active .location-chevron {
+            transform: rotate(180deg);
+            color: #796BFC;
+        }
+        .locationField .finder-select {
+            text-transform: none;
+        }
+
         /* Select wrapper inside modal panel */
         .modal-select-wrap {
             position: relative;
@@ -673,32 +720,52 @@
                         </div>
                     </div>
 
-                    <!-- Campo Comuna -->
-                    <div class="finder-field-col">
-                        <div class="finder-tile select-tile">
-                            <label class="finder-label" for="hogarComuna">
-                                <i class="fa-solid fa-map-location-dot"></i> COMUNA
-                            </label>
-                            <select id="hogarComuna" class="finder-select" onchange="updateHogarProfile()">
-                                <option value="" disabled selected>Selecciona</option>
-                                <option value="Santiago Centro">Santiago Centro</option>
-                                <option value="Providencia">Providencia</option>
-                                <option value="Las Condes">Las Condes</option>
-                                <option value="Ñuñoa">Ñuñoa</option>
-                                <option value="Vitacura">Vitacura</option>
-                                <option value="Lo Barnechea">Lo Barnechea</option>
-                                <option value="La Reina">La Reina</option>
-                                <option value="Macul">Macul</option>
-                                <option value="La Florida">La Florida</option>
-                                <option value="Maipú">Maipú</option>
-                                <option value="San Miguel">San Miguel</option>
-                                <option value="Viña del Mar">Viña del Mar</option>
-                                <option value="Valparaíso">Valparaíso</option>
-                                <option value="Concepción">Concepción</option>
-                                <option value="Antofagasta">Antofagasta</option>
-                                <option value="Otra Comuna">Otra Comuna</option>
-                            </select>
-                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                    <!-- Campo Región y Comuna (desplegable) -->
+                    <div class="finder-field-col assured-col-wrapper">
+                        <div class="assured-wrapper">
+                            <button class="finder-tile locationField" id="btnLocationOpen" type="button" aria-expanded="false" aria-controls="locationPanel">
+                                <div class="locationField-content">
+                                    <span class="finder-label"><i class="fa-solid fa-map-location-dot"></i> REGIÓN Y COMUNA</span>
+                                    <strong class="location-value is-placeholder" id="locationSummary">Selecciona</strong>
+                                </div>
+                                <i class="fa-solid fa-chevron-down location-chevron"></i>
+                            </button>
+
+                            <div class="assured-backdrop" id="locationBackdrop" style="display: none;" onclick="closeLocationPanel()"></div>
+                            <div class="assuredPanel" id="locationPanel" style="display: none;">
+                                <div class="assuredPanel-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div>
+                                        <strong><i class="fa-solid fa-map-location-dot"></i> Ubicación del Inmueble</strong>
+                                        <p>Elige la región y comuna donde se encuentra tu vivienda.</p>
+                                    </div>
+                                    <button type="button" class="assuredPanel-close" onclick="closeLocationPanel()" aria-label="Cerrar">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+
+                                <div class="assuredPanel-body" style="display: flex; flex-direction: column; gap: 14px;">
+                                    <div>
+                                        <label for="hogarRegion" style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">Región</label>
+                                        <div class="modal-select-wrap">
+                                            <select id="hogarRegion" class="finder-select" onchange="updateHogarProfile()"></select>
+                                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="hogarComuna" style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">Comuna</label>
+                                        <div class="modal-select-wrap">
+                                            <select id="hogarComuna" class="finder-select" onchange="updateHogarProfile()"></select>
+                                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="assuredPanel-footer" style="margin-top: 10px;">
+                                    <button type="button" id="btnLocationDone" class="btn-assured-done">
+                                        <i class="fa-solid fa-check"></i> Confirmar ubicación
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1156,10 +1223,12 @@
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
+    <script src="../js/chile-regiones.js"></script>
     <script>
         let hogarProfile = {
             propertyType: 'Casa',
             address: '',
+            region: '',
             comuna: '',
             occupancy: 'Propietario Habitante',
             securityConserje: true,
@@ -1387,6 +1456,7 @@
         });
 
         function openPanel() {
+            closeLocationPanel();
             btnAssuredOpen.setAttribute('aria-expanded', 'true');
             btnAssuredOpen.classList.add('active');
             if (window.innerWidth <= 768 && assuredPanel.parentElement !== document.body) {
@@ -1410,6 +1480,49 @@
             validateForm();
         }
 
+        // Location Panel Toggle (Región y Comuna)
+        const btnLocationOpen = document.getElementById('btnLocationOpen');
+        const locationPanel = document.getElementById('locationPanel');
+        const btnLocationDone = document.getElementById('btnLocationDone');
+
+        btnLocationOpen.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isExpanded = btnLocationOpen.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) closeLocationPanel();
+            else openLocationPanel();
+        });
+
+        function openLocationPanel() {
+            closePanel();
+            btnLocationOpen.setAttribute('aria-expanded', 'true');
+            btnLocationOpen.classList.add('active');
+            if (window.innerWidth <= 768 && locationPanel.parentElement !== document.body) {
+                const backdrop = document.getElementById('locationBackdrop');
+                if (backdrop) document.body.appendChild(backdrop);
+                document.body.appendChild(locationPanel);
+            }
+            locationPanel.style.display = 'flex';
+            const backdrop = document.getElementById('locationBackdrop');
+            if (backdrop) backdrop.style.display = 'block';
+            document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : '';
+        }
+
+        function closeLocationPanel() {
+            if (!btnLocationOpen || !locationPanel) return;
+            btnLocationOpen.setAttribute('aria-expanded', 'false');
+            btnLocationOpen.classList.remove('active');
+            locationPanel.style.display = 'none';
+            const backdrop = document.getElementById('locationBackdrop');
+            if (backdrop) backdrop.style.display = 'none';
+            document.body.style.overflow = '';
+            validateForm();
+        }
+
+        btnLocationDone.addEventListener('click', () => {
+            updateHogarProfile();
+            closeLocationPanel();
+        });
+
         btnAssuredDone.addEventListener('click', () => {
             closePanel();
             const btnRec = document.getElementById('btnRecommend');
@@ -1419,10 +1532,12 @@
         });
 
         document.addEventListener('click', (e) => {
-            if (btnAssuredOpen.getAttribute('aria-expanded') !== 'true') return;
             const path = e.composedPath();
-            if (!path.includes(btnAssuredOpen) && !path.includes(assuredPanel)) {
+            if (btnAssuredOpen.getAttribute('aria-expanded') === 'true' && !path.includes(btnAssuredOpen) && !path.includes(assuredPanel)) {
                 closePanel();
+            }
+            if (btnLocationOpen.getAttribute('aria-expanded') === 'true' && !path.includes(btnLocationOpen) && !path.includes(locationPanel)) {
+                closeLocationPanel();
             }
         });
 
@@ -1439,10 +1554,26 @@
         function updateHogarProfile() {
             hogarProfile.propertyType = document.getElementById('hogarPropertyType').value || 'Casa';
             hogarProfile.address = (document.getElementById('hogarAddress').value || '').trim();
-            hogarProfile.comuna = document.getElementById('hogarComuna').value || '';
+            hogarProfile.region = document.getElementById('hogarRegion')?.value || '';
+            hogarProfile.comuna = document.getElementById('hogarComuna')?.value || '';
             hogarProfile.occupancy = document.getElementById('hogarOccupancy')?.value || 'Propietario Habitante';
             hogarProfile.securityConserje = document.getElementById('secConserje')?.checked ?? true;
             hogarProfile.securityPorton = document.getElementById('secPorton')?.checked ?? true;
+
+            // Sync location summary text
+            const locEl = document.getElementById('locationSummary');
+            if (locEl) {
+                if (hogarProfile.comuna) {
+                    locEl.innerText = hogarProfile.comuna;
+                    locEl.classList.remove('is-placeholder');
+                } else if (hogarProfile.region) {
+                    locEl.innerText = hogarProfile.region;
+                    locEl.classList.remove('is-placeholder');
+                } else {
+                    locEl.innerText = 'Selecciona';
+                    locEl.classList.add('is-placeholder');
+                }
+            }
 
             // Sync INMUEBLE pill buttons
             document.getElementById('btnInmuebleCasa')?.classList.toggle('active', hogarProfile.propertyType === 'Casa');
@@ -1479,6 +1610,7 @@
             sessionStorage.setItem('mhm_hogar_data', JSON.stringify({
                 propertyType: hogarProfile.propertyType,
                 address: hogarProfile.address,
+                region: hogarProfile.region,
                 comuna: hogarProfile.comuna,
                 occupancy: hogarProfile.occupancy,
                 securityConserje: hogarProfile.securityConserje,
@@ -1871,6 +2003,7 @@
             sessionStorage.setItem('mhm_hogar_data', JSON.stringify({
                 propertyType: (hogarProfile.propertyType || 'Casa').toLowerCase(),
                 address: hogarProfile.address || 'Av. Vitacura 2900, Depto 402',
+                region: hogarProfile.region || 'Metropolitana de Santiago',
                 comuna: hogarProfile.comuna || 'Vitacura',
                 occupancy: hogarProfile.occupancy,
                 securityConserje: hogarProfile.securityConserje,
@@ -1930,6 +2063,8 @@
 
         // Initialize from sessionStorage if exists
         document.addEventListener('DOMContentLoaded', () => {
+            let savedRegion = '';
+            let savedComuna = '';
             const saved = sessionStorage.getItem('mhm_hogar_data');
             if (saved) {
                 try {
@@ -1943,9 +2078,13 @@
                         hogarProfile.address = parsed.address;
                         document.getElementById('hogarAddress').value = parsed.address;
                     }
+                    if (parsed.region) {
+                        hogarProfile.region = parsed.region;
+                        savedRegion = parsed.region;
+                    }
                     if (parsed.comuna) {
                         hogarProfile.comuna = parsed.comuna;
-                        document.getElementById('hogarComuna').value = parsed.comuna;
+                        savedComuna = parsed.comuna;
                     }
                     if (parsed.occupancy) {
                         hogarProfile.occupancy = parsed.occupancy;
@@ -1965,16 +2104,19 @@
                 } catch(e){}
             }
 
+            if (window.initRegionComunaSelects) {
+                window.initRegionComunaSelects('hogarRegion', 'hogarComuna', savedRegion, savedComuna);
+            }
+
             // Enter key UX on address input
             const addrEl = document.getElementById('hogarAddress');
             if (addrEl) {
                 addrEl.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        const comunaEl = document.getElementById('hogarComuna');
                         const btnRec = document.getElementById('btnRecommend');
-                        if (comunaEl && !comunaEl.value) {
-                            comunaEl.focus();
+                        if (!hogarProfile.comuna) {
+                            openLocationPanel();
                         } else if (btnRec && !btnRec.disabled) {
                             btnRec.click();
                         }
