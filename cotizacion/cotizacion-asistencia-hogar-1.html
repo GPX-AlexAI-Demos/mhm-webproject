@@ -606,8 +606,8 @@
                                 <i class="fa-solid fa-building"></i> INMUEBLE
                             </label>
                             <select id="hogarPropertyType" class="finder-select" onchange="updateHogarProfile()">
-                                <option value="Casa" selected>Casa 🏠</option>
-                                <option value="Departamento">Departamento 🏢</option>
+                                <option value="Casa" selected>Casa</option>
+                                <option value="Departamento">Departamento</option>
                             </select>
                             <i class="fa-solid fa-chevron-down select-arrow"></i>
                         </div>
@@ -678,13 +678,6 @@
                                 </div>
                                 
                                 <div class="assuredPanel-body" style="display: flex; flex-direction: column; gap: 14px;">
-                                    <div>
-                                        <label style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">Tipo de Vivienda</label>
-                                        <div class="property-type-pill-group" style="margin-top: 6px;">
-                                            <button type="button" id="btnPropCasa" class="prop-type-btn active" onclick="selectPropertyTypeModal('Casa')"><i class="fa-solid fa-house"></i> Casa</button>
-                                            <button type="button" id="btnPropDepto" class="prop-type-btn" onclick="selectPropertyTypeModal('Departamento')"><i class="fa-solid fa-building"></i> Dpto</button>
-                                        </div>
-                                    </div>
                                     <div>
                                         <label for="hogarOccupancy" style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">Calidad de Ocupación</label>
                                         <div class="modal-select-wrap">
@@ -1383,18 +1376,10 @@
             }
         });
 
-        function selectPropertyTypeModal(type) {
-            hogarProfile.propertyType = type;
-            document.getElementById('hogarPropertyType').value = type;
-            document.getElementById('btnPropCasa').classList.toggle('active', type === 'Casa');
-            document.getElementById('btnPropDepto').classList.toggle('active', type === 'Departamento');
-            updateHogarProfile();
-        }
-
         function setSidebarPropType(type) {
             hogarProfile.propertyType = type;
             document.getElementById('hogarPropertyType').value = type;
-            selectPropertyTypeModal(type);
+            updateHogarProfile();
         }
 
         function updateHogarProfile() {
@@ -1404,10 +1389,6 @@
             hogarProfile.occupancy = document.getElementById('hogarOccupancy')?.value || 'Propietario Habitante';
             hogarProfile.securityConserje = document.getElementById('secConserje')?.checked ?? true;
             hogarProfile.securityPorton = document.getElementById('secPorton')?.checked ?? true;
-
-            // Sync modal buttons
-            document.getElementById('btnPropCasa')?.classList.toggle('active', hogarProfile.propertyType === 'Casa');
-            document.getElementById('btnPropDepto')?.classList.toggle('active', hogarProfile.propertyType === 'Departamento');
 
             // Sync sidebar segmented
             document.querySelectorAll('#propertySegmented .filterHealth').forEach(btn => {
