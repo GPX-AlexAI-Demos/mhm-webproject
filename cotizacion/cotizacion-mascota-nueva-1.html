@@ -566,25 +566,29 @@
                 <div class="finderFields">
                     <!-- 1. Especie (Perro / Gato) -->
                     <div class="finder-field-col">
-                        <div class="finder-tile" style="cursor: default;">
-                            <span class="finder-label"><i class="fa-solid fa-paw"></i> ESPECIE</span>
-                            <input type="hidden" id="petSpecies" value="Perro">
-                            <div class="pet-pill-group" role="group" aria-label="Especie">
-                                <button type="button" id="btnSpeciesPerro" class="pet-pill-btn active" onclick="selectSpecies('Perro')"><i class="fa-solid fa-dog"></i> Perro</button>
-                                <button type="button" id="btnSpeciesGato" class="pet-pill-btn" onclick="selectSpecies('Gato')"><i class="fa-solid fa-cat"></i> Gato</button>
-                            </div>
+                        <div class="finder-tile select-tile">
+                            <label class="finder-label" for="petSpecies">
+                                <i class="fa-solid fa-paw"></i> ESPECIE
+                            </label>
+                            <select id="petSpecies" class="finder-select" onchange="updatePetProfile()">
+                                <option value="Perro" selected>Perro</option>
+                                <option value="Gato">Gato</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
                         </div>
                     </div>
 
                     <!-- 2. Género (Macho / Hembra) -->
                     <div class="finder-field-col">
-                        <div class="finder-tile" style="cursor: default;">
-                            <span class="finder-label"><i class="fa-solid fa-venus-mars"></i> GÉNERO</span>
-                            <input type="hidden" id="petGender" value="Macho">
-                            <div class="pet-pill-group" role="group" aria-label="Género">
-                                <button type="button" id="btnGenderMacho" class="pet-pill-btn active" onclick="selectGender('Macho')"><i class="fa-solid fa-mars"></i> Macho</button>
-                                <button type="button" id="btnGenderHembra" class="pet-pill-btn" onclick="selectGender('Hembra')"><i class="fa-solid fa-venus"></i> Hembra</button>
-                            </div>
+                        <div class="finder-tile select-tile">
+                            <label class="finder-label" for="petGender">
+                                <i class="fa-solid fa-venus-mars"></i> GÉNERO
+                            </label>
+                            <select id="petGender" class="finder-select" onchange="updatePetProfile()">
+                                <option value="Macho" selected>Macho</option>
+                                <option value="Hembra">Hembra</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
                         </div>
                     </div>
 
@@ -1172,22 +1176,6 @@
             }
         });
 
-        function selectSpecies(sp) {
-            petProfile.species = sp;
-            document.getElementById("petSpecies").value = sp;
-            document.getElementById("btnSpeciesPerro").classList.toggle("active", sp === "Perro");
-            document.getElementById("btnSpeciesGato").classList.toggle("active", sp === "Gato");
-            updatePetProfile();
-        }
-
-        function selectGender(g) {
-            petProfile.gender = g;
-            document.getElementById("petGender").value = g;
-            document.getElementById("btnGenderMacho").classList.toggle("active", g === "Macho");
-            document.getElementById("btnGenderHembra").classList.toggle("active", g === "Hembra");
-            updatePetProfile();
-        }
-
         function setExcludedBreed(val) {
             petProfile.excludedBreed = val;
             document.getElementById("btnBreedNo").classList.toggle("active-ok", val === "no");
@@ -1205,7 +1193,11 @@
         }
 
         function updatePetProfile() {
+            const spSel = document.getElementById("petSpecies");
+            const genSel = document.getElementById("petGender");
             const ageSel = document.getElementById("petAgeRange");
+            petProfile.species = spSel ? spSel.value : "Perro";
+            petProfile.gender = genSel ? genSel.value : "Macho";
             petProfile.ageRange = ageSel ? ageSel.value : "";
             petProfile.ageLabel = AGE_LABELS[petProfile.ageRange] || "";
 
@@ -1482,8 +1474,8 @@
         document.addEventListener("DOMContentLoaded", () => {
             try {
                 const saved = JSON.parse(sessionStorage.getItem("mhm_mascota_data") || "{}");
-                if (saved.species) selectSpecies(saved.species);
-                if (saved.gender) selectGender(saved.gender);
+                if (saved.species) document.getElementById("petSpecies").value = saved.species;
+                if (saved.gender) document.getElementById("petGender").value = saved.gender;
                 if (saved.ageRange) document.getElementById("petAgeRange").value = saved.ageRange;
                 if (saved.excludedBreed) setExcludedBreed(saved.excludedBreed);
             } catch (e) {}
