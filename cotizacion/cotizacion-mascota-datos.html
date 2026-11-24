@@ -171,6 +171,72 @@
             grid-template-columns: 1fr;
             gap: 16px;
             margin-bottom: 16px;
+            align-items: start;
+        }
+        .form-row-2 > div {
+            display: flex;
+            flex-direction: column;
+        }
+        .photo-upload-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1.5px dashed #CBD5E1;
+            background: #F8FAFC;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .photo-upload-card.has-file {
+            border-color: rgba(46, 217, 195, 0.7);
+            background: rgba(46, 217, 195, 0.06);
+        }
+        .photo-upload-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+        .photo-preview-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: rgba(121, 107, 252, 0.1);
+            color: #796BFC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .photo-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .btn-upload-photo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 40px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1.5px solid #2ED9C3;
+            background: #FFFFFF !important;
+            color: #0D9488 !important;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: none !important;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .btn-upload-photo:hover {
+            background: rgba(46, 217, 195, 0.1) !important;
         }
         .form-row-1 {
             margin-bottom: 16px;
@@ -470,7 +536,7 @@
 
                     <div class="form-row-2">
                         <div>
-                            <label class="field-label" for="mRegistro">N° Registro Nacional de Mascotas <span class="req">*</span></label>
+                            <label class="field-label" for="mRegistro" title="N° de Registro Nacional de Mascotas o Animales de Compañía">N° Registro Nacional <span class="req">*</span></label>
                             <div class="rich-field" id="wrap-mRegistro">
                                 <span class="rich-field-icon"><i class="fa-solid fa-microchip"></i></span>
                                 <input type="text" id="mRegistro" placeholder="N° Microchip / Registro">
@@ -488,6 +554,25 @@
                                 </button>
                             </div>
                             <span class="field-error-msg" id="err-mNacimiento">Fecha válida dd/mm/aaaa (edad 6 meses a 9 años 364 días).</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row-1">
+                        <label class="field-label" for="mFoto">Foto de la Mascota</label>
+                        <div class="photo-upload-card" id="mFotoCard">
+                            <div class="photo-upload-left">
+                                <div class="photo-preview-box" id="mFotoPreview">
+                                    <i class="fa-solid fa-camera"></i>
+                                </div>
+                                <div style="min-width: 0;">
+                                    <strong id="mFotoTitle" style="display:block; font-size:13.5px; color:#0F172A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Sube una foto de tu mascota</strong>
+                                    <small id="mFotoSub" style="display:block; font-size:12px; color:#64748B;">JPG, PNG o WEBP (máx. 5 MB)</small>
+                                </div>
+                            </div>
+                            <input type="file" id="mFoto" accept="image/*" style="display:none;">
+                            <button type="button" class="btn-upload-photo" id="btnPickFoto" onclick="document.getElementById('mFoto').click()">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
+                            </button>
                         </div>
                     </div>
 
@@ -555,7 +640,7 @@
                     <ul class="footer-links">
                         <li><a href="cotizacion-1.html">Seguros de auto</a></li>
                         <li><a href="cotizacion-salud-1.html">Vida y salud</a></li>
-                        <li><a href="cotizacion-mascota-nueva-1.html">Seguros de hogar</a></li>
+                        <li><a href="cotizacion-asistencia-hogar-1.html">Seguros de hogar</a></li>
                         <li><a href="cotizacion-mascota-nueva-1.html">Seguros para mascotas</a></li>
                     </ul>
                 </div>
@@ -639,6 +724,24 @@
             document.getElementById("vDesde").value = formatDateDMY(today);
             document.getElementById("vHasta").value = formatDateDMY(nextYear);
 
+            let petFotoDataUrl = "";
+            let petFotoNombre = "";
+
+            function renderFotoPreview(dataUrl, fileName) {
+                const prev = document.getElementById("mFotoPreview");
+                const card = document.getElementById("mFotoCard");
+                const title = document.getElementById("mFotoTitle");
+                const sub = document.getElementById("mFotoSub");
+                const btn = document.getElementById("btnPickFoto");
+                if (dataUrl && prev) {
+                    prev.innerHTML = '<img src="' + dataUrl + '" alt="Foto mascota">';
+                    card?.classList.add("has-file");
+                    if (title) title.textContent = fileName || "Foto cargada";
+                    if (sub) sub.textContent = "Imagen lista para tu solicitud";
+                    if (btn) btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Cambiar';
+                }
+            }
+
             try {
                 const step1 = JSON.parse(sessionStorage.getItem("mhm_mascota_data") || "{}");
                 if (step1.species) document.getElementById("mEspecie").value = step1.species;
@@ -650,7 +753,28 @@
                 if (savedM.raza) document.getElementById("mRaza").value = savedM.raza;
                 if (savedM.registro) document.getElementById("mRegistro").value = savedM.registro;
                 if (savedM.nacimiento) document.getElementById("mNacimiento").value = savedM.nacimiento;
+                if (savedM.fotoDataUrl) {
+                    petFotoDataUrl = savedM.fotoDataUrl;
+                    petFotoNombre = savedM.fotoNombre || "Foto mascota";
+                    renderFotoPreview(petFotoDataUrl, petFotoNombre);
+                }
             } catch (e) {}
+
+            document.getElementById("mFoto").addEventListener("change", (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                if (file.size > 5 * 1024 * 1024) {
+                    alert("La imagen supera los 5 MB. Por favor elige una foto más liviana.");
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    petFotoDataUrl = ev.target.result || "";
+                    petFotoNombre = file.name;
+                    renderFotoPreview(petFotoDataUrl, petFotoNombre);
+                };
+                reader.readAsDataURL(file);
+            });
 
             const nacInput = document.getElementById("mNacimiento");
             const nacPicker = document.getElementById("mNacimientoPicker");
@@ -664,7 +788,7 @@
                 }
             });
 
-            document.querySelectorAll("#mascotaForm input:not([readonly]), #mascotaForm select").forEach(inp => {
+            document.querySelectorAll("#mascotaForm input:not([readonly]):not([type=file]), #mascotaForm select").forEach(inp => {
                 inp.addEventListener("blur", () => validateAll(true));
             });
 
@@ -677,7 +801,9 @@
                     nombre: document.getElementById("mNombre").value.trim(),
                     raza: document.getElementById("mRaza").value.trim(),
                     registro: document.getElementById("mRegistro").value.trim(),
-                    nacimiento: document.getElementById("mNacimiento").value.trim()
+                    nacimiento: document.getElementById("mNacimiento").value.trim(),
+                    fotoNombre: petFotoNombre,
+                    fotoDataUrl: petFotoDataUrl
                 }));
                 sessionStorage.setItem("mhm_mascota_vigencia", JSON.stringify({
                     desde: document.getElementById("vDesde").value,
