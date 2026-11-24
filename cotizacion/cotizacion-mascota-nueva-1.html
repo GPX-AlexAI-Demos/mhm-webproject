@@ -163,25 +163,58 @@
         }
         .eligibility-alert {
             display: none;
-            margin-top: 14px;
-            padding: 14px 18px;
-            border-radius: 14px;
-            border: 1.5px solid #FCA5A5;
-            background: #FEF2F2;
-            color: #991B1B;
+            margin-top: 16px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1.5px solid rgba(121, 107, 252, 0.25);
+            background: linear-gradient(135deg, rgba(121, 107, 252, 0.06) 0%, rgba(46, 217, 195, 0.08) 100%);
+            color: #334155;
             font-size: 13.5px;
-            font-weight: 600;
-            align-items: flex-start;
-            gap: 10px;
+            line-height: 1.55;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
         }
         .eligibility-alert.visible {
             display: flex;
         }
-        .eligibility-alert i {
-            color: #DC2626;
-            font-size: 18px;
-            margin-top: 2px;
+        .eligibility-alert-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            flex: 1;
+            min-width: 240px;
+        }
+        .eligibility-alert-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: rgba(121, 107, 252, 0.14);
+            color: #796BFC;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
             flex-shrink: 0;
+        }
+        .eligibility-alert-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(121, 107, 252, 0.3);
+            background: #FFFFFF !important;
+            color: #796BFC !important;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: none !important;
+            white-space: nowrap;
+        }
+        .eligibility-alert-cta:hover {
+            background: rgba(121, 107, 252, 0.08) !important;
         }
         .resultsBanner {
             position: relative;
@@ -618,10 +651,12 @@
                                         </button>
                                     </div>
                                     <div class="eligibility-alert" id="modalBreedAlert">
-                                        <i class="fa-solid fa-triangle-exclamation"></i>
-                                        <div>
-                                            <strong>Mascota no asegurable</strong><br>
-                                            <span>Las razas indicadas y sus mezclas están excluidas según las condiciones de la póliza RC Mascotas de MAPFRE.</span>
+                                        <div class="eligibility-alert-left">
+                                            <span class="eligibility-alert-icon"><i class="fa-solid fa-paw"></i></span>
+                                            <div>
+                                                <strong style="color:#0F172A;">Esta póliza no cubre las razas indicadas</strong><br>
+                                                <span style="font-size:12.5px;">Por condiciones de suscripción de MAPFRE, estas razas y sus mezclas no son asegurables en este plan online.</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -646,10 +681,15 @@
                     </div>
                 </div>
 
-                <!-- Aviso de no asegurabilidad (edad o raza) -->
-                <div class="eligibility-alert" id="eligibilityAlertBanner" role="alert">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                    <div id="eligibilityAlertText"></div>
+                <!-- Aviso amigable de elegibilidad (edad o raza) -->
+                <div class="eligibility-alert" id="eligibilityAlertBanner" role="status">
+                    <div class="eligibility-alert-left">
+                        <span class="eligibility-alert-icon"><i class="fa-solid fa-paw"></i></span>
+                        <div id="eligibilityAlertText"></div>
+                    </div>
+                    <button type="button" class="eligibility-alert-cta" onclick="openLeadModalForPlan('Asesoría RC Mascotas')">
+                        <i class="fa-regular fa-comments"></i> Hablar con un asesor
+                    </button>
                 </div>
 
                 <div class="healthProof">
@@ -1189,10 +1229,13 @@
             const breedInvalid = petProfile.excludedBreed === "si";
 
             if (breedInvalid) {
-                alertText.innerHTML = "<strong>Tu mascota no es asegurable.</strong> Las razas American Pit Bull Terrier, Bull Terrier, Bullmastiff, Dobermann, Dogo Argentino, Fila Brasileiro, Presa Canario, Presa Mallorquín, Tosa Inu, Pit Bull, Pit Bull Terrier, Rottweiler, Staffordshire Bull Terrier y cualquiera de sus mezclas están excluidas en esta póliza.";
+                alertText.innerHTML = "<strong style='color:#0F172A;'>Tu mascota no es asegurable en este plan online.</strong> Por condiciones de suscripción de MAPFRE, las razas indicadas y sus mezclas no están contempladas en la póliza RC Mascotas. Si quieres, un asesor puede orientarte sobre otras alternativas.";
                 alertBox.classList.add("visible");
-            } else if (ageInvalid) {
-                alertText.innerHTML = "<strong>Tu mascota no cumple el requisito de edad de ingreso.</strong> Según el certificado de MAPFRE, la edad mínima de ingreso es 6 meses cumplidos y la máxima es 9 años y 364 días.";
+            } else if (petProfile.ageRange === "lt6m") {
+                alertText.innerHTML = "<strong style='color:#0F172A;'>¡Tu compañero aún es muy pequeñito!</strong> Por ahora, la póliza online RC Mascotas cubre perritos y gatitos desde los <strong>6 meses cumplidos</strong> hasta los <strong>9 años y 364 días</strong>.";
+                alertBox.classList.add("visible");
+            } else if (petProfile.ageRange === "10plus") {
+                alertText.innerHTML = "<strong style='color:#0F172A;'>Edad fuera del rango de ingreso online.</strong> Este plan de MAPFRE admite ingresos hasta los <strong>9 años y 364 días</strong> (con permanencia hasta los 11 años y 364 días). Conversemos para evaluar opciones.";
                 alertBox.classList.add("visible");
             } else {
                 alertBox.classList.remove("visible");
