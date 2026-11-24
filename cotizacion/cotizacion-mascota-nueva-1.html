@@ -20,312 +20,298 @@
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
 
     <style>
-        .gender-btn {
-            flex: 1 !important;
-            padding: 10px !important;
-            border-radius: 8px !important;
-            font-weight: 600 !important;
-            cursor: pointer !important;
-            transition: all 0.2s ease !important;
-            border: 2px solid #CBD5E1 !important;
-            background: #FFF !important;
-            color: #64748B !important;
+        .healthExperience {
+            overflow-x: hidden;
+            font-family: "Poppins", system-ui, -apple-system, sans-serif;
+        }
+        .healthFinder {
+            border-radius: 24px !important;
+            border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08) !important;
+        }
+        .healthFinder .finderFields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .finder-tile {
+            height: auto;
+            min-height: 76px;
+        }
+        .finder-input,
+        .finder-select {
+            font-size: 16px !important;
+        }
+        .pet-pill-group {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            background: #F1F5F9;
+            padding: 3px;
+            border-radius: 12px;
+            margin-top: 2px;
+        }
+        .pet-pill-btn {
+            flex: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-        }
-        .gender-btn:hover {
-            border-color: #CBD5E1;
-            background: #F1F5F9;
-        }
-        .gender-btn.active {
-            border: 2px solid #0F766E !important;
-            background: #F0FDF4 !important;
-            color: #0F766E !important;
-        }
-    
-        /* Pet Assignment Pills */
-        .pet-assign-area {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #E2E8F0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .healthPolicyCard.has-pets-assigned {
-            border-color: #10B981 !important;
-            box-shadow: 0 12px 30px -5px rgba(16, 185, 129, 0.2), 0 0 0 1px #10B981 !important;
-        }
-        .assigned-feedback-banner {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.08) 100%);
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            border-radius: 10px;
-            padding: 7px 12px;
-            margin-bottom: 12px;
-            color: #065F46;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .assigned-feedback-banner i {
-            color: #10B981;
-            font-size: 14px;
-        }
-        .assigned-feedback-banner strong {
-            color: #047857;
-            font-weight: 800;
-        }
-        .pet-assign-area {
-            margin-top: 14px;
-            padding-top: 12px;
-            border-top: 1px dashed #E2E8F0;
-        }
-        .pet-assign-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .pet-pills-label {
-            font-size: 0.85rem;
-            color: #475569;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .assigned-count-badge {
-            background: #ECFDF5;
-            color: #047857;
-            border: 1px solid #A7F3D0;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 999px;
-        }
-        .pet-pills-container {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .pet-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
-            border-radius: 999px;
-            font-size: 12px;
+            min-height: 40px;
+            padding: 6px 8px;
+            border-radius: 9px;
+            border: none !important;
+            background: transparent !important;
+            color: #64748B !important;
+            font-family: "Poppins", system-ui, -apple-system, sans-serif;
+            font-size: 13.5px;
             font-weight: 700;
             cursor: pointer;
+            box-shadow: none !important;
             transition: all 0.2s ease;
-            border: 1.5px solid #CBD5E1;
-            background: #FFFFFF;
+            white-space: nowrap;
+        }
+        .pet-pill-btn:hover { color: #0F172A !important; }
+        .pet-pill-btn.active {
+            background: #FFFFFF !important;
+            color: #796BFC !important;
+            box-shadow: 0 2px 8px rgba(121, 107, 252, 0.18) !important;
+        }
+        .assuredField {
+            background: linear-gradient(135deg, #796BFC 0%, #503DE6 100%) !important;
+            border: 1.5px solid #6355F5 !important;
+            box-shadow: 0 8px 22px -4px rgba(121, 107, 252, 0.35) !important;
+        }
+        .assuredField:hover {
+            background: linear-gradient(135deg, #6E5FF8 0%, #4331D8 100%) !important;
+        }
+        .assuredField:hover .assured-badge-icon,
+        .assuredField.active .assured-badge-icon {
+            background: #FFFFFF !important;
+            color: #503DE6 !important;
+            border-color: #FFFFFF !important;
+        }
+        .assuredField:hover .assured-badge-icon i,
+        .assuredField.active .assured-badge-icon i {
+            color: #503DE6 !important;
+        }
+        .finderSubmit {
+            background: linear-gradient(135deg, #796BFC 0%, #503DE6 100%) !important;
+            box-shadow: 0 10px 26px -4px rgba(121, 107, 252, 0.45) !important;
+            border-radius: 18px !important;
+        }
+        .finderSubmit:disabled {
+            background: #B8B0FE !important;
+            opacity: 0.78 !important;
+            box-shadow: none !important;
+        }
+        .assuredPanel-close {
+            background: transparent !important;
+            border: none !important;
+            font-size: 1.2rem;
+            color: #94A3B8 !important;
+            cursor: pointer;
+            padding: 6px 10px;
+            min-width: 40px;
+            min-height: 40px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none !important;
+        }
+        .breed-list-box {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 12.5px;
+            line-height: 1.5;
             color: #334155;
         }
-        .pet-pill:hover {
-            border-color: #94A3B8;
-            background: #F8FAFC;
-        }
-        .pet-pill.active.assigned-this {
-            background: #10B981 !important;
-            border-color: #059669 !important;
-            color: #FFFFFF !important;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-        .pet-pill.active.assigned-this i {
-            color: #FFFFFF !important;
-        }
-        .pet-pill.assigned-elsewhere {
-            background: #F8FAFC;
-            border-color: #E2E8F0;
-            color: #64748B;
-            opacity: 0.85;
-        }
-        .pet-pill.unassigned {
-            background: #FFFFFF;
-            border-color: #CBD5E1;
-            color: #1E293B;
-        }
-        .pill-tag-status {
-            font-size: 10px;
-            font-weight: 700;
-            padding: 1px 6px;
-            border-radius: 999px;
-            letter-spacing: 0.02em;
-        }
-        .pet-pill.active.assigned-this .pill-tag-status {
-            background: rgba(255, 255, 255, 0.25);
-            color: #FFFFFF;
-        }
-        .pet-pill.assigned-elsewhere .pill-tag-status {
-            background: #E2E8F0;
-            color: #475569;
-        }
-        .pet-pill.unassigned .pill-tag-status {
-            background: #EEF2FF;
-            color: #4F46E5;
-        }
-
-        /* Sticky Checkout Bar */
-        .checkout-sticky-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-top: 1px solid #E2E8F0;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
-            z-index: 1000;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .checkout-sticky-bar.visible {
-            transform: translateY(0);
-        }
-        .checkout-status {
-            display: flex;
-            flex-direction: column;
-        }
-        .checkout-status-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #0F172A;
-        }
-        .checkout-status-sub {
-            font-size: 0.85rem;
-            color: #64748B;
-        }
-        .btn-checkout {
-            background: #0F172A;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        .btn-checkout.active {
-            opacity: 1;
-            pointer-events: auto;
-            background: linear-gradient(135deg, #10B981 0%, #0F766E 100%);
-        }
-        .btn-checkout.active:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
-        }
-
-        .checkout-price-preview {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            margin-left: auto;
-            margin-right: 25px;
-        }
-        .checkout-price-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #64748B;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-        .checkout-price-amount {
-            font-size: 1.35rem;
-            font-weight: 900;
-            color: #0F172A;
-            line-height: 1.1;
-        }
-        .checkout-price-amount small {
-            font-size: 0.8rem;
-            color: #64748B;
-            font-weight: 600;
-        }
-        @media (max-width: 650px) {
-            .checkout-price-preview {
-                display: none;
-            }
-        }
-
-        .drawerFooter {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 12px;
-            padding-top: 20px;
-            margin-top: 20px;
-            border-top: 1px solid #E2E8F0;
-            flex-wrap: wrap;
-        }
-        .btn-drawer-assign {
-            background: var(--grad-aurora);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 12px;
-            padding: 10px 18px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
+        .breed-choice-group {
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 8px;
-            transition: all 0.2s ease;
         }
-        .btn-drawer-assign:hover {
-            filter: brightness(1.08);
-            transform: translateY(-1px);
-        }
-        .btn-contact-agent {
-            background: #FFFFFF;
-            color: #475569;
+        .breed-choice-btn {
+            min-height: 46px;
+            padding: 10px 14px;
+            border-radius: 12px;
             border: 1.5px solid #CBD5E1;
-            border-radius: 12px;
-            padding: 10px 18px;
+            background: #FFFFFF !important;
+            color: #334155 !important;
+            font-size: 13.5px;
             font-weight: 700;
-            font-size: 0.9rem;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            box-shadow: none !important;
             transition: all 0.2s ease;
         }
-        .btn-contact-agent:hover {
-            border-color: #796bfc;
-            color: #796bfc;
-            background: #F8FAFC;
+        .breed-choice-btn.active-ok {
+            border-color: #2ED9C3 !important;
+            background: rgba(46, 217, 195, 0.12) !important;
+            color: #0F766E !important;
         }
-
-        /* Responsive 4-Column Grid for Pet Finder */
-        @media (min-width: 992px) {
-            .healthFinder .finderFields {
-                display: grid !important;
-                grid-template-columns: 1.2fr 1fr 0.9fr 1.5fr 1.3fr !important;
-                gap: 16px !important;
-                align-items: stretch !important;
+        .breed-choice-btn.active-no {
+            border-color: #EF4444 !important;
+            background: #FEF2F2 !important;
+            color: #B91C1C !important;
+        }
+        .eligibility-alert {
+            display: none;
+            margin-top: 14px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1.5px solid #FCA5A5;
+            background: #FEF2F2;
+            color: #991B1B;
+            font-size: 13.5px;
+            font-weight: 600;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .eligibility-alert.visible {
+            display: flex;
+        }
+        .eligibility-alert i {
+            color: #DC2626;
+            font-size: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .resultsBanner {
+            position: relative;
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 55%, rgba(121, 107, 252, 0.75) 100%) !important;
+        }
+        .resultsBanner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2ED9C3 0%, #796BFC 50%, #503DE6 100%);
+        }
+        .resultProfile #btnEditProfile,
+        .btn-advisor-mini {
+            background: #2ED9C3 !important;
+            border-color: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 6px 16px -3px rgba(46, 217, 195, 0.4) !important;
+        }
+        .healthPolicyCard {
+            border: 1.5px solid rgba(121, 107, 252, 0.28) !important;
+            border-radius: 24px !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+        }
+        .policyBand.band-familiar,
+        .policyBand.band-individual {
+            background: linear-gradient(155deg, #796BFC 0%, #503DE6 100%) !important;
+        }
+        .policyBand .healthMark {
+            width: 84px !important;
+            height: 48px !important;
+            border-radius: 12px !important;
+            background: #FFFFFF !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14) !important;
+            margin: 10px 0 !important;
+        }
+        .badge-best-match {
+            background: #0F172A !important;
+            color: #FFFFFF !important;
+        }
+        .badge-affinity {
+            background: rgba(46, 217, 195, 0.16) !important;
+            color: #0D9488 !important;
+        }
+        .cardFacePriceUF {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #796BFC;
+            margin-top: 2px;
+        }
+        .benefitItem-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            background: rgba(46, 217, 195, 0.16);
+            color: #0D9488;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 11px;
+        }
+        .btn-details-toggle {
+            background: #2ED9C3 !important;
+            border: none !important;
+            color: #FFFFFF !important;
+            min-height: 44px;
+            padding: 11px 22px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 6px 18px -3px rgba(46, 217, 195, 0.45) !important;
+        }
+        .btn-details-toggle i { color: #FFFFFF !important; }
+        .btn-contratar-action {
+            background: linear-gradient(135deg, #796BFC 0%, #503DE6 100%) !important;
+            min-height: 44px;
+            border-radius: 12px !important;
+        }
+        .btn-assured-done { min-height: 48px; }
+        .btnResetQuote {
+            background: #FFFFFF;
+            border: 1.5px solid #E2E8F0;
+            color: #64748B;
+            border-radius: 100px;
+            padding: 8px 14px;
+            min-height: 40px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        @media (max-width: 767px) {
+            .assuredPanel {
+                position: fixed !important;
+                top: auto !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                max-height: 88vh !important;
+                overflow-y: auto !important;
+                overscroll-behavior: contain;
+                border-radius: 24px 24px 0 0 !important;
+                margin: 0 !important;
+                padding: 14px 20px calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+                z-index: 2000000 !important;
+                box-shadow: 0 -15px 40px rgba(15, 23, 42, 0.3) !important;
+                border: 1px solid rgba(226, 232, 240, 0.9) !important;
             }
-            .healthFinder .finderFields .submit-col {
-                grid-column: auto !important;
+            .assured-backdrop {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.55);
+                backdrop-filter: blur(4px);
+                z-index: 1999999;
+            }
+            .resultProfile {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
             }
         }
-
-        @media (max-width: 991px) and (min-width: 601px) {
+        @media (min-width: 768px) {
             .healthFinder .finderFields {
                 display: grid !important;
                 grid-template-columns: 1fr 1fr !important;
@@ -335,297 +321,32 @@
                 grid-column: 1 / -1 !important;
             }
         }
-
-        @media (max-width: 600px) {
+        @media (min-width: 1024px) {
+            .healthExperience { overflow-x: visible; }
             .healthFinder .finderFields {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 12px !important;
+                display: grid !important;
+                grid-template-columns: 1.05fr 1.05fr 1.25fr 1.45fr 1.2fr !important;
+                gap: 14px !important;
+                align-items: stretch !important;
+            }
+            .healthFinder .finderFields .submit-col {
+                grid-column: auto !important;
+            }
+            .finder-tile,
+            .finderSubmit {
+                min-height: 80px !important;
+                height: 80px !important;
+            }
+            .pet-pill-btn {
+                min-height: 34px;
+                font-size: 13px;
+                padding: 4px 8px;
+            }
+            .cardTopRow {
+                grid-template-columns: 200px 1fr !important;
             }
         }
-
-        /* Mobile Bottom Sheet / Modal for Assured Panel */
-        @media (max-width: 768px) {
-            .assuredPanel {
-                position: fixed !important;
-                top: auto !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                width: 100% !important;
-                max-height: 85vh !important;
-                overflow-y: auto !important;
-                border-radius: 24px 24px 0 0 !important;
-                margin: 0 !important;
-                padding: 24px 20px 32px !important;
-                z-index: 2000000 !important;
-                box-shadow: 0 -15px 40px rgba(15, 23, 42, 0.3) !important;
-                border: 1px solid rgba(226, 232, 240, 0.9) !important;
-                animation: slideUpSheet 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            }
-            .assured-backdrop {
-                display: block;
-                position: fixed;
-                inset: 0;
-                background: rgba(15, 23, 42, 0.55);
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-                z-index: 1999999;
-            }
-            @keyframes slideUpSheet {
-                from { transform: translateY(100%); }
-                to { transform: translateY(0); }
-            }
-        }
-
-        /* Avoid overlap between sticky checkout bar and compare dock */
-        .compareFloatingDock.dock-elevated {
-            bottom: 96px !important;
-        }
-
-        .checkout-sticky-bar.panel-open {
-            transform: translateY(100%) !important;
-        }
-        .checkout-price-amount {
-            white-space: nowrap !important;
-        }
-        @media (max-width: 480px) {
-            .checkout-sticky-bar {
-                padding: 10px 14px !important;
-                gap: 8px !important;
-            }
-            .checkout-status-title {
-                font-size: 0.92rem !important;
-            }
-            .checkout-status-sub {
-                font-size: 0.72rem !important;
-            }
-            .checkout-price-amount {
-                font-size: 1.05rem !important;
-            }
-            .btn-checkout {
-                padding: 10px 16px !important;
-                font-size: 0.88rem !important;
-            }
-        }
-
-        /* --- MOBILE RESPONSIVE COMPARATOR (AURORA DESIGN) --- */
-        @media (max-width: 768px) {
-            .compareFloatingDock {
-                width: calc(100% - 20px) !important;
-                max-width: 420px !important;
-                padding: 8px 10px 8px 14px !important;
-                bottom: 16px !important;
-                border-radius: 100px !important;
-                box-sizing: border-box !important;
-            }
-            .compareFloatingDock.dock-elevated {
-                bottom: 84px !important;
-            }
-            .compareDockInner {
-                width: 100% !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: space-between !important;
-                gap: 8px !important;
-                box-sizing: border-box !important;
-            }
-            .compareDockInfo {
-                font-size: 11.5px !important;
-                gap: 6px !important;
-                min-width: 0 !important;
-                flex: 1 1 auto !important;
-                overflow: hidden !important;
-                display: flex !important;
-                align-items: center !important;
-            }
-            .compareDockInfo i {
-                font-size: 13px !important;
-                flex-shrink: 0 !important;
-            }
-            .compareDockInfo span {
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-                display: inline-block !important;
-            }
-            .compareDockActions {
-                flex-shrink: 0 !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 6px !important;
-            }
-            .btn-view-compare {
-                padding: 7px 13px !important;
-                font-size: 11.5px !important;
-                white-space: nowrap !important;
-                flex-shrink: 0 !important;
-                border-radius: 999px !important;
-            }
-            .btn-view-compare .compare-btn-text-desktop {
-                display: none !important;
-            }
-            .btn-view-compare .compare-btn-text-mobile {
-                display: inline !important;
-            }
-            .compareDockInfo .dock-short-text {
-                display: inline-block !important;
-            }
-            .compareDockInfo .dock-full-text {
-                display: none !important;
-            }
-
-            /* Compare Modal Mobile Optimization */
-            .compareModalOverlay {
-                padding: 10px !important;
-                align-items: flex-end !important;
-                background: rgba(15, 23, 42, 0.75) !important;
-            }
-            .compareModalOverlay.active {
-                opacity: 1 !important;
-                visibility: visible !important;
-            }
-            .compareModalBox {
-                padding: 24px 14px 20px !important;
-                border-radius: 22px 22px 14px 14px !important;
-                max-height: 88vh !important;
-                width: 100% !important;
-            }
-            .compareModalClose {
-                top: 14px !important;
-                right: 14px !important;
-                width: 32px !important;
-                height: 32px !important;
-                font-size: 13px !important;
-                background: #F1F5F9 !important;
-                border: 1.5px solid #CBD5E1 !important;
-                color: #0F172A !important;
-            }
-            .compareModalClose i {
-                color: #0F172A !important;
-            }
-            .compareModalHead {
-                margin-bottom: 16px !important;
-                padding-right: 36px !important;
-            }
-            .compareModalHead h3 {
-                font-size: 1.25rem !important;
-                margin: 2px 0 4px !important;
-            }
-            .compareModalHead p {
-                font-size: 12px !important;
-                line-height: 1.4 !important;
-            }
-
-            /* Compare Hero Cards in Carousel / Side-by-Side Flex */
-            .compareHeroCardsGrid {
-                display: flex !important;
-                flex-direction: row !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                scroll-snap-type: x mandatory !important;
-                gap: 12px !important;
-                margin-bottom: 16px !important;
-                padding-bottom: 6px !important;
-            }
-            .compareHeroCard {
-                min-width: 220px !important;
-                max-width: 260px !important;
-                flex: 0 0 auto !important;
-                scroll-snap-align: start !important;
-                padding: 14px !important;
-                border-radius: 14px !important;
-            }
-            .compareHeroCard h4 {
-                font-size: 0.98rem !important;
-            }
-            .compareHeroCard .heroCardPrice strong {
-                font-size: 1.15rem !important;
-            }
-
-            /* Responsive Comparison Table */
-            .compareTableWrapper {
-                border-radius: 12px !important;
-                -webkit-overflow-scrolling: touch !important;
-                overflow-x: auto !important;
-                box-shadow: inset -6px 0 8px -4px rgba(0,0,0,0.06) !important;
-                background: #FFFFFF !important;
-            }
-            .compareTable {
-                min-width: 480px !important;
-                font-size: 12px !important;
-                border-collapse: separate !important;
-                border-spacing: 0 !important;
-            }
-            .compareTable th, 
-            .compareTable td {
-                padding: 10px 12px !important;
-                background: #FFFFFF !important;
-            }
-            .compareTable td:first-child,
-            .compareTable th:first-child {
-                position: sticky !important;
-                left: 0 !important;
-                background: #FFFFFF !important;
-                z-index: 5 !important;
-                box-shadow: 3px 0 8px -2px rgba(15, 23, 42, 0.12) !important;
-                border-right: 1px solid #E2E8F0 !important;
-                font-size: 11.5px !important;
-                width: 135px !important;
-                min-width: 135px !important;
-                max-width: 135px !important;
-            }
-            .compareTable th:not(:first-child),
-            .compareTable td:not(:first-child) {
-                min-width: 160px !important;
-                background: #FFFFFF !important;
-                text-align: center !important;
-            }
-            .compareCategoryRow th {
-                background: #F8FAFC !important;
-                padding: 8px 12px !important;
-                font-size: 11px !important;
-                text-align: left !important;
-                border-top: 1px solid #E2E8F0 !important;
-                border-bottom: 1px solid #E2E8F0 !important;
-            }
-            .sticky-cat-title {
-                position: sticky !important;
-                left: 14px !important;
-                display: inline-flex !important;
-                align-items: center !important;
-                white-space: nowrap !important;
-                z-index: 6 !important;
-            }
-        }
-
-        /* Universal typography & tactile feedback */
-        .planTitle, #resultTitle, .finder-label {
-            text-wrap: balance;
-        }
-        .btnResetQuote {
-            background: #FFFFFF;
-            border: 1.5px solid #E2E8F0;
-            color: #64748B;
-            border-radius: 100px;
-            padding: 7px 14px;
-            font-size: 12.5px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-        }
-        .btnResetQuote:hover {
-            border-color: #EF4444;
-            color: #EF4444;
-            background: #FEF2F2;
-        }
-        .finderSubmit:active:not(:disabled), .btn-checkout.active:active, .pet-pill:active, .btnResetQuote:active {
-            transform: scale(0.97) !important;
-        }
+        .footer-aurora { width: 100% !important; margin: 0 !important; box-sizing: border-box !important; }
     </style>
 </head>
 
@@ -807,53 +528,68 @@
             <section class="healthFinder container" id="recomendador">
                 <div class="finderHead">
                     <div class="finder-badge"><i class="fa-solid fa-shield-heart"></i> ENCUENTRA TU PROTECCIÓN IDEAL</div>
-                    <span class="finder-sub">Cuéntanos sobre ti y compara opciones que sí hacen sentido</span>
+                    <span class="finder-sub">Ingresa los datos de tu mascota y verifica su elegibilidad al instante</span>
                 </div>
                 <div class="finderFields">
-                    <!-- Campo Nombre -->
+                    <!-- 1. Especie (Perro / Gato) -->
                     <div class="finder-field-col">
-                        <div class="finder-tile">
-                            <label class="finder-label" for="petName_1">
-                                <i class="fa-solid fa-tag"></i> NOMBRE
-                            </label>
-                            <input type="text" id="petName_1" class="finder-input" placeholder="Ej. Firulais" oninput="updateMainPet()" onchange="updateMainPet()" />
+                        <div class="finder-tile" style="cursor: default;">
+                            <span class="finder-label"><i class="fa-solid fa-paw"></i> ESPECIE</span>
+                            <input type="hidden" id="petSpecies" value="Perro">
+                            <div class="pet-pill-group" role="group" aria-label="Especie">
+                                <button type="button" id="btnSpeciesPerro" class="pet-pill-btn active" onclick="selectSpecies('Perro')"><i class="fa-solid fa-dog"></i> Perro</button>
+                                <button type="button" id="btnSpeciesGato" class="pet-pill-btn" onclick="selectSpecies('Gato')"><i class="fa-solid fa-cat"></i> Gato</button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Campo Tipo -->
+                    <!-- 2. Género (Macho / Hembra) -->
+                    <div class="finder-field-col">
+                        <div class="finder-tile" style="cursor: default;">
+                            <span class="finder-label"><i class="fa-solid fa-venus-mars"></i> GÉNERO</span>
+                            <input type="hidden" id="petGender" value="Macho">
+                            <div class="pet-pill-group" role="group" aria-label="Género">
+                                <button type="button" id="btnGenderMacho" class="pet-pill-btn active" onclick="selectGender('Macho')"><i class="fa-solid fa-mars"></i> Macho</button>
+                                <button type="button" id="btnGenderHembra" class="pet-pill-btn" onclick="selectGender('Hembra')"><i class="fa-solid fa-venus"></i> Hembra</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Edad de la mascota -->
                     <div class="finder-field-col">
                         <div class="finder-tile select-tile">
-                            <label class="finder-label" for="petType_1">
-                                <i class="fa-solid fa-dog"></i> TIPO
+                            <label class="finder-label" for="petAgeRange">
+                                <i class="fa-solid fa-cake-candles"></i> EDAD MASCOTA
                             </label>
-                            <select id="petType_1" class="finder-select" onchange="updateMainPetType()">
-                                <option value="perro" selected>Perro</option>
-                                <option value="gato">Gato</option>
+                            <select id="petAgeRange" class="finder-select" onchange="updatePetProfile()">
+                                <option value="" disabled selected>Selecciona edad</option>
+                                <option value="lt6m">Menos de 6 meses</option>
+                                <option value="6-11m">6 a 11 meses</option>
+                                <option value="1">1 año</option>
+                                <option value="2">2 años</option>
+                                <option value="3">3 años</option>
+                                <option value="4">4 años</option>
+                                <option value="5">5 años</option>
+                                <option value="6">6 años</option>
+                                <option value="7">7 años</option>
+                                <option value="8">8 años</option>
+                                <option value="9">9 años (hasta 9 años 364 días)</option>
+                                <option value="10plus">10 años o más</option>
                             </select>
                             <i class="fa-solid fa-chevron-down select-arrow"></i>
                         </div>
                     </div>
 
-                    <!-- Campo Edad -->
-                    <div class="finder-field-col">
-                        <div class="finder-tile">
-                            <label class="finder-label" for="petAge_1">
-                                <i class="fa-solid fa-cake-candles"></i> EDAD
-                            </label>
-                            <input type="number" min="0" max="25" id="petAge_1" class="finder-input" placeholder="Años (ej. 3)" oninput="updateMainPet()" onchange="updateMainPet()" />
-                        </div>
-                    </div>
-
-                    <!-- Panel Mas Detalles / Más Mascotas -->
+                    <!-- 4. Validación de razas -->
                     <div class="finder-field-col assured-col-wrapper">
                         <div class="assured-wrapper">
                             <button class="finder-tile assuredField" id="btnAssuredOpen" type="button" aria-expanded="false" aria-controls="assuredPanel">
                                 <div class="assuredField-content">
-                                    <span class="finder-label"><i class="fa-solid fa-circle-plus"></i> DETALLES & MÁS MASCOTAS</span>
-                                    <strong class="assured-value" id="assuredSummary">1 mascota</strong>
+                                    <span class="finder-label"><i class="fa-solid fa-shield-dog"></i> VALIDACIÓN DE RAZAS</span>
+                                    <strong class="assured-value" id="assuredSummary">Por confirmar</strong>
                                 </div>
                                 <span class="assured-badge-icon" id="assuredToggle">
-                                    <i class="fa-solid fa-paw"></i>
+                                    <i class="fa-solid fa-chevron-down"></i>
                                 </span>
                             </button>
 
@@ -861,31 +597,45 @@
                             <div class="assuredPanel" id="assuredPanel" style="display: none;">
                                 <div class="assuredPanel-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
                                     <div>
-                                        <strong><i class="fa-solid fa-list"></i> Completa los datos</strong>
-                                        <p>Indica la raza y sexo de tu mascota, y agrega más si lo necesitas.</p>
+                                        <strong><i class="fa-solid fa-circle-exclamation"></i> Validación de Razas</strong>
+                                        <p>¿Tu mascota pertenece a alguna de estas razas o es mezcla de alguna de ellas?</p>
                                     </div>
-                                    <button type="button" id="closeAssuredPanelBtn" onclick="closePanel()" style="background: none; border: none; font-size: 1.2rem; color: #94A3B8; cursor: pointer; padding: 4px 8px;" aria-label="Cerrar">
+                                    <button type="button" class="assuredPanel-close" onclick="closePanel()" aria-label="Cerrar">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
-                                
-                                <div class="assuredPanel-body" id="petsPanelBody">
-                                    <!-- Pet 1 extra details injected here by JS -->
+
+                                <div class="assuredPanel-body" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div class="breed-list-box">
+                                        American Pit Bull Terrier, Bull Terrier, Bullmastiff, Dobermann, Dogo Argentino, Fila Brasileiro, Presa Canario, Presa Mallorquín, Tosa Inu, Pit Bull, Pit Bull Terrier, Rottweiler, Staffordshire Bull Terrier y cualquier mezcla que provenga de alguna de las razas indicadas anteriormente.
+                                    </div>
+                                    <div class="breed-choice-group">
+                                        <button type="button" id="btnBreedNo" class="breed-choice-btn" onclick="setExcludedBreed('no')">
+                                            <i class="fa-solid fa-check"></i> No, es otra raza
+                                        </button>
+                                        <button type="button" id="btnBreedYes" class="breed-choice-btn" onclick="setExcludedBreed('si')">
+                                            <i class="fa-solid fa-ban"></i> Sí, es una de estas razas o mezcla
+                                        </button>
+                                    </div>
+                                    <div class="eligibility-alert" id="modalBreedAlert">
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                        <div>
+                                            <strong>Mascota no asegurable</strong><br>
+                                            <span>Las razas indicadas y sus mezclas están excluidas según las condiciones de la póliza RC Mascotas de MAPFRE.</span>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="assuredPanel-footer" style="display: flex; flex-direction: column; gap: 10px;">
-                                    <button type="button" class="btn-partner-toggle" style="width: 100%; justify-content: center;" onclick="addPet()">
-                                        <i class="fa-solid fa-plus"></i> <span class="partner-label">Añadir otra mascota</span>
-                                    </button>
-                                    <button type="button" id="btnAssuredDone" class="btn-assured-done">
-                                        <i class="fa-solid fa-check"></i> Aplicar al cálculo
+                                <div class="assuredPanel-footer" style="margin-top: 10px;">
+                                    <button type="button" id="btnAssuredDone" class="btn-assured-done" onclick="closePanel()">
+                                        <i class="fa-solid fa-check"></i> Confirmar validación
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Botón Cotizar Ahora (Aurora CTA) -->
+                    <!-- 5. Botón Cotizar Ahora -->
                     <div class="finder-field-col submit-col">
                         <button class="finderSubmit" id="btnRecommend" disabled type="button">
                             <span>Cotizar ahora</span>
@@ -895,151 +645,97 @@
                         </button>
                     </div>
                 </div>
-                
+
+                <!-- Aviso de no asegurabilidad (edad o raza) -->
+                <div class="eligibility-alert" id="eligibilityAlertBanner" role="alert">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <div id="eligibilityAlertText"></div>
+                </div>
+
                 <div class="healthProof">
-                    <span><i class="fa-solid fa-shield-halved"></i> Cotización sin costo ni compromiso</span>
-                    <span>• Planes detallados y transparentes</span>
-                    <span>• Atención veterinaria 24/7</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> Solo perros y gatos (6 meses a 9 años 364 días)</span>
+                    <span>• Respaldo MAPFRE Seguros</span>
+                    <span>• Asistencia Veterinaria Serviclick incluida</span>
                 </div>
             </section>
         </section>
+
+        <!-- PANTALLA DE RESULTADOS -->
         <section class="healthResults" id="resultados">
-            <div class="resultsBanner" style="background: linear-gradient(135deg, #0A0E1A 0%, #0F3836 50%, #082928 100%) !important;">
+            <div class="resultsBanner">
                 <div class="container">
-                    <span class="resultsKicker"><i class="fa-solid fa-paw"></i> COTIZACIÓN DE SEGUROS DE MASCOTAS</span>
-                    <h2>Opciones pensadas para tus peludos</h2>
-                    <p>Compara coberturas, asistencias y beneficios para elegir la mejor protección para ellos.</p>
+                    <span class="resultsKicker"><i class="fa-solid fa-paw"></i> COTIZACIÓN RC MASCOTAS · MAPFRE</span>
+                    <h2>Protección oficial para tu mascota</h2>
+                    <p>Responsabilidad Civil Extracontractual (POL 1.2021.0229) más Asistencia RC Mascota Serviclick incluida.</p>
                 </div>
             </div>
-            
+
             <div class="container resultsBody">
-                <!-- User Profile Bar -->
                 <div class="resultProfile">
                     <span class="profileCheck"><i class="fa-solid fa-check"></i></span>
                     <div class="profileTexts">
-                        <b id="resultTitle">Planes para tus mascotas</b>
-                        <small id="resultSubtitle">Configura tus mascotas arriba para personalizar tus opciones</small>
+                        <b id="resultTitle">RC Mascotas · MAPFRE Seguros</b>
+                        <small id="resultSubtitle">Perro · Macho · 3 años · Raza asegurable</small>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center; margin-left: auto; flex-wrap: wrap;">
                         <button type="button" id="btnResetQuote" class="btnResetQuote" onclick="resetQuoteClean(true)" title="Limpiar y comenzar nueva cotización">
                             <i class="fa-solid fa-rotate-left"></i> <span>Nueva cotización</span>
                         </button>
-                        <button type="button" id="btnEditProfile">Editar mascotas</button>
+                        <button type="button" id="btnEditProfile">Editar mascota</button>
                     </div>
                 </div>
-                
-                <!-- Tools Bar: Count & Quick Pills -->
-                <div class="resultTools"><div class="toolsTitleGroup"><b id="availablePlansCount">3 planes disponibles</b><small>Elige el mejor plan para cada mascota y asígnalo abajo</small></div></div>
+
+                <div class="resultTools">
+                    <div class="toolsTitleGroup">
+                        <b id="availablePlansCount">1 seguro de mascota disponible</b>
+                        <small>Póliza colectiva intermediada por MHM Corredores de Seguros SpA con MAPFRE</small>
+                        <small id="ufRateInfo" style="display: block; margin-top: 2px; font-weight: 700; color: #0F172A;">UF del día: $41.357,30</small>
+                    </div>
+                </div>
 
                 <div class="resultsLayout">
-                    <!-- Left Sidebar Filters -->
                     <aside class="healthFilters is-collapsed" id="healthFilters">
                         <div class="filterHead" id="filterHeadToggle" onclick="toggleMobileFilters()">
                             <div class="filterHeadText">
-                                <h3><i class="fa-solid fa-sliders filterIconTitle"></i> Refina tus resultados</h3>
-                                <p>Los cambios se aplican al instante</p>
+                                <h3><i class="fa-solid fa-sliders filterIconTitle"></i> Requisitos de Póliza</h3>
+                                <p>Condiciones del certificado</p>
                             </div>
-                            <button type="button" class="mobileFilterToggleBtn" aria-label="Mostrar u ocultar filtros">
+                            <button type="button" class="mobileFilterToggleBtn" aria-label="Mostrar u ocultar">
                                 <span class="mobileToggleText">Mostrar</span>
                                 <i class="fa-solid fa-chevron-down toggleChevron"></i>
                             </button>
                         </div>
-
                         <div class="filterBody" id="filterBody">
-                            <!-- Tipo de Mascota -->
                             <fieldset class="filterFieldset">
-                                <legend>Especie Permitida</legend>
-                                <div class="segmented">
-                                    <button type="button" class="filterHealth active">Perros y Gatos</button>
+                                <legend>Especies Cubiertas</legend>
+                                <div style="font-size:13px; color:#334155; display:flex; flex-direction:column; gap:6px;">
+                                    <span><i class="fa-solid fa-check" style="color:#0D9488; margin-right:6px;"></i> Perros y gatos domésticos</span>
+                                    <span><i class="fa-solid fa-check" style="color:#0D9488; margin-right:6px;"></i> 6 meses a 9 años 364 días</span>
+                                    <span><i class="fa-solid fa-check" style="color:#0D9488; margin-right:6px;"></i> Inscritos en Registro Nacional</span>
                                 </div>
                             </fieldset>
-
-                            <!-- Prioridad -->
-                            <fieldset class="filterFieldset">
-                                <legend>Nivel de Cobertura</legend>
-                                <div class="radioGroup">
-                                    <label class="customRadio">
-                                        <input type="radio" name="priorityRadio" value="all" checked onchange="handlePriorityFilter(this.value)">
-                                        <span class="radioDot"></span>
-                                        <span class="radioLabel">Todos los planes</span>
-                                    </label>
-                                    <label class="customRadio">
-                                        <input type="radio" name="priorityRadio" value="basico" onchange="handlePriorityFilter(this.value)">
-                                        <span class="radioDot"></span>
-                                        <span class="radioLabel">Plan Básico (Asistencia)</span>
-                                    </label>
-                                    <label class="customRadio">
-                                        <input type="radio" name="priorityRadio" value="pro" onchange="handlePriorityFilter(this.value)">
-                                        <span class="radioDot"></span>
-                                        <span class="radioLabel">Plan Pro (Cirugías)</span>
-                                    </label>
-                                    <label class="customRadio">
-                                        <input type="radio" name="priorityRadio" value="senior" onchange="handlePriorityFilter(this.value)">
-                                        <span class="radioDot"></span>
-                                        <span class="radioLabel">Plan Senior (+10 años)</span>
-                                    </label>
-                                </div>
-                            </fieldset>
-
-                            <!-- Edad de Ingreso -->
-                            <fieldset class="filterFieldset">
-                                <legend>Edad de Ingreso</legend>
-                                <div class="selectWrapper">
-                                    <select id="filterAgeRange" class="customSelect" onchange="handleAgeFilter(this.value)">
-                                        <option value="all">Cualquier edad</option>
-                                        <option value="young">0 a 9 años</option>
-                                        <option value="old">Más de 10 años</option>
-                                    </select>
-                                    <i class="fa-solid fa-chevron-down selectIcon"></i>
-                                </div>
-                            </fieldset>
-                            
                             <div class="advisorMiniCard">
                                 <div class="advisorIcon"><i class="fa-solid fa-headset"></i></div>
                                 <div class="advisorText">
-                                    <b>¿Dudas con tu plan?</b>
+                                    <b>¿Dudas con tu mascota?</b>
                                     <p>Un especialista de MHM te asesora gratis.</p>
                                 </div>
-                                <button type="button" class="btn-advisor-mini" onclick="openLeadModalForPlan('Asesoría General Seguro de Mascotas')">
+                                <button type="button" class="btn-advisor-mini" onclick="openLeadModalForPlan('RC Mascotas MAPFRE')">
                                     Hablar con asesor
                                 </button>
                             </div>
                         </div>
                     </aside>
-                    
-                    <!-- Policy Cards Column -->
-                    <div class="healthPolicyList" id="policyList">
-                        <!-- Planes inyectados via JS -->
-                    </div>
+
+                    <div class="healthPolicyList" id="policyList"></div>
                 </div>
 
-                <!-- Commercial Legal Disclaimer -->
                 <p class="resultsLegalNote">
-                    Productos sujetos a condiciones de asegurabilidad (edad máxima de ingreso) y condiciones particulares. El precio mostrado es por mascota individual.
+                    Póliza colectiva intermediada por MHM Corredores de Seguros SpA (RUT 77.558.123-9) con MAPFRE Compañía de Seguros Generales de Chile S.A. (RUT 96.508.210-7), bajo POL 1.2021.0229 y Asistencia RC Mascota Serviclick.
                 </p>
             </div>
-
-            <!-- Floating Compare Dock -->
-            <div class="compareFloatingDock" id="compareDock">
-                <div class="compareDockInner">
-                    <div class="compareDockInfo">
-                        <i class="fa-solid fa-code-compare"></i>
-                        <span id="compareDockText">0 planes seleccionados para comparar</span>
-                    </div>
-                    <div class="compareDockActions">
-                        <button type="button" class="btn-view-compare" onclick="openCompareModal()">
-                            <span class="compare-btn-text-desktop">Ver comparativa frente a frente</span>
-                            <span class="compare-btn-text-mobile">Comparar</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                        <button type="button" class="btn-clear-compare" onclick="clearComparison()" title="Limpiar comparación">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </section>
-        
+
         <!-- SECCIÓN DE PREGUNTAS FRECUENTES (AURORA ACCORDION) -->
         <section id="faq" class="faq-aurora-section">
             <div class="container">
@@ -1330,1198 +1026,439 @@
 </div>
 
 
-    <!-- Custom Logic for the form Mascotas -->
+    <!-- Custom Logic for RC Mascotas MAPFRE -->
     <script>
-        const dogBreeds = ["Mestizo", "Pastor Alemán", "Bulldog", "Poodle", "Labrador", "Golden Retriever", "Chihuahua", "Pug", "Otro"];
-        const catBreeds = ["Mestizo", "Persa", "Siamés", "Maine Coon", "Esfinge", "Bengalí", "Angora", "Otro"];
+        const MAPFRE_LOGO_URL = "../assets/img/maqueta/ally-mapfre.png";
+        const PRIMA_BRUTA_ANUAL_UF = 3.71;
+        const PRIMA_MENSUAL_UF = PRIMA_BRUTA_ANUAL_UF / 12;
+        let ufDelDia = 41357.30;
+        let ufFechaLabel = "";
+        let isDetailsOpen = false;
 
-        const openDetailsState = {};
-        var petsData = [
-            { id: 1, name: '', type: 'perro', breed: 'Mestizo', age: '', gender: '', plan: '' }
-        ];
+        let petProfile = {
+            species: "Perro",
+            gender: "Macho",
+            ageRange: "",
+            ageLabel: "",
+            excludedBreed: ""
+        };
 
-        // Panel Toggle
-        const btnAssuredOpen = document.getElementById('btnAssuredOpen');
-        const assuredPanel = document.getElementById('assuredPanel');
-        const btnAssuredDone = document.getElementById('btnAssuredDone');
+        const AGE_LABELS = {
+            "lt6m": "Menos de 6 meses",
+            "6-11m": "6 a 11 meses",
+            "1": "1 año",
+            "2": "2 años",
+            "3": "3 años",
+            "4": "4 años",
+            "5": "5 años",
+            "6": "6 años",
+            "7": "7 años",
+            "8": "8 años",
+            "9": "9 años",
+            "10plus": "10 años o más"
+        };
 
-        btnAssuredOpen.addEventListener('click', (e) => {
+        function formatUF(val) {
+            return (Math.round(val * 1000) / 1000).toString().replace(".", ",");
+        }
+
+        function updateUfBanner() {
+            const el = document.getElementById("ufRateInfo");
+            if (!el) return;
+            const ufFmt = ufDelDia.toLocaleString("es-CL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            el.textContent = "UF del día: $" + ufFmt + (ufFechaLabel ? " (" + ufFechaLabel + ")" : "");
+        }
+
+        async function loadUfRate() {
+            updateUfBanner();
+            try {
+                const resp = await fetch("https://mindicador.cl/api/uf", { cache: "no-store" });
+                if (!resp.ok) return;
+                const json = await resp.json();
+                const latest = json && Array.isArray(json.serie) && json.serie[0];
+                if (latest && typeof latest.valor === "number" && latest.valor > 0) {
+                    ufDelDia = latest.valor;
+                    if (latest.fecha) {
+                        const d = new Date(latest.fecha);
+                        if (!isNaN(d.getTime())) {
+                            ufFechaLabel = String(d.getDate()).padStart(2, "0") + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + d.getFullYear();
+                        }
+                    }
+                    updateUfBanner();
+                    renderPlans();
+                }
+            } catch (e) {}
+        }
+
+        const btnAssuredOpen = document.getElementById("btnAssuredOpen");
+        const assuredPanel = document.getElementById("assuredPanel");
+
+        btnAssuredOpen.addEventListener("click", (e) => {
             e.stopPropagation();
-            const isExpanded = btnAssuredOpen.getAttribute('aria-expanded') === 'true';
-            if (isExpanded) {
-                closePanel();
-            } else {
-                openPanel();
-            }
+            const isExpanded = btnAssuredOpen.getAttribute("aria-expanded") === "true";
+            if (isExpanded) closePanel();
+            else openPanel();
         });
 
         function openPanel() {
-            btnAssuredOpen.setAttribute('aria-expanded', 'true');
-            btnAssuredOpen.classList.add('active');
-
-            // Portal to document.body on mobile so it escapes any CSS stacking context traps
+            btnAssuredOpen.setAttribute("aria-expanded", "true");
+            btnAssuredOpen.classList.add("active");
             if (window.innerWidth <= 768 && assuredPanel.parentElement !== document.body) {
-                const backdrop = document.getElementById('assuredBackdrop');
+                const backdrop = document.getElementById("assuredBackdrop");
                 if (backdrop) document.body.appendChild(backdrop);
                 document.body.appendChild(assuredPanel);
             }
-
-            assuredPanel.style.display = 'flex';
-            const backdrop = document.getElementById('assuredBackdrop');
-            if (backdrop) backdrop.style.display = 'block';
-            const stickyBar = document.getElementById('stickyCheckout');
-            if (stickyBar) stickyBar.classList.add('panel-open');
-            document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : '';
+            assuredPanel.style.display = "flex";
+            const backdrop = document.getElementById("assuredBackdrop");
+            if (backdrop) backdrop.style.display = "block";
+            document.body.style.overflow = window.innerWidth <= 768 ? "hidden" : "";
         }
 
         function closePanel() {
-            btnAssuredOpen.setAttribute('aria-expanded', 'false');
-            btnAssuredOpen.classList.remove('active');
-            assuredPanel.style.display = 'none';
-            const backdrop = document.getElementById('assuredBackdrop');
-            if (backdrop) backdrop.style.display = 'none';
-            const stickyBar = document.getElementById('stickyCheckout');
-            if (stickyBar) stickyBar.classList.remove('panel-open');
-            document.body.style.overflow = '';
+            btnAssuredOpen.setAttribute("aria-expanded", "false");
+            btnAssuredOpen.classList.remove("active");
+            assuredPanel.style.display = "none";
+            const backdrop = document.getElementById("assuredBackdrop");
+            if (backdrop) backdrop.style.display = "none";
+            document.body.style.overflow = "";
             validateForm();
         }
 
-        btnAssuredDone.addEventListener('click', () => {
-            closePanel();
-            const btnRec = document.getElementById('btnRecommend');
-            if (btnRec && !btnRec.disabled) {
-                btnRec.click();
-            }
-        });
-
-        document.addEventListener('click', (e) => {
+        document.addEventListener("click", (e) => {
+            if (btnAssuredOpen.getAttribute("aria-expanded") !== "true") return;
             const path = e.composedPath();
             if (!path.includes(btnAssuredOpen) && !path.includes(assuredPanel)) {
                 closePanel();
             }
         });
 
-        function renderPetsPanel() {
-            const container = document.getElementById('petsPanelBody');
-            container.innerHTML = '';
-
-            petsData.forEach((p, idx) => {
-                const isMain = idx === 0;
-                const div = document.createElement('div');
-                div.style.borderBottom = idx < petsData.length - 1 ? '1px solid #F1F5F9' : 'none';
-                div.style.padding = '10px 0';
-                div.style.display = 'flex';
-                div.style.flexDirection = 'column';
-                div.style.gap = '8px';
-
-                const title = isMain ? 'Detalles Mascota 1' : `Mascota ${idx + 1}`;
-                const breeds = p.type === 'gato' ? catBreeds : dogBreeds;
-                
-                let extraInputs = '';
-                if (!isMain) {
-                    extraInputs = `
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <div>
-                                <label style="font-size: 11px; color:#64748B;">NOMBRE</label>
-                                <input type="text" id="panelPetName_${p.id}" value="${p.name}" oninput="updatePanelPet(${p.id}, 'name', this.value)" onchange="updatePanelPet(${p.id}, 'name', this.value)" style="width:100%; padding: 6px; border: 1px solid #CBD5E1; border-radius: 6px; font-size:13px;">
-                            </div>
-                            <div>
-                                <label style="font-size: 11px; color:#64748B;">EDAD</label>
-                                <input type="number" min="0" id="panelPetAge_${p.id}" value="${p.age}" oninput="updatePanelPet(${p.id}, 'age', this.value)" onchange="updatePanelPet(${p.id}, 'age', this.value)" style="width:100%; padding: 6px; border: 1px solid #CBD5E1; border-radius: 6px; font-size:13px;">
-                            </div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <div>
-                                <label style="font-size: 11px; color:#64748B;">TIPO</label>
-                                <select onchange="updatePanelPetType(${p.id}, this.value)" style="width:100%; padding: 6px; border: 1px solid #CBD5E1; border-radius: 6px; font-size:13px; background:white;">
-                                    <option value="perro" ${p.type==='perro'?'selected':''}>Perro</option>
-                                    <option value="gato" ${p.type==='gato'?'selected':''}>Gato</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style="font-size: 11px; color:#64748B;">RAZA</label>
-                                <select onchange="updatePanelPet(${p.id}, 'breed', this.value)" style="width:100%; padding: 6px; border: 1px solid #CBD5E1; border-radius: 6px; font-size:13px; background:white;">
-                                    ${breeds.map(b => `<option value="${b}" ${b===p.breed?'selected':''}>${b}</option>`).join('')}
-                                </select>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    extraInputs = `
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <div>
-                                <label style="font-size: 11px; color:#64748B;">RAZA</label>
-                                <select onchange="updatePanelPet(${p.id}, 'breed', this.value)" style="width:100%; padding: 6px; border: 1px solid #CBD5E1; border-radius: 6px; font-size:13px; background:white;">
-                                    ${breeds.map(b => `<option value="${b}" ${b===p.breed?'selected':''}>${b}</option>`).join('')}
-                                </select>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                div.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: 700; font-size: 13px; color: #0F172A;"><i class="fa-solid fa-paw" style="color: #0F766E;"></i> ${title}</span>
-                        ${!isMain ? `<button onclick="removePet(${p.id})" style="background:none; border:none; color:#E11D48; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>` : ''}
-                    </div>
-                    ${extraInputs}
-                    <div>
-                        <label style="font-size: 11px; color:#64748B;">SEXO</label>
-                        <div style="display: flex; gap: 10px; margin-top: 4px; width: 100%;">
-                            <button type="button" id="btn_macho_${p.id}" class="gender-btn ${p.gender==='Macho'?'active':''}" onclick="setGender(${p.id}, 'Macho')"><i class="fa-solid fa-mars"></i> Macho</button>
-                            <button type="button" id="btn_hembra_${p.id}" class="gender-btn ${p.gender==='Hembra'?'active':''}" onclick="setGender(${p.id}, 'Hembra')"><i class="fa-solid fa-venus"></i> Hembra</button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-
-            document.getElementById('assuredSummary').innerText = `${petsData.length} mascota${petsData.length > 1 ? 's' : ''}`;
+        function selectSpecies(sp) {
+            petProfile.species = sp;
+            document.getElementById("petSpecies").value = sp;
+            document.getElementById("btnSpeciesPerro").classList.toggle("active", sp === "Perro");
+            document.getElementById("btnSpeciesGato").classList.toggle("active", sp === "Gato");
+            updatePetProfile();
         }
 
-        function addPet() {
-            if (petsData.length >= 5) {
-                alert('Máximo 5 mascotas permitidas por póliza online.');
-                return;
+        function selectGender(g) {
+            petProfile.gender = g;
+            document.getElementById("petGender").value = g;
+            document.getElementById("btnGenderMacho").classList.toggle("active", g === "Macho");
+            document.getElementById("btnGenderHembra").classList.toggle("active", g === "Hembra");
+            updatePetProfile();
+        }
+
+        function setExcludedBreed(val) {
+            petProfile.excludedBreed = val;
+            document.getElementById("btnBreedNo").classList.toggle("active-ok", val === "no");
+            document.getElementById("btnBreedYes").classList.toggle("active-no", val === "si");
+            document.getElementById("modalBreedAlert").classList.toggle("visible", val === "si");
+
+            const sum = document.getElementById("assuredSummary");
+            if (sum) {
+                sum.textContent = val === "no" ? "Raza asegurable" : (val === "si" ? "Raza excluida" : "Por confirmar");
             }
-            const newId = Date.now();
-            petsData.push({ id: newId, name: '', type: 'perro', breed: 'Mestizo', age: '', gender: '', plan: '' });
-            renderPetsPanel();
-            validateForm();
-        }
-
-        function removePet(id) {
-            petsData = petsData.filter(p => p.id !== id);
-            renderPetsPanel();
-            validateForm();
-        }
-
-        function updateMainPetType() {
-            const t = document.getElementById('petType_1').value;
-            petsData[0].type = t;
-            petsData[0].breed = t === 'gato' ? 'Mestizo' : 'Mestizo';
-            updateMainPet();
-            renderPetsPanel();
-        }
-
-        function updateMainPet() {
-            petsData[0].name = document.getElementById('petName_1').value;
-            petsData[0].age = document.getElementById('petAge_1').value;
-            validateForm();
-        }
-
-        
-        function setGender(id, gender) {
-            // Update data
-            const p = petsData.find(x => x.id === id);
-            if(p) p.gender = gender;
-            
-            // Update DOM directly without destroying panel
-            const btnMacho = document.getElementById(`btn_macho_${id}`);
-            const btnHembra = document.getElementById(`btn_hembra_${id}`);
-            
-            if (btnMacho && btnHembra) {
-                if (gender === 'Macho') {
-                    btnMacho.classList.add('active');
-                    btnHembra.classList.remove('active');
-                } else {
-                    btnHembra.classList.add('active');
-                    btnMacho.classList.remove('active');
-                }
+            updatePetProfile();
+            if (val === "no") {
+                setTimeout(() => closePanel(), 180);
             }
-            validateForm();
         }
 
-        function updatePanelPet(id, field, value) {
-            const p = petsData.find(x => x.id === id);
-            if(p) p[field] = value;
-            if(id === petsData[0].id) {
-                if(field === 'name') document.getElementById('petName_1').value = value;
-                if(field === 'age') document.getElementById('petAge_1').value = value;
-            }
-            // gender is handled by setGender
-            validateForm();
-        }
+        function updatePetProfile() {
+            const ageSel = document.getElementById("petAgeRange");
+            petProfile.ageRange = ageSel ? ageSel.value : "";
+            petProfile.ageLabel = AGE_LABELS[petProfile.ageRange] || "";
 
-        function updatePanelPetType(id, val) {
-            const p = petsData.find(x => x.id === id);
-            if(p) {
-                p.type = val;
-                p.breed = val === 'gato' ? 'Mestizo' : 'Mestizo';
-            }
-            renderPetsPanel();
             validateForm();
+
+            sessionStorage.setItem("mhm_mascota_data", JSON.stringify(petProfile));
+
+            const res = document.getElementById("resultados");
+            if (res && res.classList.contains("visible")) {
+                updateResultHeader();
+                renderPlans();
+            }
         }
 
         function validateForm() {
-            let valid = true;
-            petsData.forEach(p => {
-                if (!p.name || p.name.trim() === '' || !p.age || p.age.toString().trim() === '' || !p.gender || p.gender.trim() === '') {
-                    valid = false;
-                }
-            });
+            const alertBox = document.getElementById("eligibilityAlertBanner");
+            const alertText = document.getElementById("eligibilityAlertText");
+            const btn = document.getElementById("btnRecommend");
 
-            const btn = document.getElementById('btnRecommend');
-            if (valid) {
-                btn.removeAttribute('disabled');
+            const ageInvalid = petProfile.ageRange === "lt6m" || petProfile.ageRange === "10plus";
+            const breedInvalid = petProfile.excludedBreed === "si";
+
+            if (breedInvalid) {
+                alertText.innerHTML = "<strong>Tu mascota no es asegurable.</strong> Las razas American Pit Bull Terrier, Bull Terrier, Bullmastiff, Dobermann, Dogo Argentino, Fila Brasileiro, Presa Canario, Presa Mallorquín, Tosa Inu, Pit Bull, Pit Bull Terrier, Rottweiler, Staffordshire Bull Terrier y cualquiera de sus mezclas están excluidas en esta póliza.";
+                alertBox.classList.add("visible");
+            } else if (ageInvalid) {
+                alertText.innerHTML = "<strong>Tu mascota no cumple el requisito de edad de ingreso.</strong> Según el certificado de MAPFRE, la edad mínima de ingreso es 6 meses cumplidos y la máxima es 9 años y 364 días.";
+                alertBox.classList.add("visible");
             } else {
-                btn.setAttribute('disabled', 'true');
+                alertBox.classList.remove("visible");
             }
+
+            const isValid = Boolean(
+                petProfile.species &&
+                petProfile.gender &&
+                petProfile.ageRange &&
+                !ageInvalid &&
+                petProfile.excludedBreed === "no"
+            );
+
+            if (isValid) btn.removeAttribute("disabled");
+            else btn.setAttribute("disabled", "true");
         }
 
-        
-        function togglePlanDetails(planId) {
-            openDetailsState[planId] = !openDetailsState[planId];
-            const drawer = document.getElementById(`details-${planId}`);
-            const btn = document.getElementById(`btn-toggle-${planId}`);
-            if (drawer && btn) {
-                if (openDetailsState[planId]) {
-                    drawer.classList.add('open');
-                    btn.innerHTML = '<span>Cerrar detalles</span> <i class="fa-solid fa-chevron-up"></i>';
-                } else {
-                    drawer.classList.remove('open');
-                    btn.innerHTML = '<span>Ver detalles</span> <i class="fa-solid fa-chevron-down"></i>';
-                }
-            }
-        }
-        
-        function toggleMobileFilters() {
-            const sidebar = document.getElementById('healthFilters');
-            if(sidebar) sidebar.classList.toggle('is-collapsed');
+        function updateResultHeader() {
+            document.getElementById("resultTitle").textContent = "RC Mascotas · MAPFRE Seguros";
+            document.getElementById("resultSubtitle").textContent = [
+                petProfile.species,
+                petProfile.gender,
+                petProfile.ageLabel || "Edad válida",
+                "Raza asegurable"
+            ].join(" · ");
         }
 
-        // --- RESULTS AND PLANS LOGIC ---
-        document.getElementById('btnRecommend').addEventListener('click', () => {
-            const results = document.getElementById('resultados');
-            results.classList.add('visible');
-            
-            document.getElementById('resultTitle').innerText = `Cotización para ${petsData.length} mascota${petsData.length > 1 ? 's' : ''}`;
-            const subt = petsData.map(p => p.name || 'Mascota').join(', ');
-            document.getElementById('resultSubtitle').innerText = subt;
-            
+        document.getElementById("btnRecommend").addEventListener("click", () => {
+            const res = document.getElementById("resultados");
+            res.style.opacity = "1";
+            res.style.visibility = "visible";
+            res.classList.add("visible");
+            updateResultHeader();
             renderPlans();
-            checkAssigns();
-
-            setTimeout(() => {
-                results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+            setTimeout(() => res.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
         });
 
-        const btnEditProfile = document.getElementById('btnEditProfile');
-        if (btnEditProfile) {
-            btnEditProfile.addEventListener('click', () => {
-                const rec = document.getElementById('recomendador') || document.getElementById('inicio');
-                if (rec) {
-                    rec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
+        document.getElementById("btnEditProfile").addEventListener("click", () => {
+            document.getElementById("recomendador").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        function toggleMobileFilters() {
+            if (window.innerWidth >= 992) return;
+            const aside = document.getElementById("healthFilters");
+            const txt = aside.querySelector(".mobileToggleText");
+            const collapsed = aside.classList.toggle("is-collapsed");
+            if (txt) txt.textContent = collapsed ? "Mostrar" : "Ocultar";
         }
 
-        // =========================================
-        // SIDEBAR FILTERS STATE & HANDLERS
-        // =========================================
-        let currentFilterPriority = 'all';
-        let currentFilterAge = 'all';
-
-        function handlePriorityFilter(val) {
-            currentFilterPriority = val;
-            renderPlans();
-        }
-
-        function handleAgeFilter(val) {
-            currentFilterAge = val;
-            renderPlans();
-        }
-
-        function resetFilters() {
-            currentFilterPriority = 'all';
-            currentFilterAge = 'all';
-            const allRadio = document.querySelector('input[name="priorityRadio"][value="all"]');
-            if (allRadio) allRadio.checked = true;
-            const ageSelect = document.getElementById('filterAgeRange');
-            if (ageSelect) ageSelect.value = 'all';
-            renderPlans();
-        }
-
-        // =========================================
-        // DYNAMIC PET PLANS RECOMMENDATION ENGINE
-        // =========================================
-        function getPetPlans() {
-            const maxPetAge = Math.max(...petsData.map(p => parseInt(p.age, 10) || 0));
-            const hasSeniorPet = maxPetAge >= 10;
-
-            const basePlans = [
-                {
-                    id: 'basico',
-                    planType: 'individual',
-                    tier: 'PLAN BÁSICO',
-                    badgeSub: 'Para tu mascota',
-                    bandTheme: 'band-individual',
-                    capitalUF: 'Asistencia',
-                    capitalLabel: 'Cobertura esencial',
-                    insurer: 'MHM · SEGURO DE MASCOTAS',
-                    title: 'Asistencia Mascota',
-                    lead: 'Cobertura esencial con asistencias veterinarias y reembolsos rápidos.',
-                    rawPrice: 9490,
-                    priceMonth: '$9.490/mes',
-                    priceYear: '$113.880 anual',
-                    bestMatchBadge: '',
-                    match: hasSeniorPet ? '70' : '85',
-                    isRecommended: false,
-                    ageCategory: 'young',
-                    quickBenefits: [
-                        'Reembolso rápido',
-                        'Asistencia veterinaria 24/7'
-                    ],
-                    coberturas: [
-                        'Asistencia veterinaria 24/7 (Telefónica y Online)',
-                        'Reembolso rápido por gastos médicos por accidente (hasta topes)',
-                        'Consulta veterinaria a domicilio (1 evento anual)'
-                    ],
-                    adicionales: [
-                        'Descuentos en farmacias veterinarias adheridas',
-                        'Orientación legal telefónica en caso de daños a terceros',
-                        'Servicio de cremación (hasta 5 UF)'
-                    ],
-                    exclusiones: [
-                        'No cubre enfermedades preexistentes.',
-                        'Edad máxima de ingreso: 9 años.',
-                        'No cubre vacunas ni tratamientos estéticos.'
-                    ]
-                },
-                {
-                    id: 'pro',
-                    planType: 'familiar',
-                    tier: hasSeniorPet ? 'PLAN PRO' : 'PLAN PRO (RECOMENDADO)',
-                    badgeSub: 'Máxima protección',
-                    bandTheme: 'band-familiar',
-                    capitalUF: 'Cirugías',
-                    capitalLabel: 'Cobertura ampliada',
-                    insurer: 'MHM · SEGURO DE MASCOTAS',
-                    title: 'Asistencia Mascota Pro',
-                    lead: 'El plan más completo que incluye cirugías y mayores topes de reembolso.',
-                    rawPrice: 12490,
-                    priceMonth: '$12.490/mes',
-                    priceYear: '$149.880 anual',
-                    bestMatchBadge: hasSeniorPet ? '' : 'MEJOR COINCIDENCIA',
-                    match: hasSeniorPet ? '82' : '98',
-                    isRecommended: !hasSeniorPet,
-                    ageCategory: 'young',
-                    quickBenefits: [
-                        'Reembolso rápido',
-                        'Asistencia veterinaria 24/7',
-                        'Coberturas ampliadas (cirugías)'
-                    ],
-                    coberturas: [
-                        'Asistencia veterinaria 24/7 ilimitada',
-                        'Reembolso en consultas, exámenes y cirugías por enfermedad/accidente',
-                        'Responsabilidad civil por daños a terceros (hasta 10 UF)'
-                    ],
-                    adicionales: [
-                        'Gastos de estadía en hotel para mascotas por hospitalización del dueño',
-                        'Vacunación anual (1 evento)',
-                        'Descuentos premium en farmacias veterinarias'
-                    ],
-                    exclusiones: [
-                        'Carencia de 30 días para enfermedades generales.',
-                        'Edad máxima de ingreso: 9 años.',
-                        'Excluye cría y parto.'
-                    ]
-                },
-                {
-                    id: 'senior',
-                    planType: 'individual',
-                    tier: hasSeniorPet ? 'PLAN SENIOR (RECOMENDADO)' : 'PLAN SENIOR',
-                    badgeSub: 'Para +10 años',
-                    bandTheme: 'band-individual',
-                    capitalUF: 'Senior',
-                    capitalLabel: 'Mascotas mayores',
-                    insurer: 'MHM · SEGURO DE MASCOTAS',
-                    title: 'Asistencia Mascota Senior',
-                    lead: 'Especialmente diseñado para perros y gatos de mayor edad.',
-                    rawPrice: 16490,
-                    priceMonth: '$16.490/mes',
-                    priceYear: '$197.880 anual',
-                    bestMatchBadge: hasSeniorPet ? 'RECOMENDADO PARA TU MASCOTA MAYOR' : '',
-                    match: hasSeniorPet ? '99' : '75',
-                    isRecommended: hasSeniorPet,
-                    ageCategory: 'old',
-                    quickBenefits: [
-                        'Ingreso: +10 años',
-                        'Asistencia veterinaria 24/7',
-                        'Control geriátrico preventivo'
-                    ],
-                    coberturas: [
-                        'Asistencia veterinaria 24/7',
-                        'Reembolso de gastos médicos urgentes',
-                        'Control geriátrico preventivo anual'
-                    ],
-                    adicionales: [
-                        'Asistencia especial por fallecimiento',
-                        'Descuentos en medicamentos de uso crónico',
-                        'Consultas a domicilio preferenciales'
-                    ],
-                    exclusiones: [
-                        'No cubre cirugías de alta complejidad.',
-                        'Exclusivo para mascotas de 10 años o más.',
-                        'Topes de reembolso reducidos frente a planes estándar.'
-                    ]
-                }
-            ];
-
-            if (hasSeniorPet) {
-                return [basePlans[2], basePlans[1], basePlans[0]];
+        function togglePlanDetails() {
+            isDetailsOpen = !isDetailsOpen;
+            const drawer = document.getElementById("details-rc-mascotas");
+            const btn = document.getElementById("btn-toggle-rc-mascotas");
+            if (drawer && btn) {
+                drawer.classList.toggle("open", isDetailsOpen);
+                btn.innerHTML = isDetailsOpen
+                    ? '<span>Cerrar detalles</span> <i class="fa-solid fa-chevron-up"></i>'
+                    : '<span>Ver detalles</span> <i class="fa-solid fa-chevron-down"></i>';
             }
-            return basePlans;
         }
 
-        // =========================================
-        // RENDER PLANS LIST WITH REACTIVE FILTERS
-        // =========================================
         function renderPlans() {
-            const list = document.getElementById('policyList');
-            const allPlans = getPetPlans();
+            const list = document.getElementById("policyList");
+            if (!list) return;
 
-            // Filter by priority and age
-            const filteredPlans = allPlans.filter(p => {
-                if (currentFilterPriority !== 'all' && p.id !== currentFilterPriority) {
-                    return false;
-                }
-                if (currentFilterAge === 'young' && p.ageCategory !== 'young') {
-                    return false;
-                }
-                if (currentFilterAge === 'old' && p.ageCategory !== 'old') {
-                    return false;
-                }
-                return true;
-            });
+            const monthlyCLP = Math.round(PRIMA_MENSUAL_UF * ufDelDia);
+            const annualCLP = Math.round(PRIMA_BRUTA_ANUAL_UF * ufDelDia);
+            const monthlyPriceTxt = "$" + monthlyCLP.toLocaleString("es-CL") + "/mes";
+            const annualPriceTxt = "$" + annualCLP.toLocaleString("es-CL") + " anual (" + formatUF(PRIMA_BRUTA_ANUAL_UF) + " UF)";
 
-            const countEl = document.getElementById('availablePlansCount');
-            if (countEl) {
-                countEl.textContent = `${filteredPlans.length} plan${filteredPlans.length !== 1 ? 'es' : ''} disponible${filteredPlans.length !== 1 ? 's' : ''}`;
-            }
-
-            if (filteredPlans.length === 0) {
-                list.innerHTML = `
-                    <div style="text-align: center; padding: 40px 20px; background: white; border-radius: 20px; border: 1px dashed #CBD5E1; margin: 20px 0;">
-                        <i class="fa-solid fa-filter-circle-xmark" style="font-size: 2.5rem; color: #94A3B8; margin-bottom: 12px;"></i>
-                        <h4 style="color: #0F172A; font-weight: 800; margin-bottom: 6px;">No hay planes con los filtros seleccionados</h4>
-                        <p style="color: #64748B; font-size: 0.9rem; margin-bottom: 16px;">Prueba ajustando los filtros de nivel de cobertura o edad de ingreso.</p>
-                        <button type="button" onclick="resetFilters()" style="padding: 10px 20px; background: var(--grad-aurora); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer;">Restablecer filtros</button>
-                    </div>
-                `;
-                return;
-            }
-
-            list.innerHTML = filteredPlans.map(p => {
-                const isDetailsOpen = !!openDetailsState[p.id];
-                const isCompared = selectedForCompare.has(p.id);
-                const assignedPets = petsData.filter(pet => pet.plan === p.id);
-                const hasAssigned = assignedPets.length > 0;
-                return `
-                <article class="healthPolicyCard ${p.planType === 'individual' ? 'card-individual' : 'card-familiar'} ${p.isRecommended ? 'recommended' : ''} ${hasAssigned ? 'has-pets-assigned' : ''}" id="card-${p.id}">
-                    <div class="cardTopRow">
-                        <!-- Left Side Ribbon Band -->
-                        <div class="policyBand ${p.bandTheme}">
-                            <span class="bandTier">${p.tier}</span>
-                            <div class="healthMark" title="Aseguradora">
-                                <img src="../assets/img/logo-mhm-color.png" alt="MHM" class="mapfreLogoImg" style="width: 40px;">
-                            </div>
-                            <b class="bandCapital">${p.capitalUF}</b>
-                            <small class="bandSub"><strong>${p.badgeSub}</strong><br>${p.capitalLabel}</small>
+            list.innerHTML = `
+            <article class="healthPolicyCard card-familiar recommended" id="card-rc-mascotas">
+                <div class="cardTopRow">
+                    <div class="policyBand band-familiar">
+                        <span class="bandTier">PLAN MEDIO RC MASCOTAS</span>
+                        <div class="healthMark" title="MAPFRE Seguros">
+                            <img src="${MAPFRE_LOGO_URL}" alt="MAPFRE Seguros" style="max-width: 66px; max-height: 30px; width: auto; height: auto; object-fit: contain; display: block;">
                         </div>
-
-                        <!-- Right Policy Content -->
-                        <div class="healthPolicyContent">
-                            <div class="policyMeta">
-                                <span class="insurerTag">${p.insurer}</span>
-                                <div class="metaBadges">
-                                    ${p.bestMatchBadge ? `<span class="badge-best-match"><i class="fa-solid fa-star" style="color: #2ED9C3; margin-right: 4px;"></i>${p.bestMatchBadge}</span>` : ''}
-                                    <span class="badge-affinity">${p.match}% afinidad</span>
-                                </div>
-                            </div>
-
-                            <div class="planTitleRow">
-                                <div class="planTitleGroup">
-                                    <h3 class="planTitle">${p.title}</h3>
-                                </div>
-                                <div class="cardFacePrice">
-                                    <div class="cardFacePriceValue">${p.priceMonth}</div>
-                                    <span class="cardFacePricePeriod">Por mascota</span>
-                                </div>
-                            </div>
-
-                            ${hasAssigned ? `
-                            <div class="assigned-feedback-banner">
-                                <i class="fa-solid fa-circle-check"></i>
-                                <span>Plan seleccionado para: <strong>${assignedPets.map(pt => (pt.type === 'gato' ? '🐱 ' : '🐶 ') + (pt.name || 'Mascota')).join(', ')}</strong></span>
-                            </div>
-                            ` : ''}
-
-                            <p class="planLead">${p.lead}</p>
-
-                            <div class="healthBenefitsGrid">
-                                ${p.quickBenefits.map(b => `
-                                    <div class="benefitItem">
-                                        <i class="fa-solid fa-check"></i>
-                                        <span>${b}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-
-                            <div class="policyActionsRow">
-                                <button type="button" class="btn-details-toggle" id="btn-toggle-${p.id}" onclick="togglePlanDetails('${p.id}')">
-                                    <span>${isDetailsOpen ? 'Cerrar detalles' : 'Ver detalles'}</span>
-                                    <i class="fa-solid ${isDetailsOpen ? 'fa-chevron-up' : 'fa-chevron-down'}"></i>
-                                </button>
-                                <div class="compareCheckRow">
-                                    <label class="custom-compare-label">
-                                        <input type="checkbox" class="compare-checkbox" ${isCompared ? 'checked' : ''} onchange="handleCompareChange('${p.id}', this.checked)">
-                                        <span>Comparar</span>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <!-- PET ASSIGNMENT PILLS -->
-                            <div class="pet-assign-area">
-                                <div class="pet-assign-header">
-                                    <span class="pet-pills-label"><i class="fa-solid fa-paw"></i> Asignar plan a:</span>
-                                    ${hasAssigned ? `<span class="assigned-count-badge">${assignedPets.length} asignada${assignedPets.length > 1 ? 's' : ''}</span>` : ''}
-                                </div>
-                                <div class="pet-pills-container">
-                                    ${petsData.map(pet => {
-                                        const isAssigned = pet.plan === p.id;
-                                        const isAssignedOther = pet.plan && pet.plan !== p.id;
-                                        let pillClass = 'pet-pill';
-                                        let badgeHtml = '';
-                                        let titleText = '';
-
-                                        if (isAssigned) {
-                                            pillClass += ' active assigned-this';
-                                            badgeHtml = '<span class="pill-tag-status"><i class="fa-solid fa-check"></i> Asignada</span>';
-                                            titleText = 'Clic para desasignar de este plan';
-                                        } else if (isAssignedOther) {
-                                            pillClass += ' assigned-elsewhere';
-                                            badgeHtml = '<span class="pill-tag-status">En otro plan</span>';
-                                            titleText = 'Clic para cambiar a este plan';
-                                        } else {
-                                            pillClass += ' unassigned';
-                                            badgeHtml = '<span class="pill-tag-status">+ Asignar</span>';
-                                            titleText = 'Clic para asignar a este plan';
-                                        }
-
-                                        return `<button type="button" class="${pillClass}" onclick="assignPlanToPet(${pet.id}, '${p.id}')" title="${titleText}">
-                                                    <i class="fa-solid ${pet.type === 'gato' ? 'fa-cat' : 'fa-dog'}"></i>
-                                                    <span>${pet.name || 'Mascota'}</span>
-                                                    ${badgeHtml}
-                                                </button>`;
-                                    }).join('')}
-                                </div>
-                            </div>
-                        </div>
+                        <b class="bandCapital">UF 100</b>
+                        <small class="bandSub"><strong>RC Daño Emergente</strong><br>POL 1.2021.0229 + Serviclick</small>
                     </div>
 
-                    <!-- Expandable Nested Drawer -->
-                    <div class="policyDetailsDrawer ${isDetailsOpen ? 'open' : ''}" id="details-${p.id}">
-                        <div class="drawerInner">
-                            <div class="drawerHeader">
-                                <div class="drawerHeaderLeft">
-                                    <span class="drawerTier">${p.tier}</span>
-                                    <h4 class="drawerTitle">${p.title}</h4>
-                                    <span class="drawerInsurer">${p.insurer}</span>
-                                </div>
-                                <div class="drawerHeaderRight">
-                                    <span class="priceMetaLabel">PRIMA MENSUAL</span>
-                                    <div class="priceMain">${p.priceMonth}</div>
-                                    <small class="priceAnnual">${p.priceYear}</small>
-                                </div>
-                            </div>
-
-                            <p class="drawerLead">${p.lead}</p>
-
-                            <div class="detailsCols3">
-                                <div class="detailCard detailCard-coberturas">
-                                    <div class="detailCardHead">
-                                        <i class="fa-solid fa-shield-halved"></i>
-                                        <h5>Coberturas</h5>
-                                    </div>
-                                    <ul class="detailList checkList">
-                                        ${p.coberturas.map(c => `
-                                            <li><i class="fa-solid fa-check"></i> <span>${c}</span></li>
-                                        `).join('')}
-                                    </ul>
-                                </div>
-
-                                <div class="detailCard detailCard-asistencias">
-                                    <div class="detailCardHead">
-                                        <i class="fa-solid fa-plus"></i>
-                                        <h5>Adicionales y asistencias</h5>
-                                    </div>
-                                    <ul class="detailList plusList">
-                                        ${p.adicionales.map(a => `
-                                            <li><i class="fa-solid fa-plus"></i> <span>${a}</span></li>
-                                        `).join('')}
-                                    </ul>
-                                </div>
-
-                                <div class="detailCard detailCard-exclusiones">
-                                    <div class="detailCardHead">
-                                        <i class="fa-solid fa-circle-info"></i>
-                                        <h5>Exclusiones relevantes</h5>
-                                    </div>
-                                    <ul class="detailList bulletList">
-                                        ${p.exclusiones.map(e => `
-                                            <li><span>•</span> <span>${e}</span></li>
-                                        `).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Drawer Footer with CTAs -->
-                            <div class="drawerFooter">
-                                <button type="button" class="btn-drawer-assign" onclick="assignPlanToPendingPets('${p.id}')">
-                                    <i class="fa-solid fa-paw"></i>
-                                    <span>Asignar a mascotas</span>
-                                </button>
-                                <button type="button" class="btn-contact-agent" onclick="openLeadModalForPlan('${p.title}')">
-                                    <i class="fa-regular fa-comments"></i>
-                                    <span>Que me contacten</span>
-                                </button>
+                    <div class="healthPolicyContent">
+                        <div class="policyMeta">
+                            <span class="insurerTag">MAPFRE · RESPONSABILIDAD CIVIL + ASISTENCIA</span>
+                            <div class="metaBadges">
+                                <span class="badge-best-match"><i class="fa-solid fa-star" style="color: #2ED9C3; margin-right: 4px;"></i>PÓLIZA OFICIAL MHM</span>
+                                <span class="badge-affinity">98% afinidad</span>
                             </div>
                         </div>
+
+                        <div class="planTitleRow">
+                            <div class="planTitleGroup">
+                                <h3 class="planTitle">RC Mascotas</h3>
+                            </div>
+                            <div class="cardFacePrice">
+                                <div class="cardFacePriceValue">${monthlyPriceTxt}</div>
+                                <div class="cardFacePriceUF">${formatUF(PRIMA_MENSUAL_UF)} UF al mes</div>
+                                <span class="cardFacePricePeriod">Valor mensual</span>
+                            </div>
+                        </div>
+                        <p class="planLead">Cubre indemnizaciones y defensa judicial por daños a terceros provocados por tu ${petProfile.species.toLowerCase()}, más Asistencia Veterinaria Serviclick incluida.</p>
+
+                        <div class="healthBenefitsGrid">
+                            <div class="benefitItem"><span class="benefitItem-icon"><i class="fa-solid fa-check"></i></span><span>RC Daño emergente: hasta UF 100 anual</span></div>
+                            <div class="benefitItem"><span class="benefitItem-icon"><i class="fa-solid fa-check"></i></span><span>RC Daño moral: sublímite hasta UF 15 anual</span></div>
+                            <div class="benefitItem"><span class="benefitItem-icon"><i class="fa-solid fa-check"></i></span><span>RC Lucro cesante: sublímite hasta UF 30 anual</span></div>
+                            <div class="benefitItem"><span class="benefitItem-icon"><i class="fa-solid fa-check"></i></span><span>Defensa penal y gastos judiciales incluidos</span></div>
+                            <div class="benefitItem"><span class="benefitItem-icon"><i class="fa-solid fa-check"></i></span><span>Urgencia veterinaria por enfermedad (UF 2, 3 eventos)</span></div>
+                            <div class="benefitItem"><span class="benefitItem-icon"><i class="fa-solid fa-check"></i></span><span>Telemedicina, vacuna antirrábica y farmacia</span></div>
+                        </div>
+
+                        <div class="policyActionsRow">
+                            <button type="button" class="btn-details-toggle" id="btn-toggle-rc-mascotas" onclick="togglePlanDetails()">
+                                <span>${isDetailsOpen ? "Cerrar detalles" : "Ver detalles"}</span>
+                                <i class="fa-solid ${isDetailsOpen ? "fa-chevron-up" : "fa-chevron-down"}"></i>
+                            </button>
+                            <button type="button" class="btn-contratar-action" onclick="contratarPlan()">
+                                <span>Contratar ahora</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
-                </article>
-                `;
-            }).join('');
-        }
-        
-        function assignPlanToPet(petId, planId) {
-            const pet = petsData.find(p => p.id === petId);
-            if(pet) {
-                // Toggle off if already assigned to this plan
-                if(pet.plan === planId) {
-                    pet.plan = '';
-                } else {
-                    pet.plan = planId;
-                }
-            }
-            renderPlans();
-            checkAssigns();
-        }
+                </div>
 
-        function assignPlanToPendingPets(planId) {
-            const unassigned = petsData.filter(p => !p.plan || p.plan === '');
-            if (unassigned.length > 0) {
-                unassigned.forEach(p => p.plan = planId);
-            } else {
-                petsData.forEach(p => p.plan = planId);
-            }
-            renderPlans();
-            checkAssigns();
-            if (typeof window.showToast === 'function') {
-                window.showToast("Plan asignado a tus mascotas correctamente.", "success");
-            }
-        }
+                <div class="policyDetailsDrawer ${isDetailsOpen ? "open" : ""}" id="details-rc-mascotas">
+                    <div class="drawerInner">
+                        <div class="drawerHeader">
+                            <div class="drawerHeaderLeft">
+                                <span class="drawerTier">PLAN MEDIO RC MASCOTAS MHM</span>
+                                <h4 class="drawerTitle">RC Mascotas</h4>
+                                <span class="drawerInsurer">MAPFRE Compañía de Seguros Generales de Chile S.A.</span>
+                            </div>
+                            <div class="drawerHeaderRight">
+                                <span class="priceMetaLabel">PRIMA MENSUAL</span>
+                                <div class="priceMain">${monthlyPriceTxt}</div>
+                                <small class="priceAnnual">${annualPriceTxt}</small>
+                            </div>
+                        </div>
 
-        function checkAssigns() {
-            const total = petsData.length;
-            const assigned = petsData.filter(p => p.plan && p.plan !== '').length;
-            
-            const stickyBar = document.getElementById('stickyCheckout');
-            const statusTitle = document.getElementById('checkoutStatusTitle');
-            const btn = document.getElementById('btnStickyCheckout');
-            const pricePreview = document.getElementById('checkoutPricePreview');
-            const priceAmount = document.getElementById('checkoutTotalPrice');
-            
-            if(stickyBar) {
-                stickyBar.classList.add('visible');
-                const dock = document.getElementById('compareDock');
-                if (dock) dock.classList.add('dock-elevated');
-            }
-            
-            if(statusTitle) {
-                statusTitle.textContent = `${assigned} de ${total} mascota${total > 1 ? 's' : ''} asignada${total > 1 ? 's' : ''}`;
-            }
+                        <div class="detailsCols3">
+                            <div class="detailCard detailCard-coberturas">
+                                <div class="detailCardHead"><i class="fa-solid fa-shield-halved"></i><h5>Coberturas y Asistencias</h5></div>
+                                <ul class="detailList checkList">
+                                    <li><i class="fa-solid fa-check"></i> <span>RC Daño emergente: hasta UF 100 anual (POL 1.2021.0229)</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>RC Daño moral: sublímite UF 15 anual</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>RC Lucro cesante: sublímite UF 30 anual</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>Urgencia Veterinaria: UF 2 (3 eventos/año)</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>Consulta Preventiva: 50% hasta UF 2 (2 eventos)</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>Dermatológica: 50% hasta UF 2 (1 evento) · Cardiológica: 50% hasta UF 1 (1 evento)</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>Exámenes (Hemograma, Perfil Bioquímico, Coprocultivo): 50% hasta UF 1 (3 eventos c/u)</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>Vacuna antirrábica: 50% hasta UF 1 (1 evento) · Farmacia: 50% hasta $10.000 (3 eventos)</span></li>
+                                    <li><i class="fa-solid fa-check"></i> <span>Telemedicina (2 eventos) y Orientación veterinaria 24/7 (5 eventos)</span></li>
+                                </ul>
+                            </div>
 
-            const planPrices = { basico: 9490, pro: 12490, senior: 16490 };
-            let totalMensual = 0;
-            petsData.forEach(p => {
-                if (p.plan && planPrices[p.plan]) {
-                    totalMensual += planPrices[p.plan];
-                }
-            });
+                            <div class="detailCard detailCard-asistencias">
+                                <div class="detailCardHead"><i class="fa-solid fa-paw"></i><h5>Requisitos de Asegurabilidad</h5></div>
+                                <ul class="detailList plusList">
+                                    <li><i class="fa-solid fa-plus"></i> <span>Solo perros y gatos domésticos (uso exclusivamente compañía)</span></li>
+                                    <li><i class="fa-solid fa-plus"></i> <span>Edad ingreso: 6 meses cumplidos a 9 años 364 días</span></li>
+                                    <li><i class="fa-solid fa-plus"></i> <span>Inscrita previamente en Registro Nacional de Mascotas</span></li>
+                                    <li><i class="fa-solid fa-plus"></i> <span>Vacunación y desparasitación al día acreditables</span></li>
+                                    <li><i class="fa-solid fa-plus"></i> <span>Carencia de 72 horas en prestaciones de asistencia</span></li>
+                                </ul>
+                            </div>
 
-            if (pricePreview && priceAmount) {
-                if (totalMensual > 0) {
-                    pricePreview.style.display = 'flex';
-                    priceAmount.innerHTML = `$${totalMensual.toLocaleString('es-CL')} <small>/ mes</small>`;
-                } else {
-                    pricePreview.style.display = 'none';
-                }
-            }
-            
-            if(assigned === total && total > 0) {
-                if(btn) btn.classList.add('active');
-            } else {
-                if(btn) btn.classList.remove('active');
-            }
+                            <div class="detailCard detailCard-exclusiones">
+                                <div class="detailCardHead"><i class="fa-solid fa-circle-info"></i><h5>Exclusiones Principales</h5></div>
+                                <ul class="detailList bulletList">
+                                    <li><span>•</span> <span>Razas excluidas y sus mezclas (Pit Bull, Rottweiler, Dobermann, etc.)</span></li>
+                                    <li><span>•</span> <span>Cáncer, hepatitis canina, leptospirosis, torsión gástrica o síndrome de Cushing</span></li>
+                                    <li><span>•</span> <span>Daño puramente moral sin daño material o corporal</span></li>
+                                    <li><span>•</span> <span>Hospitalización, pabellón o medicina preventiva no detallada</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="drawerFooter">
+                            <button type="button" class="btn-contratar-action" onclick="contratarPlan()">
+                                <span>Contratar ahora</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button type="button" class="btn-contact-agent" onclick="openLeadModalForPlan('RC Mascotas MAPFRE')">
+                                <i class="fa-regular fa-comments"></i>
+                                <span>Hablar con un asesor</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>`;
         }
 
-        function assignPlan(petId, planValue) {
-            const p = petsData.find(x => x.id === petId);
-            if(p) p.plan = planValue;
-            checkAssigns();
+        function contratarPlan() {
+            const monthlyCLP = Math.round(PRIMA_MENSUAL_UF * ufDelDia);
+            const annualCLP = Math.round(PRIMA_BRUTA_ANUAL_UF * ufDelDia);
+
+            sessionStorage.setItem("mhm_mascota_data", JSON.stringify(petProfile));
+            sessionStorage.setItem("mhm_mascota_plan", JSON.stringify({
+                id: "rc-mascotas",
+                name: "RC Mascotas",
+                tier: "PLAN MEDIO RC MASCOTAS MHM",
+                insurer: "MAPFRE Compañía de Seguros Generales de Chile S.A.",
+                capitalUF: 100,
+                ufAnnual: PRIMA_BRUTA_ANUAL_UF,
+                ufMonth: PRIMA_MENSUAL_UF,
+                ufMonthText: formatUF(PRIMA_MENSUAL_UF) + " UF al mes",
+                price: monthlyCLP,
+                priceAnnual: annualCLP,
+                priceFormatted: "$" + monthlyCLP.toLocaleString("es-CL") + "/mes"
+            }));
+
+            window.location.href = "cotizacion-mascota-nueva-resumen.html";
         }
 
-        // =========================================
-        // LEAD MODAL AGENT HANDLERS
-        // =========================================
+        function resetQuoteClean(refresh) {
+            sessionStorage.removeItem("mhm_mascota_data");
+            sessionStorage.removeItem("mhm_mascota_plan");
+            if (refresh) window.location.reload();
+        }
+
         function openLeadModalForPlan(planTitle) {
-            const modal = document.getElementById('leadModal');
+            const modal = document.getElementById("leadModal");
             if (!modal) return;
-            const desc = modal.querySelector('#leadContent p');
-            if (desc) {
-                desc.innerHTML = `Déjanos tus datos y un Agente especialista de MHM te contactará sobre <strong>${planTitle}</strong> con una propuesta a tu medida.`;
-            }
-            const nameInput = document.getElementById('leadName');
-            const emailInput = document.getElementById('leadEmail');
-            const phoneInput = document.getElementById('leadPhone');
-            if (nameInput) nameInput.value = '';
-            if (emailInput) emailInput.value = '';
-            if (phoneInput) phoneInput.value = '';
-            const content = document.getElementById('leadContent');
-            const success = document.getElementById('leadSuccess');
-            if (content) content.style.display = 'block';
-            if (success) success.style.display = 'none';
-
-            modal.classList.add('active');
+            const desc = modal.querySelector("#leadContent p");
+            if (desc) desc.innerHTML = "Déjanos tus datos y un Agente especialista de MHM te contactará sobre <strong>" + planTitle + "</strong>.";
+            modal.classList.add("active");
         }
-
         function closeLeadModal() {
-            const modal = document.getElementById('leadModal');
-            if (modal) modal.classList.remove('active');
+            document.getElementById("leadModal")?.classList.remove("active");
+        }
+        function submitLead() {
+            const n = document.getElementById("leadName")?.value;
+            const e = document.getElementById("leadEmail")?.value;
+            const p = document.getElementById("leadPhone")?.value;
+            if (!n || !e || !p) { alert("Por favor completa todos los campos."); return; }
+            document.getElementById("leadContent").style.display = "none";
+            document.getElementById("leadSuccess").style.display = "block";
+        }
+        function toggleMobileMenu() {
+            document.getElementById("mobileMenu")?.classList.toggle("is-open");
         }
 
-        function submitLead() {
-            const nameInput = document.getElementById('leadName');
-            const emailInput = document.getElementById('leadEmail');
-            const phoneInput = document.getElementById('leadPhone');
-            
-            let isValid = true;
-            [nameInput, emailInput, phoneInput].forEach(el => {
-                if (el) el.classList.remove('error');
+        document.addEventListener("DOMContentLoaded", () => {
+            try {
+                const saved = JSON.parse(sessionStorage.getItem("mhm_mascota_data") || "{}");
+                if (saved.species) selectSpecies(saved.species);
+                if (saved.gender) selectGender(saved.gender);
+                if (saved.ageRange) document.getElementById("petAgeRange").value = saved.ageRange;
+                if (saved.excludedBreed) setExcludedBreed(saved.excludedBreed);
+            } catch (e) {}
+
+            document.querySelectorAll(".faq-question").forEach(q => {
+                q.addEventListener("click", () => {
+                    const item = q.parentElement;
+                    const isActive = item.classList.contains("active");
+                    document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("active"));
+                    if (!isActive) item.classList.add("active");
+                });
             });
 
-            if (!nameInput || !nameInput.value.trim()) { if (nameInput) nameInput.classList.add('error'); isValid = false; }
-            if (!emailInput || !emailInput.value.trim()) { if (emailInput) emailInput.classList.add('error'); isValid = false; }
-            if (!phoneInput || !phoneInput.value.trim()) { if (phoneInput) phoneInput.classList.add('error'); isValid = false; }
-
-            if (!isValid) {
-                if (typeof window.showToast === 'function') {
-                    window.showToast("Por favor, completa todos los campos.", "warning");
-                } else {
-                    alert("Por favor, completa todos los campos.");
-                }
-                return;
-            }
-
-            const content = document.getElementById('leadContent');
-            const success = document.getElementById('leadSuccess');
-            if (content) content.style.display = 'none';
-            if (success) success.style.display = 'block';
-        }
-
-        // =========================================
-        // TOAST NOTIFICATIONS & VALIDATION
-        // =========================================
-        window.showToast = function(message, type = 'warning') {
-            let container = document.getElementById('toast-container');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'toast-container';
-                document.body.appendChild(container);
-            }
-            const toast = document.createElement('div');
-            let iconClass = type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-circle-xmark' : 'fa-triangle-exclamation');
-            let cssClass = 'alex-toast ' + (type === 'error' ? 'danger' : type);
-            toast.className = cssClass;
-            toast.style.cssText = 'position: fixed; bottom: 90px; right: 20px; z-index: 999999; display: flex; align-items: center; background: #0F172A; color: #FFFFFF; padding: 12px 18px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: all 0.3s ease; border-left: 4px solid ' + (type === 'success' ? '#10B981' : '#F59E0B') + ';';
-            toast.innerHTML = `
-                <div class="toast-icon-box" style="margin-right: 12px; font-size: 1.2rem; color: ${type === 'success' ? '#10B981' : '#F59E0B'};"><i class="fa-solid ${iconClass}"></i></div>
-                <div class="toast-content">
-                    <span class="toast-title" style="font-weight: 700; font-size: 12px; text-transform: uppercase; display: block; letter-spacing: 0.05em; color: #94A3B8;">Aviso MHM</span>
-                    <span class="toast-sub" style="font-size: 13.5px; font-weight: 500;">${message}</span>
-                </div>
-            `;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(10px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        };
-
-        function irAResumen() {
-            const unassigned = petsData.filter(p => !p.plan);
-            if (unassigned.length > 0) {
-                if (typeof window.showToast === 'function') {
-                    window.showToast(`Por favor asigna un plan para: ${unassigned.map(p => p.name || 'tu mascota').join(', ')}`, 'warning');
-                } else {
-                    alert(`Por favor asigna un plan para: ${unassigned.map(p => p.name || 'tu mascota').join(', ')}`);
-                }
-                return;
-            }
-            sessionStorage.setItem('mhm_mascotas_data', JSON.stringify(petsData));
-            window.location.href = 'cotizacion-mascota-nueva-resumen.html';
-        }
-
-        // =========================================
-        // COMPARISON DOCK & MODAL
-        // =========================================
-        const selectedForCompare = new Set();
-
-        function handleCompareChange(planId, checked) {
-            if (checked) {
-                if (selectedForCompare.size >= 3) {
-                    window.showToast("Puedes comparar hasta 3 planes a la vez.", "warning");
-                    document.querySelectorAll('.compare-checkbox').forEach(cb => {
-                        if (cb.getAttribute('onchange') && cb.getAttribute('onchange').includes("'" + planId + "'")) cb.checked = false;
-                    });
-                    return;
-                }
-                selectedForCompare.add(planId);
-            } else {
-                selectedForCompare.delete(planId);
-            }
-            updateCompareDock();
-        }
-
-        function updateCompareDock() {
-            const dock = document.getElementById('compareDock');
-            const text = document.getElementById('compareDockText');
-            if (!dock) return;
-
-            if (selectedForCompare.size > 0) {
-                dock.classList.add('visible');
-                const stickyBar = document.getElementById('stickyCheckout');
-                if (stickyBar && stickyBar.classList.contains('visible')) {
-                    dock.classList.add('dock-elevated');
-                } else {
-                    dock.classList.remove('dock-elevated');
-                }
-                if (text) {
-                    const count = selectedForCompare.size;
-                    const isPlural = count > 1;
-                    text.innerHTML = `<span class="dock-full-text">${count} ${isPlural ? 'planes seleccionados para comparar' : 'plan seleccionado para comparar'}</span><span class="dock-short-text">${count} ${isPlural ? 'seleccionados' : 'seleccionado'}</span>`;
-                }
-            } else {
-                dock.classList.remove('visible');
-                dock.classList.remove('dock-elevated');
-            }
-        }
-
-        function clearComparison() {
-            selectedForCompare.clear();
-            updateCompareDock();
-            document.querySelectorAll('.compare-checkbox').forEach(cb => cb.checked = false);
-        }
-
-        function openCompareModal() {
-            const modal = document.getElementById('compareModal');
-            const container = document.getElementById('compareTableContent');
-            if (!modal || !container) return;
-
-            const allPlans = getPetPlans();
-            let comparePlans = [];
-
-            if (selectedForCompare.size >= 2) {
-                comparePlans = Array.from(selectedForCompare).map(id => allPlans.find(p => p.id === id)).filter(Boolean);
-            } else if (selectedForCompare.size === 1) {
-                const chosen = allPlans.find(p => p.id === Array.from(selectedForCompare)[0]);
-                if (chosen) {
-                    comparePlans.push(chosen);
-                    const complement = allPlans.find(p => p.id !== chosen.id);
-                    if (complement) comparePlans.push(complement);
-                }
-            }
-
-            if (comparePlans.length < 2) {
-                comparePlans = [allPlans[0], allPlans[1] || allPlans[0]];
-            }
-
-            const heroCardsHtml = comparePlans.map(p => `
-                <div class="compareHeroCard ${p.planType === 'familiar' ? 'card-fam-hero' : 'card-ind-hero'}">
-                    <div class="compareHeroCardHead" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
-                        <img src="../assets/img/logo-mhm-color.png" alt="MHM" style="height: 28px;">
-                        <span class="heroCardTierBadge" style="font-size: 11px; font-weight: 700; background: #EEF2FF; color: #4F46E5; padding: 4px 10px; border-radius: 20px;">${p.tier}</span>
-                    </div>
-                    <h4 class="heroCardTitle" style="font-size: 1.1rem; font-weight: 800; color: #0F172A; margin: 0 0 6px 0;">${p.title}</h4>
-                    <div class="heroCardPrice" style="margin-bottom: 8px;">
-                        <strong style="font-size: 1.3rem; font-weight: 800; color: #0F172A;">${p.priceMonth.replace('/mes', '')}</strong> <span style="font-size: 12px; color: #64748B;">/ mes</span>
-                        <small style="color: #64748B; margin-left: 8px;">(${p.priceYear})</small>
-                    </div>
-                    <p style="font-size: 12px; color: #64748B; margin: 0 0 14px 0; min-height: 36px;">${p.lead}</p>
-                    <button type="button" class="btn-contratar-action" style="width: 100%; font-size: 13px; padding: 10px 16px; background: var(--grad-aurora); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="selectPlanFromCompare('${p.id}')">
-                        <span>Elegir este plan</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            `).join('');
-
-            const colWidth = Math.floor(70 / comparePlans.length);
-
-            container.innerHTML = `
-            <div class="compareHeroCardsGrid">
-                ${heroCardsHtml}
-            </div>
-
-            <div class="compareTableWrapper" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-                <table class="compareTable" style="width: 100%;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid #E2E8F0;">
-                            <th style="width: 30%; text-align: left; padding: 12px 14px; font-size: 13px; color: #64748B;">Cobertura / Característica</th>
-                            ${comparePlans.map(p => `<th style="width: ${colWidth}%; text-align: left; padding: 12px 14px; font-size: 14px; font-weight: 800; color: #0F172A;">${p.title}</th>`).join('')}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="compareCategoryRow" style="background: #F8FAFC;">
-                            <th colspan="${comparePlans.length + 1}" style="text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em;"><span class="sticky-cat-title"><i class="fa-solid fa-shield-halved" style="color: #10B981; margin-right: 6px;"></i> Coberturas Médicas</span></th>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 14px; font-size: 13px; color: #475569; border-bottom: 1px solid #F1F5F9;">Asistencia Veterinaria 24/7</td>
-                            ${comparePlans.map(() => `<td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 600; color: #10B981;"><i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Ilimitada</td>`).join('')}
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 14px; font-size: 13px; color: #475569; border-bottom: 1px solid #F1F5F9;">Reembolso consultas urgencia</td>
-                            ${comparePlans.map(p => `<td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 600; color: #0F172A;">${p.id === 'basico' ? 'Hasta 2 UF por evento' : (p.id === 'pro' ? 'Hasta 5 UF por evento' : 'Hasta 3 UF por evento')}</td>`).join('')}
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 14px; font-size: 13px; color: #475569; border-bottom: 1px solid #F1F5F9;">Cirugías por accidente/enfermedad</td>
-                            ${comparePlans.map(p => `<td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 600; color: ${p.id === 'pro' ? '#10B981' : '#64748B'};">${p.id === 'pro' ? '<i class="fa-solid fa-circle-check" style="color: #10B981; margin-right: 6px;"></i> Incluida (hasta 15 UF)' : '<i class="fa-solid fa-circle-xmark" style="color: #94A3B8; margin-right: 6px;"></i> No incluida'}</td>`).join('')}
-                        </tr>
-                        <tr class="compareCategoryRow" style="background: #F8FAFC;">
-                            <th colspan="${comparePlans.length + 1}" style="text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em;"><span class="sticky-cat-title"><i class="fa-solid fa-paw" style="color: #F59E0B; margin-right: 6px;"></i> Asistencias Preventivas y Beneficios</span></th>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 14px; font-size: 13px; color: #475569; border-bottom: 1px solid #F1F5F9;">Vacunación anual / Desparasitación</td>
-                            ${comparePlans.map(p => `<td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 600; color: ${p.id !== 'basico' ? '#10B981' : '#64748B'};">${p.id === 'pro' ? '<i class="fa-solid fa-circle-check" style="color: #10B981; margin-right: 6px;"></i> 1 evento al año' : (p.id === 'senior' ? '<i class="fa-solid fa-circle-check" style="color: #10B981; margin-right: 6px;"></i> Control geriátrico anual' : '<i class="fa-solid fa-circle-xmark" style="color: #94A3B8; margin-right: 6px;"></i> Copago preferente')}</td>`).join('')}
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 14px; font-size: 13px; color: #475569; border-bottom: 1px solid #F1F5F9;">Responsabilidad Civil Mascotas</td>
-                            ${comparePlans.map(p => `<td style="padding: 10px 14px; border-bottom: 1px solid #F1F5F9; font-weight: 600; color: ${p.id === 'pro' ? '#10B981' : '#64748B'};">${p.id === 'pro' ? '<i class="fa-solid fa-circle-check" style="color: #10B981; margin-right: 6px;"></i> Hasta 10 UF' : '<i class="fa-solid fa-circle-xmark" style="color: #94A3B8; margin-right: 6px;"></i> Opcional'}</td>`).join('')}
-                        </tr>
-                        <tr class="compareCategoryRow" style="background: #F8FAFC;">
-                            <th colspan="${comparePlans.length + 1}" style="text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em;"><span class="sticky-cat-title"><i class="fa-solid fa-circle-info" style="color: #64748B; margin-right: 6px;"></i> Requisitos de Ingreso</span></th>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 14px; font-size: 13px; color: #475569;">Edad máxima de ingreso</td>
-                            ${comparePlans.map(p => `<td style="padding: 10px 14px; font-weight: 700; color: #0F172A;">${p.id === 'senior' ? 'Sin límite de edad (desde 10 años)' : 'Hasta 9 años y 364 días'}</td>`).join('')}
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            `;
-
-            modal.classList.add('active');
-        }
-
-        function selectPlanFromCompare(planId) {
-            closeCompareModal();
-            if (petsData.length === 1) {
-                petsData[0].plan = planId;
-            } else {
-                const unassigned = petsData.find(p => !p.plan);
-                if (unassigned) {
-                    unassigned.plan = planId;
-                } else {
-                    petsData[0].plan = planId;
-                }
-            }
+            updatePetProfile();
             renderPlans();
-            checkAssigns();
-            const card = document.getElementById(`card-${planId}`);
-            if (card) {
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                card.style.transition = 'box-shadow 0.3s ease';
-                card.style.boxShadow = '0 0 0 3px #10B981';
-                setTimeout(() => { card.style.boxShadow = ''; }, 1500);
-            }
-        }
-
-        function closeCompareModal(e) {
-            if (e && e.target && e.target !== document.getElementById('compareModal') && !e.target.closest('.compareModalClose')) {
-                return;
-            }
-            const modal = document.getElementById('compareModal');
-            if (modal) modal.classList.remove('active');
-        }
-
-        // =========================================
-        // RESET / CLEAN QUOTE
-        // =========================================
-        function resetQuoteClean(scrollToTop = true) {
-            // 1. Clear session storage
-            sessionStorage.removeItem('mhm_mascotas_data');
-            sessionStorage.removeItem('contratanteMascotaData');
-
-            // 2. Reset data model to 1 clean default pet
-            petsData = [
-                { id: 1, name: '', type: 'perro', breed: 'Mestizo', age: '', gender: '', plan: '' }
-            ];
-
-            // 3. Clear inputs
-            const nInput = document.getElementById('petName_1');
-            const tSelect = document.getElementById('petType_1');
-            const aInput = document.getElementById('petAge_1');
-            if (nInput) nInput.value = '';
-            if (tSelect) tSelect.value = 'perro';
-            if (aInput) aInput.value = '';
-
-            // 4. Reset panel
-            const summary = document.getElementById('assuredSummary');
-            if (summary) summary.innerText = '1 mascota';
-            renderPetsPanel();
-            validateForm();
-
-            // 5. Hide results section
-            const resSec = document.getElementById('resultados');
-            if (resSec) {
-                resSec.style.display = 'none';
-                resSec.classList.remove('visible');
-            }
-
-            // 6. Hide sticky checkout bar
-            const stickyBar = document.getElementById('stickyCheckout');
-            if (stickyBar) {
-                stickyBar.classList.remove('visible');
-            }
-
-            // 7. Clear compare dock and selection
-            if (typeof clearComparison === 'function') {
-                clearComparison();
-            }
-
-            // 8. Scroll to top if requested
-            if (scrollToTop) {
-                const inicio = document.getElementById('inicio');
-                if (inicio) {
-                    inicio.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            }
-        }
-        window.resetQuoteClean = resetQuoteClean;
-
-        // =========================================
-        // SESSION PERSISTENCE LOGIC (CLEAN VS EDIT)
-        // =========================================
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const isEditing = urlParams.get('edit') === '1' || urlParams.get('modificar') === '1';
-
-            if (isEditing) {
-                const saved = sessionStorage.getItem('mhm_mascotas_data');
-                if (saved) {
-                    try {
-                        const parsed = JSON.parse(saved);
-                        if (Array.isArray(parsed) && parsed.length > 0) {
-                            petsData = parsed;
-                            const pet1 = petsData[0];
-                            const nInput = document.getElementById('petName_1');
-                            const tSelect = document.getElementById('petType_1');
-                            const aInput = document.getElementById('petAge_1');
-                            if (nInput && pet1.name) nInput.value = pet1.name;
-                            if (tSelect && pet1.type) tSelect.value = pet1.type;
-                            if (aInput && pet1.age !== undefined && pet1.age !== null) aInput.value = pet1.age;
-
-                            renderPetsPanel();
-                            validateForm();
-
-                            const hasAssigned = petsData.some(p => p.plan);
-                            if (hasAssigned) {
-                                const resSec = document.getElementById('resultados');
-                                if (resSec) {
-                                    resSec.classList.add('visible');
-                                    resSec.style.display = 'block';
-                                }
-                                const rTitle = document.getElementById('resultTitle');
-                                const rSubtitle = document.getElementById('resultSubtitle');
-                                if (rTitle) rTitle.textContent = `Cotización para ${petsData.length} mascota${petsData.length > 1 ? 's' : ''}`;
-                                if (rSubtitle) rSubtitle.textContent = petsData.map(p => p.name || 'Mascota').join(', ');
-                                renderPlans();
-                                checkAssigns();
-                            }
-                        }
-                    } catch(e) {
-                        console.error('Error restaurando mhm_mascotas_data:', e);
-                    }
-                }
-                // Strip ?edit=1 from the address bar so subsequent reloads (Ctrl+Shift+R / F5) cleanly reset!
-                window.history.replaceState({}, document.title, window.location.pathname);
-            } else {
-                // Fresh start / reload / direct visit: clean reset!
-                resetQuoteClean(false);
-            }
-            updateCompareDock();
+            loadUfRate();
         });
     </script>
-
-    <!-- Compare Modal (Root level portal) -->
-    <div class="compareModalOverlay" id="compareModal" onclick="closeCompareModal(event)">
-        <div class="compareModalBox" style="max-width: 900px;">
-            <button type="button" class="compareModalClose" onclick="closeCompareModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="compareModalHead">
-                <span class="compareModalTag">COMPARATIVA EXCLUSIVA</span>
-                <h3>Seguros de Mascotas</h3>
-                <p>Compara directamente las coberturas, asistencias y tarifas para decidir con total claridad.</p>
-            </div>
-            <!-- Rotate Hint for Mobile Experience with Entrance Animation -->
-            <div class="compare-rotate-hint" id="compareRotateHint">
-                <div class="rotate-hint-icon-wrap">
-                    <div class="rotate-hint-icon">
-                        <i class="fa-solid fa-mobile-screen"></i>
-                        <span class="rotate-radar-pulse"></span>
-                    </div>
-                    <div class="rotate-motion-arrow">
-                        <i class="fa-solid fa-arrow-rotate-right"></i>
-                    </div>
-                </div>
-                <div class="rotate-hint-content">
-                    <div class="rotate-hint-header-line">
-                        <span class="rotate-hint-badge"><i class="fa-solid fa-arrows-rotate"></i> Modo recomendado</span>
-                        <button type="button" class="btn-hint-dismiss" onclick="this.closest('.compare-rotate-hint').style.display='none'" aria-label="Entendido">
-                            <i class="fa-solid fa-check"></i> <span>Entendido</span>
-                        </button>
-                    </div>
-                    <strong>¡Gira tu celular para una mejor experiencia!</strong>
-                    <p>En horizontal podrás ver todos los planes y coberturas frente a frente sin tener que desplazarte.</p>
-                </div>
-            </div>
-            <div class="compareModalTableWrapper" id="compareTableContent">
-                <!-- Dynamic table rendered here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- STICKY CHECKOUT BAR -->
-    <div class="checkout-sticky-bar" id="stickyCheckout">
-        <div class="checkout-status">
-            <span class="checkout-status-title" id="checkoutStatusTitle">0 de 1 mascota asignada</span>
-            <span class="checkout-status-sub">Selecciona un plan para continuar</span>
-        </div>
-        <div class="checkout-price-preview" id="checkoutPricePreview" style="display: none;">
-            <span class="checkout-price-label">TOTAL ESTIMADO</span>
-            <div class="checkout-price-amount" id="checkoutTotalPrice">$0 <small>/ mes</small></div>
-        </div>
-        <button type="button" class="btn-checkout" id="btnStickyCheckout" onclick="irAResumen()">
-            <span>Continuar</span>
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resumen Mascotas | MHM Corredores</title>
+    <title>Resumen de Cotización | RC Mascotas | MHM Corredores</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1785907847" rel="stylesheet">
@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../css/style.css?v=1789287000">
     <link rel="stylesheet" href="../css/style-quote.css?v=1789287000">
     <link rel="stylesheet" href="../css/mobile-first.css">
-    <link rel="stylesheet" href="../css/salud.css?v=8">
 
     <style>
         /* PAGE-SPECIFIC ENHANCEMENTS FOR SUMMARY CHECKOUT */
@@ -154,7 +153,7 @@
             align-items: start;
         }
 
-        /* En móvil: El cuadro con el botón de contratación aparece PRIMERO */
+        /* En móvil: El checkout dark card aparece PRIMERO */
         @media (max-width: 991px) {
             .summaryCheckoutSidebar {
                 order: -1;
@@ -286,6 +285,38 @@
             margin-top: 2px;
         }
 
+        /* Coverage Pills */
+        .covPillList {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .covPillList {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .covPillItem {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .covPillItem i {
+            color: #10B981;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
         /* LEGAL CONDITIONS ACCORDION / LIST */
         .legalList {
             list-style: none;
@@ -293,6 +324,7 @@
             flex-direction: column;
             gap: 14px;
             margin-bottom: 24px;
+            padding: 0;
         }
 
         .legalListItem {
@@ -330,55 +362,49 @@
             color: var(--color-teal-dark);
         }
 
-        /* ACCEPTANCE CHECKBOX BOX */
-        .termsAcceptanceCard {
-            background: linear-gradient(135deg, rgba(121, 107, 252, 0.05) 0%, rgba(46, 217, 195, 0.04) 100%);
-            border: 2px solid rgba(121, 107, 252, 0.25);
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
+        .legalConditionsToggleBtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--color-primary);
+            background: rgba(121, 107, 252, 0.08);
+            border: 1.5px solid rgba(121, 107, 252, 0.25);
+            padding: 8px 16px;
+            border-radius: 999px;
             cursor: pointer;
             transition: all 0.25s ease;
         }
 
-        .termsAcceptanceCard:hover {
+        .legalConditionsToggleBtn:hover {
+            background: var(--color-primary);
+            color: #FFFFFF;
             border-color: var(--color-primary);
-            background: rgba(121, 107, 252, 0.08);
-            box-shadow: 0 4px 18px rgba(121, 107, 252, 0.12);
+            box-shadow: 0 4px 12px rgba(121, 107, 252, 0.25);
         }
 
-        .termsAcceptanceCard:has(:checked),
-        .termsAcceptanceCard.checked {
-            border-color: var(--color-primary);
-            background: rgba(121, 107, 252, 0.1);
-            box-shadow: 0 6px 20px rgba(121, 107, 252, 0.18);
+        .legalConditionsToggleBtn .toggleIcon {
+            font-size: 11px;
+            transition: transform 0.3s ease;
         }
 
-        .termsCheckboxInput {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
-            accent-color: var(--color-primary);
-            cursor: pointer;
-            margin-top: 2px;
-            flex-shrink: 0;
+        .legalConditionsToggleBtn.is-open .toggleIcon {
+            transform: rotate(180deg);
         }
 
-        .termsAcceptanceCard div strong {
-            display: block;
-            font-size: 14.5px;
-            color: #0F172A;
-            font-weight: 800;
-            margin-bottom: 4px;
+        .legalConditionsCollapse {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin-top 0.3s ease;
+            margin-top: 0;
         }
 
-        .termsAcceptanceCard div p {
-            font-size: 12.5px;
-            color: #475569;
-            line-height: 1.45;
-            margin: 0;
+        .legalConditionsCollapse.is-open {
+            max-height: 900px;
+            opacity: 1;
+            margin-top: 20px;
         }
 
         /* CROSS SELL CARDS */
@@ -446,7 +472,7 @@
             flex-shrink: 0;
         }
 
-        .crossSellBadgeIcon.hogar {
+        .crossSellBadgeIcon.salud {
             background: rgba(46, 217, 195, 0.15);
             color: var(--color-teal-dark);
         }
@@ -544,20 +570,22 @@
             margin-bottom: 16px;
         }
 
-        .checkoutMapfrePill {
+        .checkoutCarrierPill {
             background: #FFFFFF;
             padding: 5px 12px;
             border-radius: 10px;
             display: inline-flex;
             align-items: center;
+            gap: 6px;
             height: 32px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            color: #0F172A;
+            font-size: 12px;
+            font-weight: 800;
         }
 
-        .checkoutMapfrePill img {
-            max-height: 20px;
-            width: auto;
-            object-fit: contain;
+        .checkoutCarrierPill i {
+            color: #796BFC;
         }
 
         .checkoutPlanTierBadge {
@@ -617,57 +645,6 @@
             font-weight: 900;
             color: #2ED9C3;
             letter-spacing: -0.03em;
-        }
-
-        
-        /* LEGAL CONDITIONS ACCORDION / COLLAPSIBLE */
-        .legalConditionsCard {
-            transition: all 0.3s ease;
-        }
-
-        .legalConditionsToggleBtn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12.5px;
-            font-weight: 700;
-            color: var(--color-primary);
-            background: rgba(121, 107, 252, 0.08);
-            border: 1.5px solid rgba(121, 107, 252, 0.25);
-            padding: 8px 16px;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        .legalConditionsToggleBtn:hover {
-            background: var(--color-primary);
-            color: #FFFFFF;
-            border-color: var(--color-primary);
-            box-shadow: 0 4px 12px rgba(121, 107, 252, 0.25);
-        }
-
-        .legalConditionsToggleBtn .toggleIcon {
-            font-size: 11px;
-            transition: transform 0.3s ease;
-        }
-
-        .legalConditionsToggleBtn.is-open .toggleIcon {
-            transform: rotate(180deg);
-        }
-
-        .legalConditionsCollapse {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin-top 0.3s ease;
-            margin-top: 0;
-        }
-
-        .legalConditionsCollapse.is-open {
-            max-height: 900px;
-            opacity: 1;
-            margin-top: 20px;
         }
 
         /* CHECKOUT CONSENT GROUP */
@@ -748,31 +725,6 @@
             border-color: rgba(121, 107, 252, 0.6);
         }
 
-        /* TRUST SEALS */
-        .checkoutTrustSeals {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin: 20px 0;
-            padding: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 11.5px;
-            color: #CBD5E1;
-        }
-
-        .checkoutTrustItem {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .checkoutTrustItem i {
-            color: #2ED9C3;
-            font-size: 12px;
-        }
-
         /* ACTIONS */
         .checkoutActions {
             display: flex;
@@ -817,7 +769,7 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(121, 107, 252, 0); }
         }
 
-        .termsAcceptanceCard.attention-pulse {
+        .attention-pulse {
             animation: checkboxAttention 0.8s ease 2;
         }
 
@@ -919,6 +871,7 @@
             transition: all 0.3s ease;
         }
 
+        .modalAdvisorOverlay.is-open,
         .modalAdvisorOverlay.active {
             opacity: 1;
             visibility: visible;
@@ -947,6 +900,108 @@
             display: grid;
             place-items: center;
             color: #64748B;
+        }
+        /* Salud-aligned visual upgrades for Hogar Resumen */
+        .summaryCheckoutPage,
+        .summaryCheckoutPage h1,
+        .summaryCheckoutPage h2,
+        .summaryCheckoutPage h3,
+        .summaryCheckoutPage h4,
+        .summaryCheckoutPage button,
+        .summaryCheckoutPage input,
+        .summaryCheckoutPage p,
+        .summaryCheckoutPage span,
+        .summaryCheckoutPage a,
+        .summaryCheckoutPage li {
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        }
+        .legalList {
+            gap: 12px !important;
+            margin-bottom: 18px !important;
+        }
+        .legalListItem {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 16px 18px;
+            font-size: 13.5px !important;
+            line-height: 1.55 !important;
+        }
+        .legalListItemIcon,
+        .legalListItemIcon.success,
+        .legalListItemIcon.info,
+        .legalListItemIcon.teal {
+            background: transparent !important;
+            color: #796BFC !important;
+            font-size: 15px !important;
+            width: 20px !important;
+            height: 20px !important;
+            border-radius: 0 !important;
+        }
+        .revisionKickerPill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(121, 107, 252, 0.25);
+            background: rgba(121, 107, 252, 0.06);
+            padding: 7px 14px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #796BFC;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 14px;
+        }
+        .legalConditionsToggleBtn {
+            background: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            border-radius: 999px !important;
+            min-height: 44px;
+            padding: 10px 20px !important;
+            font-weight: 700 !important;
+            box-shadow: 0 8px 20px rgba(46, 217, 195, 0.28) !important;
+        }
+        .legalConditionsToggleBtn:hover {
+            background: #22C4AF !important;
+        }
+        .legalConditionsToggleBtn i {
+            color: #FFFFFF !important;
+        }
+        .btnJumpTerms,
+        .btnCallAdvisor,
+        .btnProceedContract {
+            background: #2ED9C3 !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            box-shadow: 0 8px 20px rgba(46, 217, 195, 0.25) !important;
+        }
+        .btnJumpTerms:hover,
+        .btnCallAdvisor:hover,
+        .btnProceedContract.enabled:hover {
+            background: #22C4AF !important;
+        }
+        .btnProceedContract.is-disabled {
+            opacity: 0.6 !important;
+            cursor: not-allowed !important;
+        }
+        .checkoutPriceSubUF {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #CBD5E1;
+            margin-top: 2px;
+        }
+        .checkoutUfToday {
+            display: block;
+            font-size: 11.5px;
+            color: #94A3B8;
+            text-align: right;
+            margin-top: 4px;
+        }
+        .crossSellBottom {
+            justify-content: flex-end !important;
         }
     </style>
 </head>
@@ -994,7 +1049,7 @@
     <header class="site-header glass-navbar">
         <div class="container nav-container">
             <a href="../index.html" class="brand-logo">
-                <img src="../assets/img/logo-mhm-color.png" alt="MHM Corredores de Seguros, corredora de seguros en Chile especializada en seguros para personas y empresas." class="site-logo">
+                <img src="../assets/img/logo-mhm-color.png" alt="MHM Corredores de Seguros" class="site-logo">
             </a>
 
             <nav class="nav-center desktop-only">
@@ -1097,9 +1152,9 @@
     <!-- CHECKOUT WIZARD SUB-BAR -->
     <div class="summarySubBar">
         <div class="summarySubBarInner">
-            <a href="cotizacion-mascota-nueva-1.html?edit=1" class="summarySubBack">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Volver a Selección de Mascotas</span>
+            <a href="cotizacion-mascota-nueva-1.html" class="summarySubBack">
+                <i class="fa-solid fa-chevron-left"></i>
+                <span>Volver al Catálogo de Mascotas</span>
             </a>
 
             <div class="summaryWizardInner">
@@ -1112,11 +1167,11 @@
                 </span>
                 <span class="wizardStepSep"><i class="fa-solid fa-chevron-right"></i></span>
                 <span class="wizardStepItem">
-                    <i class="fa-regular fa-circle"></i> 3. Registro del Contratante
+                    <i class="fa-regular fa-circle"></i> 3. Datos del Contratante
                 </span>
                 <span class="wizardStepSep"><i class="fa-solid fa-chevron-right"></i></span>
                 <span class="wizardStepItem">
-                    <i class="fa-regular fa-circle"></i> 4. Pago Seguro
+                    <i class="fa-regular fa-circle"></i> 4. Titular y Mascota
                 </span>
             </div>
 
@@ -1131,48 +1186,78 @@
     <main class="summaryMain">
         <div class="summaryGrid">
             
-            
             <!-- LEFT MAIN CONTENT -->
             <section class="summaryFlow">
                 
                 <!-- HEADER SECTION -->
                 <div style="margin-bottom: 24px;">
-                    <div class="healthKicker-badge" style="margin-bottom: 8px;">
-                        <i class="fa-solid fa-paw"></i>
-                        <span>Resumen de Cotización · Seguro de Mascotas</span>
-                    </div>
-                    <h1 style="font-size: clamp(24px, 3.2vw, 34px); font-weight: 900; color: #0F172A; letter-spacing: -0.03em; margin: 4px 0 8px;">
-                        Verifica tus mascotas aseguradas.
+                    <span class="revisionKickerPill">
+                        <i class="fa-solid fa-shield-halved"></i> REVISIÓN DE SOLICITUD · MAPFRE RC MASCOTAS
+                    </span>
+                    <h1 style="font-size: clamp(26px, 3.2vw, 34px); font-weight: 900; color: #0F172A; letter-spacing: -0.03em; margin: 4px 0 8px;">
+                        Revisa tu póliza antes de continuar.
                     </h1>
                     <p style="font-size: 14.5px; color: #475569; margin: 0;">
-                        Revisa los planes seleccionados para cada una de tus mascotas antes de proceder al registro.
+                        Verifica las especificaciones de tu seguro y confirma las condiciones contractuales para la emisión de tu póliza.
                     </p>
                 </div>
 
-                <!-- CARD 1: MASCOTAS COTIZADAS -->
+                <!-- CARD 1: INMUEBLE Y PLAN -->
                 <div class="summaryCard">
                     <div class="summaryCardHead">
                         <div class="summaryCardKicker">
-                            <i class="fa-solid fa-list-check"></i>
-                            <span>Mascotas y Planes Seleccionados</span>
+                            <i class="fa-solid fa-paw"></i>
+                            <span>Perfil de tu Mascota</span>
                         </div>
-                        <a href="cotizacion-mascota-nueva-1.html?edit=1" class="btnModifyQuote">
+                        <a href="cotizacion-mascota-nueva-1.html" class="btnModifyQuote">
                             <i class="fa-solid fa-pen-to-square"></i>
                             <span>Modificar datos</span>
                         </a>
                     </div>
 
-                    <div id="petsSummaryList" style="display: flex; flex-direction: column; gap: 15px;">
-                        <!-- Dynamic content via JS -->
+                    <div class="profileTilesGrid">
+                        <div class="profileTile">
+                            <div class="profileTileIcon"><i class="fa-solid fa-paw" id="resumenSpeciesIcon"></i></div>
+                            <div class="profileTileText">
+                                <small>Especie</small>
+                                <strong id="resumenSpecies">Perro</strong>
+                            </div>
+                        </div>
+                        <div class="profileTile">
+                            <div class="profileTileIcon"><i class="fa-solid fa-venus-mars"></i></div>
+                            <div class="profileTileText">
+                                <small>Género</small>
+                                <strong id="resumenGender">Macho</strong>
+                            </div>
+                        </div>
+                        <div class="profileTile">
+                            <div class="profileTileIcon"><i class="fa-solid fa-cake-candles"></i></div>
+                            <div class="profileTileText">
+                                <small>Edad</small>
+                                <strong id="resumenAge">3 años</strong>
+                            </div>
+                        </div>
+                        <div class="profileTile">
+                            <div class="profileTileIcon"><i class="fa-solid fa-shield-dog"></i></div>
+                            <div class="profileTileText">
+                                <small>Validación de Raza</small>
+                                <strong id="resumenBreedStatus">Raza asegurable</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 22px 0 12px; font-size: 0.95rem; font-weight: 800; color: #0F172A;">Coberturas y asistencias incluidas (<span id="resumenPlanName">RC Mascotas</span>):</h4>
+                    <div class="covPillList" id="resumenCovList">
+                        <!-- Filled by JS -->
                     </div>
                 </div>
 
-                <!-- CARD 2: CONDICIONES GENERALES (COLAPSADO DE INICIO) -->
+                <!-- CARD 2: CONDICIONES GENERALES Y NORMATIVA CMF (COLAPSADO DE INICIO) -->
                 <div class="summaryCard legalConditionsCard" id="seccionCondiciones">
                     <div class="summaryCardHead">
                         <div class="summaryCardKicker">
                             <i class="fa-solid fa-scale-balanced"></i>
-                            <span>Condiciones Generales del Seguro</span>
+                            <span>Condiciones Generales y Normativa CMF</span>
                         </div>
                         <button type="button" class="legalConditionsToggleBtn" id="btnToggleLegalConditions" onclick="toggleLegalConditions()">
                             <span id="btnToggleLegalConditionsText">Ver condiciones generales</span>
@@ -1183,24 +1268,41 @@
                     <div class="legalConditionsCollapse" id="legalConditionsCollapse">
                         <ul class="legalList">
                             <li class="legalListItem">
-                                <div class="legalListItemIcon success"><i class="fa-solid fa-check"></i></div>
+                                <div class="legalListItemIcon"><i class="fa-solid fa-shield-halved"></i></div>
                                 <div>
-                                    <strong>Intermediación:</strong> Póliza intermediada por <strong>MHM Corredores de Seguros SpA</strong>, entidad autorizada ante la CMF.
+                                    <strong>Intermediación Regulada:</strong> Póliza colectiva intermediada por <strong>MHM Corredores de Seguros SpA</strong> (RUT 77.558.123-9), entidad autorizada e inscrita ante la CMF. Comisión de intermediación: 20% de la prima neta.
                                 </div>
                             </li>
                             <li class="legalListItem">
-                                <div class="legalListItemIcon success"><i class="fa-solid fa-clock"></i></div>
+                                <div class="legalListItemIcon"><i class="fa-regular fa-building"></i></div>
                                 <div>
-                                    <strong>Vigencia:</strong> La cobertura inicia inmediatamente después del pago para consultas de telemedicina y urgencias.
+                                    <strong>Compañía Aseguradora:</strong> Riesgo suscrito por <strong>MAPFRE Compañía de Seguros Generales de Chile S.A.</strong> (RUT 96.508.210-7, Isidora Goyenechea 3520, piso 19, Las Condes) bajo <strong>POL 1.2021.0229</strong> y Asistencia RC Mascota Serviclick.
                                 </div>
                             </li>
                             <li class="legalListItem">
-                                <div class="legalListItemIcon info"><i class="fa-solid fa-notes-medical"></i></div>
+                                <div class="legalListItemIcon"><i class="fa-regular fa-calendar"></i></div>
                                 <div>
-                                    <strong>Reembolsos:</strong> Los reembolsos por atención veterinaria externa aplican conforme a los topes anuales de cada plan contratado.
+                                    <strong>Vigencia, Edad y Carencia:</strong> Vigencia individual de <strong>12 meses</strong> con renovación automática. Edad de ingreso: <strong>6 meses cumplidos a 9 años y 364 días</strong> (permanencia hasta 11 años 364 días). Carencia de <strong>72 horas</strong> en asistencias Serviclick.
+                                </div>
+                            </li>
+                            <li class="legalListItem">
+                                <div class="legalListItemIcon"><i class="fa-solid fa-paw"></i></div>
+                                <div>
+                                    <strong>Requisitos de la Mascota:</strong> Solo perros y gatos domésticos inscritos previamente en el Registro Nacional de Mascotas, con <strong>vacunación y desparasitación al día acreditables</strong>. Se excluyen razas potencialmente peligrosas indicadas y sus mezclas.
+                                </div>
+                            </li>
+                            <li class="legalListItem">
+                                <div class="legalListItemIcon"><i class="fa-solid fa-dollar-sign"></i></div>
+                                <div>
+                                    <strong>Primas y Facturación:</strong> Prima neta anual <strong>UF 3,12</strong> + IVA <strong>UF 0,59</strong> = Prima bruta anual <strong>UF 3,71</strong> (<strong>0,309 UF/mes</strong>). Derecho de retracto dentro de 10 días desde entrega de póliza.
                                 </div>
                             </li>
                         </ul>
+                        <div style="margin-top: 14px;">
+                            <a href="https://mhmseguros.cl/terms-and-conditions" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #796BFC; text-decoration: underline;">
+                                <i class="fa-regular fa-file-lines"></i> Ver términos y condiciones
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -1214,42 +1316,40 @@
                         <span style="font-size: 11px; color: #64748B; font-weight: 600;">Convenios y beneficios preferenciales</span>
                     </div>
 
-                    <h3 class="crossSellSectionTitle">Complementa la seguridad de tu hogar y familia</h3>
+                    <h3 class="crossSellSectionTitle">Complementa la seguridad de tu familia</h3>
                     <p class="crossSellSectionSub">Puedes cotizar estos seguros adicionales con cobertura inmediata gestionados por MHM Corredores.</p>
 
                     <div class="crossSellCardsRow">
-                        <!-- Seguro Hogar -->
-                        <a href="cotizacion-asistencia-hogar-1.html" class="mhmCrossSellItem" target="_blank">
-                            <div>
-                                <div class="crossSellTop">
-                                    <div class="crossSellBadgeIcon hogar"><i class="fa-solid fa-house-chimney"></i></div>
-                                    <div class="crossSellHead">
-                                        <h4>Seguro de Hogar</h4>
-                                        <small>Incendio, sismo y robo</small>
-                                    </div>
-                                </div>
-                                <p class="crossSellDesc" style="margin-top: 10px;">Respaldo total para tu vivienda y contenidos con asistencia domiciliaria de urgencia.</p>
-                            </div>
-                            <div class="crossSellBottom">
-                                <span class="crossSellPriceText">Desde $5.100/mes</span>
-                                <span class="crossSellCtaLink">Cotizar <i class="fa-solid fa-arrow-right"></i></span>
-                            </div>
-                        </a>
-
                         <!-- Seguro Salud -->
                         <a href="cotizacion-salud-1.html" class="mhmCrossSellItem" target="_blank">
                             <div>
                                 <div class="crossSellTop">
-                                    <div class="crossSellBadgeIcon salud" style="background: rgba(16, 185, 129, 0.12); color: #059669;"><i class="fa-solid fa-heart-pulse"></i></div>
+                                    <div class="crossSellBadgeIcon salud"><i class="fa-solid fa-heart-pulse"></i></div>
                                     <div class="crossSellHead">
-                                        <h4>Vida y Salud</h4>
-                                        <small>MAPFRE Individual y Familiar</small>
+                                        <h4>Seguro de Salud</h4>
+                                        <small>MAPFRE AP Salud</small>
                                     </div>
                                 </div>
-                                <p class="crossSellDesc" style="margin-top: 10px;">Cobertura ante accidentes, urgencias médicas, telemedicina 24/7 y asistencia dental sin copago.</p>
+                                <p class="crossSellDesc" style="margin-top: 10px;">Indemnización accidental, telemedicina 24/7 y coberturas médicas complementarias.</p>
                             </div>
                             <div class="crossSellBottom">
-                                <span class="crossSellPriceText">Desde $6.990/mes</span>
+                                <span class="crossSellCtaLink">Cotizar <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+
+                        <!-- Seguro Mascotas -->
+                        <a href="cotizacion-asistencia-hogar-1.html" class="mhmCrossSellItem" target="_blank">
+                            <div>
+                                <div class="crossSellTop">
+                                    <div class="crossSellBadgeIcon mascota"><i class="fa-solid fa-house-chimney"></i></div>
+                                    <div class="crossSellHead">
+                                        <h4>Seguro de Hogar</h4>
+                                        <small>BCI Hogar Contenido</small>
+                                    </div>
+                                </div>
+                                <p class="crossSellDesc" style="margin-top: 10px;">Respaldo para tu vivienda y contenidos con asistencia de salud incluida.</p>
+                            </div>
+                            <div class="crossSellBottom">
                                 <span class="crossSellCtaLink">Cotizar <i class="fa-solid fa-arrow-right"></i></span>
                             </div>
                         </a>
@@ -1264,15 +1364,15 @@
                                         <small>Auto y conductor</small>
                                     </div>
                                 </div>
-                                <p class="crossSellDesc" style="margin-top: 10px;">Cobertura total con asistencia en ruta, vehículo de reemplazo y deducible inteligente.</p>
+                                <p class="crossSellDesc" style="margin-top: 10px;">Cobertura total con asistencia en ruta, auto de reemplazo y deducible inteligente.</p>
                             </div>
                             <div class="crossSellBottom">
-                                <span class="crossSellPriceText" style="color: #2563EB;">Plan a medida</span>
                                 <span class="crossSellCtaLink">Cotizar <i class="fa-solid fa-arrow-right"></i></span>
                             </div>
                         </a>
                     </div>
                 </div>
+
             </section>
 
             <!-- RIGHT STICKY CHECKOUT SIDEBAR -->
@@ -1280,37 +1380,48 @@
                 <div class="mhmCheckoutDarkCard">
                     
                     <div class="checkoutCardLogoRow">
-                        <div class="checkoutMapfrePill">
-                            <img src="../assets/img/logo-mhm-color.png" alt="MHM Mascotas">
+                        <div class="checkoutCarrierPill">
+                            <img src="../assets/img/maqueta/ally-mapfre.png" alt="MAPFRE Seguros" style="height: 20px; width: auto; display: block;">
                         </div>
-                        <span class="checkoutPlanTierBadge" id="planTierBadge">SEGURO MASCOTAS</span>
+                        <span class="checkoutPlanTierBadge" id="planTierBadge">PLAN MEDIO RC</span>
                     </div>
 
-                    <h2 class="checkoutPlanTitle" id="planTitleHeader">Resumen de Contratación</h2>
+                    <h2 class="checkoutPlanTitle" id="planTitleHeader">RC Mascotas</h2>
                     
                     <div class="checkoutCapitalChip" id="planCapitalChip">
-                        <i class="fa-solid fa-paw"></i>
-                        <span id="totalPetsCount">0 mascotas aseguradas</span>
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>RC Daño Emergente: UF 100 (~$4.135.730)</span>
                     </div>
 
                     <div class="checkoutPriceDivider"></div>
+
+                    <div class="checkoutPriceLine">
+                        <span style="color: #94A3B8;">Aseguradora emisora</span>
+                        <strong style="color: #FFFFFF;">MAPFRE Seguros Generales</strong>
+                    </div>
 
                     <div class="checkoutPriceLine">
                         <span style="color: #94A3B8;">Intermediación</span>
                         <strong style="color: #FFFFFF;">MHM Corredores</strong>
                     </div>
 
-                    <div class="checkoutPriceLine">
-                        <span style="color: #94A3B8;">Valor Anual Estimado</span>
-                        <strong id="planPriceYear" style="color: #FFFFFF;">$0</strong>
+                    <div class="checkoutPriceLine" style="align-items: flex-start;">
+                        <span style="color: #94A3B8;">Valor anual estimado</span>
+                        <div style="text-align: right;">
+                            <strong id="planPriceYear" style="color: #FFFFFF;">$153.436</strong>
+                            <span class="checkoutPriceSubUF" id="planPriceYearUF">3,71 UF al año</span>
+                        </div>
                     </div>
 
-                    <div class="checkoutPriceLine total">
+                    <div class="checkoutPriceLine total" style="align-items: flex-start;">
                         <div>
-                            <span style="display: block; font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Total Mensual</span>
-                            <span style="font-size: 12px; color: #CBD5E1;">IVA incluido</span>
+                            <span style="display: block; font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Prima Mensual</span>
+                            <span class="checkoutPriceSubUF" id="planPriceMonthUF">0,309 UF al mes</span>
                         </div>
-                        <strong id="planPriceMonth">$0</strong>
+                        <div style="text-align: right;">
+                            <strong id="planPriceMonth">$12.786</strong>
+                            <span class="checkoutUfToday" id="checkoutUfToday">UF del día: $41.357,30</span>
+                        </div>
                     </div>
 
                     <!-- CONSENTIMIENTO Y POLÍTICAS (CHILE) -->
@@ -1319,7 +1430,7 @@
                         <label class="consentCheckboxLabel" for="consentDataPolicy">
                             <input type="checkbox" id="consentDataPolicy" class="consentCheckboxInput" onchange="toggleDataPolicyAcceptance(this.checked)">
                             <span class="consentText">
-                                He leído y acepto la <a href="javascript:void(0)" class="consentLink">política de datos personales</a> para la emisión y gestión de mi seguro (Ley 19.628). <span class="requiredTag">*</span>
+                                He leído y acepto la <a href="https://mhmseguros.cl/privacy-policy" target="_blank" rel="noopener noreferrer" class="consentLink">política de datos personales</a> para la emisión y gestión de mi seguro (Ley 19.628). <span class="requiredTag">*</span>
                             </span>
                         </label>
 
@@ -1334,7 +1445,7 @@
                         <!-- Botón para ver Términos y Condiciones colapsados -->
                         <button type="button" class="btnJumpTerms" id="btnJumpTerms" onclick="scrollToTermsAndConditions()">
                             <i class="fa-solid fa-file-contract"></i>
-                            <span>Ver términos y condiciones del seguro</span>
+                            <span>Ver términos y condiciones de la póliza</span>
                         </button>
                     </div>
 
@@ -1353,12 +1464,10 @@
                     </div>
 
                     <p class="legalCmfNote">
-                        MHM Corredores de Seguros SpA. Entidad fiscalizada por la Comisión para el Mercado Financiero (CMF). Las coberturas y asistencias veterinarias operan bajo los estándares oficiales de póliza y red de prestadores en convenio.
+                        MHM Corredores de Seguros SpA. Entidad fiscalizada por la Comisión para el Mercado Financiero (CMF). Las coberturas y exclusiones corresponden a la póliza oficial de MAPFRE Seguros Generales
                     </p>
-
                 </div>
             </aside>
-
 
         </div>
     </main>
@@ -1388,7 +1497,7 @@
                     <ul class="footer-links">
                         <li><a href="cotizacion-salud-1.html">Seguro de Salud MAPFRE</a></li>
                         <li><a href="cotizacion-1.html">Seguro Automotriz</a></li>
-                        <li><a href="cotizacion-asistencia-hogar-1.html">Seguro de Hogar</a></li>
+                        <li><a href="cotizacion-mascota-nueva-1.html">Seguro de Hogar</a></li>
                         <li><a href="cotizacion-mascota-nueva-1.html">Seguro de Mascotas</a></li>
                         <li><a href="../seguro-pymes/index.html">Seguro Pymes</a></li>
                         <li><a href="cotizacion.html">Todos los Seguros</a></li>
@@ -1448,12 +1557,12 @@
                 ¿Deseas contratar con ayuda telefónica?
             </h3>
             <p style="font-size: 13.5px; color: #64748B; margin-bottom: 22px; line-height: 1.5;">
-                Un corredor certificado de MHM te orientará sin costo para validar coberturas, deducibles y completar tu incorporación oficial a MAPFRE.
+                Un corredor certificado de MHM te orientará sin costo para validar coberturas de tu inmueble, deducibles y completar tu emisión oficial.
             </p>
             <form onsubmit="handleAdvisorSubmit(event)">
                 <div style="margin-bottom: 14px;">
                     <label style="display: block; font-size: 12px; font-weight: 700; color: #1E293B; margin-bottom: 6px;">Nombre y Apellido</label>
-                    <input type="text" id="advisorName" required placeholder="Ej: Marcela González" style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #CBD5E1; font-size: 14px; outline: none;">
+                    <input type="text" id="advisorName" required placeholder="Ej: Francisco Soto" style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #CBD5E1; font-size: 14px; outline: none;">
                 </div>
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; font-size: 12px; font-weight: 700; color: #1E293B; margin-bottom: 6px;">Teléfono móvil</label>
@@ -1466,181 +1575,154 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE SINCRONIZACIÓN Y LÓGICA -->
-
+    <!-- SCRIPT DE SINCRONIZACIÓN Y LÓGICA RC MASCOTAS -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        let ufDelDia = 41357.30;
+        let ufFechaLabel = "";
+        const PRIMA_BRUTA_ANUAL_UF = 3.71;
+        const PRIMA_MENSUAL_UF = PRIMA_BRUTA_ANUAL_UF / 12;
+
+        function formatUF(val) {
+            return (Math.round(val * 1000) / 1000).toString().replace(".", ",");
+        }
+
+        async function loadUfRateResumen() {
+            try {
+                const resp = await fetch("https://mindicador.cl/api/uf", { cache: "no-store" });
+                if (!resp.ok) return;
+                const data = await resp.json();
+                const latest = data && Array.isArray(data.serie) && data.serie[0];
+                if (latest && typeof latest.valor === "number" && latest.valor > 0) {
+                    ufDelDia = latest.valor;
+                    if (latest.fecha) {
+                        const d = new Date(latest.fecha);
+                        if (!isNaN(d.getTime())) {
+                            ufFechaLabel = String(d.getDate()).padStart(2, "0") + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + d.getFullYear();
+                        }
+                    }
+                    initCheckoutData();
+                }
+            } catch (e) {}
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
             initCheckoutData();
+            loadUfRateResumen();
         });
 
-        const PLAN_PRICES = {
-            'basico': 9490,
-            'pro': 12490,
-            'senior': 16490
-        };
-
-        const PLAN_NAMES = {
-            'basico': 'Asistencia Mascota',
-            'pro': 'Asistencia Mascota Pro',
-            'senior': 'Asistencia Mascota Senior'
-        };
-
         function initCheckoutData() {
-            const dataStr = sessionStorage.getItem('mhm_mascotas_data');
-            if (!dataStr) {
-                window.location.href = 'cotizacion-mascota-nueva-1.html';
-                return;
-            }
+            let data = { species: "Perro", gender: "Macho", ageLabel: "3 años", excludedBreed: "no" };
+            try {
+                const s = sessionStorage.getItem("mhm_mascota_data");
+                if (s) data = { ...data, ...JSON.parse(s) };
+            } catch (e) {}
 
-            const petsData = JSON.parse(dataStr);
-            const listEl = document.getElementById('petsSummaryList');
-            
-            let html = '';
-            let totalMensual = 0;
+            document.getElementById("resumenSpecies").textContent = data.species || "Perro";
+            document.getElementById("resumenGender").textContent = data.gender || "Macho";
+            document.getElementById("resumenAge").textContent = data.ageLabel || "3 años";
+            document.getElementById("resumenBreedStatus").textContent = data.excludedBreed === "no" ? "Raza asegurable" : "Por confirmar";
 
-            petsData.forEach(p => {
-                const planName = PLAN_NAMES[p.plan] || 'Plan Desconocido';
-                const planPrice = PLAN_PRICES[p.plan] || 0;
-                totalMensual += planPrice;
+            const iconEl = document.getElementById("resumenSpeciesIcon");
+            if (iconEl) iconEl.className = (data.species || "").toLowerCase() === "gato" ? "fa-solid fa-cat" : "fa-solid fa-dog";
 
-                const icon = p.type === 'gato' ? '<i class="fa-solid fa-cat"></i>' : '<i class="fa-solid fa-dog"></i>';
+            const capitalCLP = Math.round(100 * ufDelDia);
+            document.getElementById("planCapitalChip").innerHTML = '<i class="fa-solid fa-shield-halved"></i> <span>RC Daño Emergente: UF 100 (~$' + capitalCLP.toLocaleString("es-CL") + ')</span>';
 
-                html += `
-                    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <div style="display: flex; gap: 15px; align-items: center;">
-                            <div style="width: 45px; height: 45px; border-radius: 50%; background: #EEF2FF; color: #796bfc; display: grid; place-items: center; font-size: 1.2rem;">
-                                ${icon}
-                            </div>
-                            <div>
-                                <strong style="display: block; color: #0F172A; font-size: 1.1rem;">${p.name || 'Mascota'}</strong>
-                                <span style="font-size: 0.85rem; color: #64748B;">${p.breed || 'Raza'}, ${p.age} años</span>
-                                <span style="display: block; margin-top: 4px; font-size: 0.85rem; font-weight: 700; color: #10B981;">Plan: ${planName}</span>
-                            </div>
-                        </div>
-                        <div style="font-weight: 800; color: #0F172A; font-size: 1.1rem;">
-                            $${planPrice.toLocaleString('es-CL')}
-                        </div>
-                    </div>
+            const priceMonth = Math.round(PRIMA_MENSUAL_UF * ufDelDia);
+            const priceAnnual = Math.round(PRIMA_BRUTA_ANUAL_UF * ufDelDia);
+            document.getElementById("planPriceMonth").textContent = "$" + priceMonth.toLocaleString("es-CL");
+            document.getElementById("planPriceYear").textContent = "$" + priceAnnual.toLocaleString("es-CL");
+            document.getElementById("planPriceMonthUF").textContent = formatUF(PRIMA_MENSUAL_UF) + " UF al mes";
+            document.getElementById("planPriceYearUF").textContent = formatUF(PRIMA_BRUTA_ANUAL_UF) + " UF al año";
+
+            const ufFmt = ufDelDia.toLocaleString("es-CL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById("checkoutUfToday").textContent = "UF del día: $" + ufFmt + (ufFechaLabel ? " (" + ufFechaLabel + ")" : "");
+
+            const covList = document.getElementById("resumenCovList");
+            if (covList) {
+                covList.innerHTML = `
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> RC Daño emergente hasta UF 100 anual (POL 1.2021.0229)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> RC Daño moral sublímite UF 15 anual</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> RC Lucro cesante sublímite UF 30 anual + Defensa penal</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Urgencia Veterinaria por enfermedad (UF 2, 3 eventos)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Consulta Preventiva (50% hasta UF 2, 2 eventos)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Dermatológica (UF 2) y Cardiológica (UF 1)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Hemograma, Perfil Bioquímico y Coprocultivo (50% hasta UF 1)</div>
+                    <div class="covPillItem"><i class="fa-solid fa-circle-check"></i> Vacuna antirrábica (50% hasta UF 1) + Farmacia ($10.000)</div>
+                    <div class="covPillItem" style="font-weight:700; color:#0D9488;"><i class="fa-solid fa-video" style="color:#0D9488;"></i> Telemedicina (2 eventos) y Orientación 24/7 (5 eventos)</div>
                 `;
-            });
-
-            listEl.innerHTML = html;
-
-            document.getElementById('totalPetsCount').innerText = `${petsData.length} mascota${petsData.length > 1 ? 's' : ''} asegurada${petsData.length > 1 ? 's' : ''}`;
-            document.getElementById('planPriceMonth').innerText = `$${totalMensual.toLocaleString('es-CL')}`;
-
-            const elPriceYear = document.getElementById('planPriceYear');
-            if (elPriceYear) {
-                elPriceYear.innerText = `$${(totalMensual * 12).toLocaleString('es-CL')}`;
             }
         }
 
         function toggleLegalConditions() {
-            const collapse = document.getElementById('legalConditionsCollapse');
-            const btn = document.getElementById('btnToggleLegalConditions');
-            const btnText = document.getElementById('btnToggleLegalConditionsText');
+            const collapse = document.getElementById("legalConditionsCollapse");
+            const btn = document.getElementById("btnToggleLegalConditions");
+            const btnText = document.getElementById("btnToggleLegalConditionsText");
             if (!collapse || !btn) return;
-            const isOpen = collapse.classList.toggle('is-open');
-            btn.classList.toggle('is-open', isOpen);
-            if (btnText) {
-                btnText.innerText = isOpen ? 'Ocultar condiciones generales' : 'Ver condiciones generales';
-            }
+            const isOpen = collapse.classList.toggle("is-open");
+            btn.classList.toggle("is-open", isOpen);
+            if (btnText) btnText.innerText = isOpen ? "Ocultar condiciones generales" : "Ver condiciones generales";
         }
 
         function scrollToTermsAndConditions() {
-            const card = document.getElementById('seccionCondiciones');
-            const collapse = document.getElementById('legalConditionsCollapse');
-            const btn = document.getElementById('btnToggleLegalConditions');
-            const btnText = document.getElementById('btnToggleLegalConditionsText');
-            
-            if (collapse && !collapse.classList.contains('is-open')) {
-                collapse.classList.add('is-open');
-                if (btn) btn.classList.add('is-open');
-                if (btnText) btnText.innerText = 'Ocultar condiciones generales';
+            const card = document.getElementById("seccionCondiciones");
+            const collapse = document.getElementById("legalConditionsCollapse");
+            const btn = document.getElementById("btnToggleLegalConditions");
+            const btnText = document.getElementById("btnToggleLegalConditionsText");
+            if (collapse && !collapse.classList.contains("is-open")) {
+                collapse.classList.add("is-open");
+                if (btn) btn.classList.add("is-open");
+                if (btnText) btnText.innerText = "Ocultar condiciones generales";
             }
-
             if (card) {
-                const navHeight = 90;
-                const rect = card.getBoundingClientRect();
-                const targetScrollY = window.pageYOffset + rect.top - navHeight;
-                window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-
-                card.classList.remove('attention-pulse');
-                void card.offsetWidth;
-                card.classList.add('attention-pulse');
+                const targetScrollY = window.pageYOffset + card.getBoundingClientRect().top - 90;
+                window.scrollTo({ top: targetScrollY, behavior: "smooth" });
             }
         }
 
         function toggleDataPolicyAcceptance(accepted) {
-            const btn = document.getElementById('btnContinue');
-            const textEl = document.getElementById('btnContinueText');
+            const btn = document.getElementById("btnContinue");
+            const textEl = document.getElementById("btnContinueText");
             if (!btn) return;
-            if (accepted) {
-                btn.classList.add('enabled');
-                btn.classList.remove('is-disabled');
-                btn.setAttribute('aria-disabled', 'false');
-                if (textEl) textEl.innerText = 'Continuar al Registro de Contratante';
-            } else {
-                btn.classList.remove('enabled');
-                btn.classList.add('is-disabled');
-                btn.setAttribute('aria-disabled', 'true');
-                if (textEl) textEl.innerText = 'Acepta la política de datos para continuar';
-            }
+            btn.classList.toggle("enabled", accepted);
+            btn.classList.toggle("is-disabled", !accepted);
+            btn.setAttribute("aria-disabled", accepted ? "false" : "true");
+            if (textEl) textEl.innerText = accepted ? "Continuar al Registro de Contratante" : "Acepta la política de datos para continuar";
         }
 
         function proceedToContractorStep() {
-            const dataPolicy = document.getElementById('consentDataPolicy');
+            const dataPolicy = document.getElementById("consentDataPolicy");
             if (!dataPolicy || !dataPolicy.checked) {
-                const consentBox = document.getElementById('consentGroupCard') || dataPolicy;
+                const consentBox = document.getElementById("consentGroupCard") || dataPolicy;
                 if (consentBox) {
-                    const navHeight = 110;
-                    const rect = consentBox.getBoundingClientRect();
-                    const targetScrollY = window.pageYOffset + rect.top - navHeight;
-                    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-
-                    consentBox.classList.remove('attention-pulse');
-                    void consentBox.offsetWidth;
-                    consentBox.classList.add('attention-pulse');
-                    setTimeout(() => { dataPolicy.focus(); }, 350);
+                    window.scrollTo({ top: window.pageYOffset + consentBox.getBoundingClientRect().top - 110, behavior: "smooth" });
+                    setTimeout(() => dataPolicy.focus(), 350);
                 }
                 return;
             }
-
-            const marketingAccepted = document.getElementById('consentMarketing')?.checked ?? true;
-            sessionStorage.setItem('mhm_consent_marketing', marketingAccepted ? 'true' : 'false');
-            sessionStorage.setItem('mhm_consent_datapolicy', 'true');
-
-            window.location.href = 'cotizacion-mascota-nueva-2.html';
+            sessionStorage.setItem("mhm_mascota_consent_marketing", (document.getElementById("consentMarketing")?.checked ?? true) ? "true" : "false");
+            sessionStorage.setItem("mhm_mascota_consent_datapolicy", "true");
+            window.location.href = "cotizacion-mascota-nueva-2.html";
         }
 
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
+            const menu = document.getElementById("mobileMenu");
             if (!menu) return;
-            const isOpen = menu.classList.toggle('is-open');
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            const isOpen = menu.classList.toggle("is-open");
+            document.body.style.overflow = isOpen ? "hidden" : "";
         }
 
         function openAdvisorModal() {
-            const modal = document.getElementById('advisorModal');
-            if (modal) {
-                modal.classList.add('is-open');
-                document.body.style.overflow = 'hidden';
-            }
+            document.getElementById("advisorModal")?.classList.add("is-open");
+            document.body.style.overflow = "hidden";
         }
-
         function closeAdvisorModal() {
-            const modal = document.getElementById('advisorModal');
-            if (modal) {
-                modal.classList.remove('is-open');
-                document.body.style.overflow = '';
-            }
+            document.getElementById("advisorModal")?.classList.remove("is-open");
+            document.body.style.overflow = "";
         }
-
         function handleAdvisorSubmit(e) {
             e.preventDefault();
-            const name = document.getElementById('advisorName')?.value || '';
-            const phone = document.getElementById('advisorPhone')?.value || '';
-            alert(`¡Gracias ${name}! Un asesor de MHM se comunicará contigo al ${phone} a la brevedad.`);
+            alert("¡Gracias! Un asesor de MHM se comunicará contigo a la brevedad.");
             closeAdvisorModal();
         }
     </script>
