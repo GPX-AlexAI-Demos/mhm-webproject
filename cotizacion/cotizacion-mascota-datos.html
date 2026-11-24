@@ -192,6 +192,10 @@
             border-color: rgba(46, 217, 195, 0.7);
             background: rgba(46, 217, 195, 0.06);
         }
+        .photo-upload-card.is-error {
+            border-color: #DC2626;
+            background: #FEF2F2;
+        }
         .photo-upload-left {
             display: flex;
             align-items: center;
@@ -558,7 +562,7 @@
                     </div>
 
                     <div class="form-row-1">
-                        <label class="field-label" for="mFoto">Foto de la Mascota</label>
+                        <label class="field-label" for="mFoto">Foto de la Mascota <span class="req">*</span></label>
                         <div class="photo-upload-card" id="mFotoCard">
                             <div class="photo-upload-left">
                                 <div class="photo-preview-box" id="mFotoPreview">
@@ -574,6 +578,7 @@
                                 <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar
                             </button>
                         </div>
+                        <span class="field-error-msg" id="err-mFoto">Debes subir una foto de tu mascota para continuar.</span>
                     </div>
 
                     <div class="section-divider">
@@ -689,6 +694,8 @@
             const maxDate = new Date(today.getFullYear(), today.getMonth() - 6, today.getDate());
             return dt > minDate && dt <= maxDate;
         }
+        let petFotoDataUrl = "";
+        let petFotoNombre = "";
         function setFieldState(id, valid) {
             const wrap = document.getElementById("wrap-" + id);
             const err = document.getElementById("err-" + id);
@@ -710,6 +717,12 @@
                 if (!ok) allOk = false;
                 if (showErrors) setFieldState(id, ok);
             });
+            const fotoOk = Boolean(petFotoDataUrl);
+            if (!fotoOk) allOk = false;
+            if (showErrors) {
+                document.getElementById("mFotoCard")?.classList.toggle("is-error", !fotoOk);
+                document.getElementById("err-mFoto")?.classList.toggle("visible", !fotoOk);
+            }
             return allOk;
         }
         document.addEventListener("DOMContentLoaded", () => {
@@ -724,9 +737,6 @@
             document.getElementById("vDesde").value = formatDateDMY(today);
             document.getElementById("vHasta").value = formatDateDMY(nextYear);
 
-            let petFotoDataUrl = "";
-            let petFotoNombre = "";
-
             function renderFotoPreview(dataUrl, fileName) {
                 const prev = document.getElementById("mFotoPreview");
                 const card = document.getElementById("mFotoCard");
@@ -735,7 +745,9 @@
                 const btn = document.getElementById("btnPickFoto");
                 if (dataUrl && prev) {
                     prev.innerHTML = '<img src="' + dataUrl + '" alt="Foto mascota">';
+                    card?.classList.remove("is-error");
                     card?.classList.add("has-file");
+                    document.getElementById("err-mFoto")?.classList.remove("visible");
                     if (title) title.textContent = fileName || "Foto cargada";
                     if (sub) sub.textContent = "Imagen lista para tu solicitud";
                     if (btn) btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Cambiar';
